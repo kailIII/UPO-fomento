@@ -70,9 +70,12 @@ app.ini = function(){
     this.basePath = this.config.BASE_PATH + this.lang;
 
     this.$main = $("main");
+    this.$content = $("#content");
 
     //Backbone.history.start();root: "/public/search/"
     Backbone.history.start({pushState: true,root: this.basePath });
+    
+    new app.view.Map();
 
 };
 
@@ -83,7 +86,7 @@ app.showView = function(view) {
  
     this.currentView = view;
  
-    this.$main.html(this.currentView.el);  
+    this.$content.html(this.currentView.el);  
     app.scrollTop();
 }
 
@@ -91,8 +94,12 @@ app.events = {};
 
 _.extend(app.events , Backbone.Events);
 
-app.events.on("menu", function(id){
-   
+app.events.on("menu", function(id, e){
+	$(".menu").removeClass("menuSelect");
+	$(".menu[idMenu=" + id + "]").addClass("menuSelect");
+	$(".divSelected").hide();
+	$(".menu[idMenu=" + id + "]").siblings(".divSelected").show();
+	
 });
 
 app.scrollTop = function(){

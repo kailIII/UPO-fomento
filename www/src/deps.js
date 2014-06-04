@@ -7,6 +7,8 @@ deps.JS = {
 			"js/lib/jquery-2.0.3.min.js",
 			"js/lib/underscore-min.js",
 			"js/lib/backbone-min.js",
+			"js/lib/leaflet/leaflet.js",
+			"js/lib/zeroclipboard/ZeroClipboard.js",
 		],
 		desc: "Third party library"
 	}
@@ -23,6 +25,10 @@ deps.JS = {
 			"js/view/error_view.js",
 			"js/view/notfound_view.js",
 			"js/view/home_view.js",
+			"js/map.js",
+			"js/view/map_view.js",
+			"js/view/indicator_view.js",
+			"js/view/service_view.js",
 
 			// router
 			"js/router.js",
@@ -36,7 +42,7 @@ deps.JS = {
 deps.CSS = {
 	ThirdParty:{
 		src : [
-			
+		      "js/lib/leaflet/leaflet.css",
 		]
 	},
 	Core: {

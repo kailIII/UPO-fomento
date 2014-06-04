@@ -8,7 +8,8 @@ app.router = Backbone.Router.extend({
 
     /* define the route and function maps for this router */
     routes: {
-            "" : "home",
+            "" : "indicator",
+            "servicios" : "service",
             "notfound" : "notfound",
             "faq" : "faq",
             "error" : "error",
@@ -22,7 +23,18 @@ app.router = Backbone.Router.extend({
     },
 
     initialize: function(options) {
-        this.route(this.langRoutes["_link home"][app.lang], "home");
+//        this.route(this.langRoutes["_link home"][app.lang], "home");
+//        this.route(this.langRoutes["_link home"][app.lang], "home");
+    },
+    
+    indicator: function(){
+    	$("#map").show();
+        app.showView(new app.view.Indicator());
+    },
+    
+    service: function(){
+    	$("#map").hide();
+        app.showView(new app.view.Service());
     },
     
     home: function(){
