@@ -1,1 +1,1 @@
-PostgreSQLConfig = {'host': 'mother', 'user': 'upo_fomento_admin', 'passwd': 'upo_fomento','db':'upo_fomento' ,'port':5432}
+PostgreSQLConfig = {'host': 'localhost', 'user': 'fomento_admin', 'passwd': 'oberynMartell13','db':'fomento' ,'port':9999}

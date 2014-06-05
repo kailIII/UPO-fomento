@@ -29,6 +29,8 @@ deps.JS = {
 			"js/view/map_view.js",
 			"js/view/indicator_view.js",
 			"js/view/service_view.js",
+			"js/view/project_view.js",
+			"js/view/indicador_list_view.js",
 
 			// router
 			"js/router.js",

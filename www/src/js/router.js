@@ -9,7 +9,9 @@ app.router = Backbone.Router.extend({
     /* define the route and function maps for this router */
     routes: {
             "" : "indicator",
+            "indicador" : "indicatorList",
             "servicios" : "service",
+            "proyecto" : "project",
             "notfound" : "notfound",
             "faq" : "faq",
             "error" : "error",
@@ -32,9 +34,19 @@ app.router = Backbone.Router.extend({
         app.showView(new app.view.Indicator());
     },
     
+    indicatorList: function(){
+    	$("#map").show();
+        app.showView(new app.view.IndicatorList());
+    },
+    
     service: function(){
     	$("#map").hide();
         app.showView(new app.view.Service());
+    },
+    
+    project: function(){
+    	$("#map").hide();
+        app.showView(new app.view.Project());
     },
     
     home: function(){

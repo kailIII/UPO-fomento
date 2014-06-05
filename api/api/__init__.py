@@ -7,6 +7,7 @@ app.config.update(
 )
 
 import home
+import indicador
 
 @app.route('/', methods = ['GET'])                                            
 def alive():

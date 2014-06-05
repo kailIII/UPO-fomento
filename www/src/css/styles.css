@@ -17,6 +17,7 @@
 @grey7: #b1b1b2;
 @grey8: #7c7c7c;
 @grey9: #e1e4e5;
+@grey10: #666666;
 @red: #d60006;
 @yellow : #fdc300;
 @blue : #2b85d0;
@@ -27,6 +28,7 @@
 @green5: #63aa83;
 @green6: #539a73;
 @green7: #569d76;
+@green8: #4ab879;
 @orange : #ff9000;
 @white :#fff;
 
@@ -463,6 +465,145 @@ nav{
 	.contenido:LAST-CHILD {
 		border-bottom: 1px solid @grey6;
 	}
+}
+
+#project{
+	max-width: 640px;
+	@media (max-width: 1023px) {
+		margin-left: 20%
+	}
+	@media (max-width: 860px) {
+		max-width: 590px;
+	}
+	p{
+		text-align: center;	
+	}	
+	
+	.title1{
+		font-size: 14px;
+		color:@green4;
+		margin-top: 28px;
+	}
+	
+	.title2{
+		font-size: 48px;
+		color:@green8;
+		margin-top: 38px;
+	}
+	
+	.title3{
+		font-size: 24px;
+		color:@black2;
+		margin-top: 20px;
+		border-bottom: 1px solid @grey7;
+		padding-bottom: 30px;
+	}
+	
+	.title4{
+		font-size: 11px;
+		color:@grey6;
+		margin-top: 28px;
+	}
+	
+	.title5{
+		font-size: 18px;
+		color:@grey10;	
+	}
+	.title6{
+		font-size: 18px;
+		color:@green8;
+		margin-top: 30px;
+		text-align: left;
+	}
+	
+	.title7{
+		font-size: 14px;
+		color:@grey10;
+		margin-top: 30px;
+		text-align: left;
+	}
+}
+
+.indicatorList{
+	background-color: white;
+	position: absolute;
+	left: 170px;
+	right: 50%;
+	height: 100%;
+	z-index: 1001;
+	padding-top: 10px;
+	padding-right: 10px;
+	
+	.cabecera{
+		border-bottom: 1px solid @grey7;
+		padding-bottom: 10px;
+		font-size: 10px;
+		color: @grey6;		
+	}
+	
+	.familia{
+		font-size: 14px;
+		color:@green4;
+		height: 35px;
+		padding-top: 5px;
+		cursor: pointer;
+	}
+	.familia:BEFORE {
+		content: url("/img/TITA-fomento_familia.png");
+		position: relative;
+		top: 4px;
+		margin-right: 10px;
+	}
+	
+	.indicadores{
+		display: none;
+	}
+	.indicador{
+		font-size: 14px;
+		background-color: @grey3;
+		height: 35px;
+		border-top: 1px solid @grey9;
+		float:left;
+		width: 100%;
+		
+		.nameIndicador{
+			color: @black2;
+			float:left;	
+			padding-top: 5px;
+		}
+		
+		.nameIndicador:before{
+			content: url("/img/TITA-fomento_icon_li.png");
+			position: relative;
+			top: -2px;
+			margin-right: 10px;
+			margin-left: 30px;
+		}
+		
+		.anioIndicador{
+			color: @grey8;
+			float: right;
+			margin-top: 5px;
+			margin-right: 5px;
+		}
+		
+		.contador{
+			color: white;
+			background-color: #b1b1b2;
+			float: right;
+			margin-top: 5px;
+			padding-left: 5px;
+			padding-right: 5px;
+			margin-right: 10px;
+			border-radius: 3px;
+		}
+	}
+	.separador{
+		border-bottom: 1px solid @grey7;
+		height: 1px;
+		width: 100%
+	}
+	
 }
 
 
