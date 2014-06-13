@@ -1,0 +1,51 @@
+<div title="Mostrar indicador" class="botonDesplegable"><img src="/img/TITA-fomento_icon_ocultar-lista.png"></div>
+
+<div class="indicatorList">
+	<div class="container-fluid">
+	
+		<div class="row cabecera">
+			<div class="col-sm-12 col-md-12">
+				<p class="fleft"><strong>FAMILIA / </strong>INDICADORES</p>
+				<p class="fright">AÑOS DISPONIBLES</p>	
+			</div>
+		</div>
+		
+		<div class="row contenido">
+			<div class="col-sm-12 col-md-12" style="padding:0">
+				
+				<% var idFamilia = -1;
+				 	_.each(families, function(family)  {
+				 		if(idFamilia != family.cod_familia){ %>
+				 			<%if(idFamilia != -1){ %>
+				 				</div>
+				 				<div class="clear"></div>
+								<div class="separador"></div>
+				 			<% }%>
+				 			
+				 			<p class="familia"><%= family.name_familia%></p>
+				 				<div class="indicadores">
+				 					
+				 		<% }
+				 			idFamilia = family.cod_familia; %>
+				 		<div idIndicador=<%= family.cod_indicador%> class="indicador">
+										<p class="nameIndicador"><%= family.name_indicador%></p>
+										<%if(family.count >0){ %>
+											<div class="contador">+<%= family.count -1%></div>
+										<% }%>
+										<p class="anioIndicador"><%= family.fecha%></p>
+									</div>
+				<% }); %>
+				
+				</div>
+				 <div class="clear"></div>
+				<div class="separador"></div>				
+			</div>
+		</div>
+		
+	</div>
+	
+</div>
+
+<div title="Mostrar leyenda" class="botonLeyenda"><img src="/img/TITA-fomento_icon_ocultar-lista.png"></div>
+
+<div class="leyenda"></div>
