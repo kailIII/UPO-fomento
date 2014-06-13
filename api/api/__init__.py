@@ -6,8 +6,11 @@ app.config.update(
     SECRET_KEY='oN;2R@a-Y&opIY'
 )
 
+
+
 import home
 import indicador
+import family
 
 @app.route('/', methods = ['GET'])                                            
 def alive():

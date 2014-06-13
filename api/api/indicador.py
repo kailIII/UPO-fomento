@@ -1,22 +1,20 @@
 from api import app
 from flask import jsonify, request
 import json
+import collections
 from model.IndicadorModel import IndicadorModel
 
-@app.route('/indicadores', methods = ['GET'])
-
-def getIndicadores():    
-     ui = IndicadorModel()
-#     incidencias = ui.getIncidencias(limit, offset, search)
-#     
-#     for incidencia in incidencias:
-#         image = ui.getFirstImage(incidencia['id_incidencia'])
-#         if(image):
-#             incidencia["thumbnail"] = app.config["imageUrl"] + "/" + str(image["id_imagen"]) +"_thumbnail.jpg"
-#         else:
-#             incidencia["thumbnail"] = ""
-          
-#     return jsonify({"results": incidencias})
-     return jsonify({"results": "true"})
+@app.route('/indicador/<int:idIndicador>/', methods = ['GET'])
+@app.route('/indicador/<int:idIndicador>/<string:fecha>', methods = ['GET'])
+def getIndicador(idIndicador, fecha=None):    
+    ui = IndicadorModel()
+    indicador = ui.getIndicador(idIndicador, fecha)
+    indicador["datos"] = []
+    datos = ui.getDato(indicador["sql_dato"])
+    for dato in datos:
+        indicador["datos"].append(collections.OrderedDict(dato)) 
+ 
+    indicador.pop("sql_dato", None)
+    return jsonify(indicador)
 
 

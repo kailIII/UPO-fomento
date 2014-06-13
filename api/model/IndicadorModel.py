@@ -9,29 +9,20 @@ import base
 
 class IndicadorModel(PostgreSQLModel):
     
-    def getIndicadores(self):
-        sql = "SELECT fecha FROM portico.incidencias_2 i" \
-                " where i.geom is null";
-#         
-#         sql2= "SELECT i.id_incidencia, i.titulo, i.descripcion, i.estado, i.id_equipamiento, i.fecha_crea, i.id_user, m.nombre as nombre_municipio , EXTRACT(DAY FROM (now() - i.fecha_crea)) as dias, EXTRACT(EPOCH FROM (now() - i.fecha_crea)) as segundos FROM portico.incidencias_2 i" \
-#                 " INNER JOIN geometries_eiel.municipio m ON ST_Intersects(ST_Transform(m.geom,4326),i.geom)" \
-#                 " where i.geom is not null" ;
-#               
-#         if (search != None):
-#             sql += " AND ( i.titulo iLIKE %s)"
-#             sql2 += " AND ( i.titulo iLIKE %s)"
-#              
-#         
-#         sql = sql + " UNION " + sql2 ;
-#         
-#         sql += " ORDER BY segundos";
-#         
-#         if ((limit != None) and (offset!= None)):
-#             sql += " limit %s offset %s"
-#          
-#         if (search != None):
-#             return self.query(sql,["%" + search + "%","%" + search + "%",limit,offset]).result()
-#         
-#         return self.query(sql,[limit,offset]).result()
-        return true
+    def getIndicador(self, idIndicador, fecha=None):
+        sql = "SELECT i.cod_indicador, name_indicador, fecha, sql_dato, capas, leyenda, tam_leyenda, name_familia, (select array_agg(fecha) from geoserver.indicador_fecha where cod_indicador = i.cod_indicador) as fechas FROM geoserver.indicador i" \
+                " inner join geoserver.indicador_fecha if on i.cod_indicador = if.cod_indicador" \
+                 " inner join geoserver.familia f on f.cod_familia = i.cod_familia where i.cod_indicador=%s";
+                 
+        if(fecha):
+            sql +=  " and fecha=%s"
+            
+        sql +=  " order by fecha"
         
+        if(fecha):
+            return self.query(sql,[idIndicador,fecha]).row()
+
+        return self.query(sql,[idIndicador]).row()
+    
+    def getDato(self, sql):
+        return self.query(sql).result()

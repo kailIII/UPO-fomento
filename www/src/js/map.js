@@ -5,6 +5,7 @@ Map = {
 	iniLng: -4.57645,	
 	iniZoom: 8,
 	__map:null,
+	__layers:[],
 	
 	initialize: function(){
 //			// center the map
@@ -22,8 +23,6 @@ Map = {
 			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(this.__map);
-			
-
 
 			// add zoom control to map left
 			var zoomControl = new L.Control.Zoom({
@@ -40,5 +39,18 @@ Map = {
 		return this.__map;
 	},
 	
+	getLayers: function() {
+		return this.__layers;
+	},
+	
+	removeAllLayers: function() {
+		var self = this;
+		$.each(this.__layers, function(i){
+			self.getMap().removeLayer(self.getLayers()[i]);
+		});
+		this.__layers = [];
+	}
+	
 }
+
 

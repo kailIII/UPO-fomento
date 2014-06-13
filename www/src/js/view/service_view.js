@@ -5,7 +5,7 @@ app.view.Service = Backbone.View.extend({
     	app.events.trigger("menu", 2);
         this.render();
         
-        this.clientText = new ZeroClipboard( this.$el.find("img"), {
+        this.clientText = new ZeroClipboard( this.$el.find(".dataClip"), {
     	    moviePath: "../lib/zeroclipboard/ZeroClipboard.swf",
     	    debug: false
     	} );
@@ -13,13 +13,26 @@ app.view.Service = Backbone.View.extend({
     },
     
     events:{
-    	"click img": "copyUrl",
+    	"click .dataClip": "copyUrl",
+    	"click .info, strong": "showInfo",
     },
     
     
     copyUrl:function(e){    		
-    	this.$el.find("img").attr("src", "/img/TITA-fomento_icon_url.png");
+    	this.$el.find(".dataClip").attr("src", "/img/TITA-fomento_icon_url.png");
         $(e.currentTarget).attr("src", "/img/TITA-fomento_icon_url_copiada.png");
+    },
+    
+    showInfo:function(e){
+    	var desc = $(e.currentTarget).siblings(".descripcion");
+    	if(desc.length == 0){
+    		desc = $(e.currentTarget).parent().siblings(".descripcion");
+    	}
+    	if($(desc).is(":visible")){
+    		$(desc).slideUp();
+    	}else{
+    		$(desc).slideDown();
+    	}
     },
     
     onClose: function(){

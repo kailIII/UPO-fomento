@@ -30,8 +30,19 @@ deps.JS = {
 			"js/view/indicator_view.js",
 			"js/view/service_view.js",
 			"js/view/project_view.js",
-			"js/view/indicador_list_view.js",
-
+			"js/view/family_view.js",
+			
+			// --------------------
+			// ------  model ------
+			// --------------------
+			"js/model/family_model.js",
+			
+			// --------------------
+			// ------ collection--
+			// --------------------
+			
+			"js/collection/family_collection.js",
+			
 			// router
 			"js/router.js",
 			// app

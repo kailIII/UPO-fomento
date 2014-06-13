@@ -178,9 +178,10 @@ nav{
 	height: 100%;
 	width: 120px;
 	background-color: @green2;
-	position: absolute;
+	position: fixed;
 	color: white;
 	font-size: 14px;
+	z-index: 1003;
 	
 	.rectangle{
 		background-color: white;
@@ -259,6 +260,10 @@ nav{
 	}
 }
 	
+
+#content{
+	padding-bottom: 60px;
+}
 
 #map{
 	position: absolute;
@@ -373,7 +378,13 @@ nav{
 		margin-right: 10px;
 		padding-bottom: 5px;
 	}
-	
+	.comboFechas{
+		position: absolute;
+		padding-top: 53px;
+		background-color: white;
+		width: 50%;
+		z-index: 1001;
+	}
 	.cuerpoIndicador{
 		position: fixed;
 		height: 100%;
@@ -386,7 +397,14 @@ nav{
 			position: absolute;
 			left: 0;
 			right: 50%;
-			height: 100%;
+			pointer-events: all;
+/* 			overflow: auto; */
+			bottom: 155px;
+			padding-top: 40px;
+			top: 0;
+			@media (max-width: 1023px) {
+				right: 0%;
+			}
 			
 			.cabeceraTabla{
 				font-size: 10px;
@@ -406,6 +424,17 @@ nav{
 					text-align: right;
 				}
 				
+			}
+			
+			.datosTabla{
+				overflow: auto;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin-top: 115px;
+				right: 0;
+				left: 10px;
+				padding-right: 9px;
 			}
 			
 			.datos{
@@ -448,14 +477,14 @@ nav{
 		font-size: 14px;
 		color: @black2;
 		background-color: @grey3;
-		height: 35px;
+		min-height: 35px;
 		border-bottom: 1px solid @grey9;
 		padding-top: 5px;
 		
 		p{
 			float:left;
 		}
-		img{
+		.dataClip{
 			float:left;
 			margin-left: 10px;
 			margin-right: 5px;
@@ -465,10 +494,26 @@ nav{
 	.contenido:LAST-CHILD {
 		border-bottom: 1px solid @grey6;
 	}
+	
+	.descripcion{
+		margin-top: 5px;
+		display: none;
+	}
+	
+	.info{
+		margin-top: 5px;
+		float: right;
+		cursor: pointer;
+	}
+	
+	strong{
+		cursor: pointer;
+	}
 }
 
 #project{
 	max-width: 640px;
+	overflow: scroll;
 	@media (max-width: 1023px) {
 		margin-left: 20%
 	}
@@ -534,6 +579,10 @@ nav{
 	padding-top: 10px;
 	padding-right: 10px;
 	
+	@media (max-width: 1023px) {
+		right: 0%;
+	}
+	
 	.cabecera{
 		border-bottom: 1px solid @grey7;
 		padding-bottom: 10px;
@@ -565,6 +614,7 @@ nav{
 		border-top: 1px solid @grey9;
 		float:left;
 		width: 100%;
+		cursor:pointer;
 		
 		.nameIndicador{
 			color: @black2;
@@ -606,14 +656,14 @@ nav{
 	
 }
 
-
 footer{
 	padding-left: 170px;
-	position: absolute;
+	position: fixed;
 	bottom: 0px;
-	margin-bottom: 5px;
+	padding-bottom: 5px;
 	width: 100%;
 	z-index: 1002;
+	background-color: white;
 	
 	@media (max-width: 790px) {
 		padding-left: 139px;
