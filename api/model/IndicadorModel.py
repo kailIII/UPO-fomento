@@ -21,8 +21,12 @@ class IndicadorModel(PostgreSQLModel):
         
         if(fecha):
             return self.query(sql,[idIndicador,fecha]).row()
-
         return self.query(sql,[idIndicador]).row()
     
     def getDato(self, sql):
         return self.query(sql).result()
+
+
+    def getNumIndicadores(self):
+        sql = "SELECT count(*) as count FROM geoserver.indicador"
+        return self.query(sql).row()['count']

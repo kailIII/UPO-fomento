@@ -11,3 +11,10 @@ def getFamilies():
     return jsonify({"result": ui.getFamilyList()})
 
 
+@app.route('/familiesMap', methods = ['GET'])
+def getFamiliesMap():    
+    ui = FamilyModel()
+    
+    return jsonify({"result": ui.getFamilyMapList()})
+
+

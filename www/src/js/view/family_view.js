@@ -1,10 +1,17 @@
 app.view.Family = Backbone.View.extend({
     _template : _.template( $('#family_list_template').html() ),
     
-    initialize: function() {
-    	app.events.trigger("menu", 1);
+    initialize: function(options) {
     	
     	var families = new app.model.Families();
+    	
+    	if(options.esIndicador){
+    		app.events.trigger("menu", 1);
+    	}else{
+    		app.events.trigger("menu", 4);
+    		families.url = "/api/familiesMap"
+    	}
+    	
     	families.fetch({reset:true});
     	this.listenTo(families, "reset", this.loadFamilies);
 //        this.render();
@@ -42,10 +49,12 @@ app.view.Family = Backbone.View.extend({
     botonLeyendaClick:function(e){
     	if($(".leyenda").is(":visible")){
     		$(".leyenda").fadeOut();
-    		$(e.currentTarget).find("img").attr("src", "/img/TITA-fomento_icon_ocultar-lista.png");
+//    		$(e.currentTarget).find("img").attr("src", "/img/TITA-fomento_icon_ocultar-lista.png");
+    		$(e.currentTarget).text("Mostrar leyenda");
     	}else{
     		$(".leyenda").fadeIn();
-    		$(e.currentTarget).find("img").attr("src", "/img/TITA-fomento_icon_mostrar-lista.png");
+//    		$(e.currentTarget).find("img").attr("src", "/img/TITA-fomento_icon_mostrar-lista.png");
+    		$(e.currentTarget).text("Ocultar leyenda");
     	}
     },
     

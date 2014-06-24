@@ -99,6 +99,9 @@ app.events.on("menu", function(id, e){
 	$(".menu[idMenu=" + id + "]").addClass("menuSelect");
 	$(".divSelected").hide();
 	$(".menu[idMenu=" + id + "]").siblings(".divSelected").show();
+	if(Map.getMap()){
+		Map.getMap()._onResize();
+	}
 	
 });
 

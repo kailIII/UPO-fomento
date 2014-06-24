@@ -17,4 +17,9 @@ def getIndicador(idIndicador, fecha=None):
     indicador.pop("sql_dato", None)
     return jsonify(indicador)
 
+@app.route('/numIndicadores', methods = ['GET'])
+def getNumIndicadores(fecha=None):    
+    ui = IndicadorModel()
+    return jsonify({"result":ui.getNumIndicadores()}) 
+
 

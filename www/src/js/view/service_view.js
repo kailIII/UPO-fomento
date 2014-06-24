@@ -20,7 +20,11 @@ app.view.Service = Backbone.View.extend({
     
     copyUrl:function(e){    		
     	this.$el.find(".dataClip").attr("src", "/img/TITA-fomento_icon_url.png");
-        $(e.currentTarget).attr("src", "/img/TITA-fomento_icon_url_copiada.png");
+    	var image =$(e.currentTarget); 
+        image.attr("src", "/img/TITA-fomento_icon_url_copiada.png");
+        image.fadeOut(700, function () {
+            image.attr('src', "/img/TITA-fomento_icon_url.png").show();
+        });
     },
     
     showInfo:function(e){

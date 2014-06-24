@@ -11,6 +11,7 @@ app.router = Backbone.Router.extend({
             "" : "indicator",
             "indicador/:id" : "indicator",
             "indicadores" : "indicatorList",
+            "mapas_base" : "mapaBase",
             "servicios" : "service",
             "proyecto" : "project",
             "notfound" : "notfound",
@@ -39,8 +40,14 @@ app.router = Backbone.Router.extend({
     
     indicatorList: function(){
     	$("#map").show();
-        app.showView(new app.view.Family());
+        app.showView(new app.view.Family({esIndicador:true}));
     },
+    
+    mapaBase: function(){
+    	$("#map").show();
+        app.showView(new app.view.Family({esIndicador:false}));
+    },
+    
     
     service: function(){
     	$("#map").hide();
