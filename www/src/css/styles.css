@@ -662,14 +662,50 @@ nav{
 
 #groupLayer{
 	background-color: white;
-	width: 300px;
+	min-width: 300px;
 	height: 500px;
 	position: absolute;
 	z-index: 1001;
 	right: 0;
-	margin-right: 100px;
-	margin-top: 20px;
+	margin-right: 21px;
+	margin-top: 107px;
 	overflow: auto;
+	border-radius: 5px;
+	box-shadow: 0px 0px 5px @grey_dark;
+   -webkit-box-shadow: 0px 0px 5px @grey_dark;
+   -moz-box-shadow: 0px 0px 5px @grey_dark;
+   font-size: 14px;
+   
+	
+	h1{
+		color: @green2;
+		padding: 15px 0px 12px 0px;
+		text-align: center;
+		border-bottom: 1px solid #67c08f;
+		font-size: 15px;
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+	
+	.footerGroupLayer{
+		margin-top: -1px;
+		border-top: 1px solid #67c08f;
+	}
+	
+	input[type='checkbox']{
+		float: left;
+		margin-top: 6px;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	
+	input[type='checkbox']:checked + label{
+		font-weight: bold;
+	}
+	
+	label {
+		display: block;
+	}
 }
 
 footer{

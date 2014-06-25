@@ -24,12 +24,12 @@ Map = {
 			    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(this.__map);
 			
-			app.layerAndalucia = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fondo_cartografico/wms?", {
+			app.base = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fondo_cartografico/wms?", {
 				layers: "andalucia_poly",
 				format: 'image/png',
 				transparent: true
 			});
-			app.layerAndalucia.addTo(this.__map);
+			app.base.addTo(this.__map);
 			
 			app.layerRelieve = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fondo_cartografico/wms?", {
 				layers: "relieve_2",
@@ -40,7 +40,7 @@ Map = {
 
 			// add zoom control to map left
 			var zoomControl = new L.Control.Zoom({
-				position : 'topright'
+				position : 'bottomright'
 			});		
 		
 			zoomControl.addTo(this.__map);
