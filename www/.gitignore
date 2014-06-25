@@ -1,4 +1,5 @@
-cdn
+cdn/es
+cdn/en
 main.min.js
 main.min.css
 src/build/tmp
