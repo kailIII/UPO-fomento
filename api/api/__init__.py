@@ -11,6 +11,7 @@ app.config.update(
 import home
 import indicador
 import family
+import proxy
 
 @app.route('/', methods = ['GET'])                                            
 def alive():

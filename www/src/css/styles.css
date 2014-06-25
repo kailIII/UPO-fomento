@@ -319,7 +319,6 @@ nav{
 }
 
 .indicator{
-	display: none;
 	position: absolute;
 	right: 10px;
 	left: 170px;
@@ -404,7 +403,7 @@ nav{
 			pointer-events: all;
 /* 			overflow: auto; */
 			bottom: 155px;
-			padding-top: 40px;
+			padding-top: 8px;
 			top: 0;
 			@media (max-width: 1023px) {
 				right: 0%;
@@ -435,9 +434,9 @@ nav{
 				position: absolute;
 				top: 0;
 				bottom: 0;
-				margin-top: 115px;
+				margin-top: 83px;
 				right: 0;
-				left: 10px;
+				left: 0px;
 				padding-right: 9px;
 			}
 			
@@ -446,8 +445,9 @@ nav{
 					color: #7c7c7c;
 					border-bottom: 1px solid #e1e4e5;
 					margin-right: 10px;
+					padding-left: 10px;
 					padding-bottom: 5px;
-					margin-top: 5px;
+					padding-top: 5px;
 					
 					div:FIRST-CHILD{
 						text-align: left;
@@ -455,6 +455,10 @@ nav{
 					div{
 						text-align: right;
 					}
+			}
+			.active{
+				background-color: @green2;
+				color: white;
 			}
 		}
 	}
@@ -582,6 +586,7 @@ nav{
 	z-index: 1002;
 	padding-top: 50px;
 	padding-right: 10px;
+	display: none;
 	
 	@media (max-width: 1023px) {
 		right: 0%;
@@ -663,7 +668,7 @@ nav{
 #groupLayer{
 	background-color: white;
 	min-width: 300px;
-	height: 500px;
+	max-height: 500px;
 	position: absolute;
 	z-index: 1001;
 	right: 0;
@@ -683,13 +688,15 @@ nav{
 		text-align: center;
 		border-bottom: 1px solid #67c08f;
 		font-size: 15px;
-		margin-left: 20px;
-		margin-right: 20px;
+		padding-left: 10px;
+		padding-right: 10px;
+		cursor: pointer;
 	}
 	
 	.footerGroupLayer{
 		margin-top: -1px;
 		border-top: 1px solid #67c08f;
+/* 		margin-bottom: 10px; */
 	}
 	
 	input[type='checkbox']{
@@ -706,6 +713,24 @@ nav{
 	label {
 		display: block;
 	}
+	
+	.capa{
+		padding-left: 10px;
+		padding-right: 10px;
+		border-bottom: 1px solid @grey9;
+		line-height: 35px;
+		cursor: move;
+		
+		select{
+			float:right;
+			margin-top: 8px;
+		}
+	}
+	
+	select{
+		margin-left: 10px;
+	}
+	
 }
 
 footer{
@@ -720,4 +745,10 @@ footer{
 	@media (max-width: 790px) {
 		padding-left: 139px;
 	}
+}
+
+.ellipsis {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }

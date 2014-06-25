@@ -4,7 +4,7 @@ app.view.Family = Backbone.View.extend({
     initialize: function(options) {
     	
     	var families = new app.model.Families();
-    	
+    	this.esIndicador = options.esIndicador;
     	if(options.esIndicador){
     		app.events.trigger("menu", 1);
     	}else{
@@ -59,7 +59,9 @@ app.view.Family = Backbone.View.extend({
     },
     
     goToIndicador:function(e){
-    	app.router.navigate('indicador/'+ $(e.currentTarget).attr("IdIndicador"), {trigger: true});
+    	Map.drawIndicator($(e.currentTarget).attr("IdIndicador"),null, this.esIndicador);
+//    	app.showView(new app.view.Indicator({idIndicador:$(e.currentTarget).attr("IdIndicador") , fecha:null, esIndicador:this.esIndicador}));
+//    	app.router.navigate('indicador/'+ $(e.currentTarget).attr("IdIndicador"), {trigger: true});
     },
     
     onClose: function(){

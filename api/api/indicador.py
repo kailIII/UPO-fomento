@@ -9,13 +9,26 @@ from model.IndicadorModel import IndicadorModel
 def getIndicador(idIndicador, fecha=None):    
     ui = IndicadorModel()
     indicador = ui.getIndicador(idIndicador, fecha)
-    indicador["datos"] = []
-    datos = ui.getDato(indicador["sql_dato"])
-    for dato in datos:
+    return jsonify(indicador)
+
+@app.route('/indicador_capas/<int:idIndicador>/<string:fecha>', methods = ['GET'])
+def getIndicadorLayers(idIndicador, fecha):    
+    ui = IndicadorModel()
+    indicador = ui.getIndicadorLayers(idIndicador, fecha)
+    return jsonify(indicador)
+
+
+@app.route('/indicador_data/<int:idIndicador>/<string:fecha>', methods = ['GET'])
+def getIndicadorData(idIndicador, fecha):    
+   ui = IndicadorModel()
+   indicador = ui.getIndicadorData(idIndicador, fecha)
+   indicador["datos"] = []
+   datos = ui.getDato(indicador["sql_dato"])
+   for dato in datos:
         indicador["datos"].append(collections.OrderedDict(dato)) 
  
-    indicador.pop("sql_dato", None)
-    return jsonify(indicador)
+   indicador.pop("sql_dato", None)
+   return jsonify(indicador)
 
 @app.route('/numIndicadores', methods = ['GET'])
 def getNumIndicadores(fecha=None):    

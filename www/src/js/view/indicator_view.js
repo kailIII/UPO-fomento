@@ -2,9 +2,17 @@ app.view.Indicator = Backbone.View.extend({
     _template : _.template( $('#indicator_template').html() ),
 //    idIndicador: null,
     
-    initialize: function() {
-    	app.events.trigger("menu", 1);
-    	this.indicadorActual = 1;
+    initialize: function(options) {
+//    	if(options.esIndicador){
+//    		app.events.trigger("menu", 1);
+//    	}else{
+//    		app.events.trigger("menu", 4);
+//    	}
+    	this.indicadorActual = options.idIndicador;
+    	this.fecha = options.fecha;
+    	this.id_geometry = options.id_geometry; 
+//    	this.fecha = options.fecha;
+//    	this.esIndicador = options.esIndicador;
     	this.numIndicadores = 1;
     	this.render();
     },
@@ -13,9 +21,9 @@ app.view.Indicator = Backbone.View.extend({
     	"click .botonDesplegable": "botonDesplegableClick",
     	"click .botonLeyenda": "botonLeyendaClick",
     	"click .botonVolver": "goList",
-    	"change .comboFechas select" : "changeDate",
-    	"click #anteriorIndicador" : "anteriorIndicador",
-    	"click #siguienteIndicador" : "siguienteIndicador",
+//    	"change .comboFechas select" : "changeDate",
+//    	"click #anteriorIndicador" : "anteriorIndicador",
+//    	"click #siguienteIndicador" : "siguienteIndicador",
     },
     
     botonDesplegableClick:function(e){
@@ -40,31 +48,31 @@ app.view.Indicator = Backbone.View.extend({
     	}
     },
     
-    changeDate:function(e){
-    	this.drawIndicator(this.$el.find("#idIndicador").val(),e.currentTarget.value);
-    },
+//    changeDate:function(e){
+//    	this.drawIndicator(this.$el.find("#idIndicador").val(),e.currentTarget.value);
+//    },
     
     goList:function(){
     	app.router.navigate('indicadores', {trigger: true});
     },
     
-    anteriorIndicador:function(){
-    	if(this.indicadorActual == 1){
-    		this.indicadorActual = this.numIndicadores;
-    	}else{
-    		this.indicadorActual -= 1;
-    	}
-    	this.drawIndicator(this.indicadorActual, null);
-    },
+//    anteriorIndicador:function(){
+//    	if(this.indicadorActual == 1){
+//    		this.indicadorActual = this.numIndicadores;
+//    	}else{
+//    		this.indicadorActual -= 1;
+//    	}
+//    	this.drawIndicator(this.indicadorActual, this.fecha);
+//    },
     
-    siguienteIndicador:function(){
-    	if(this.indicadorActual == this.numIndicadores){
-    		this.indicadorActual = 1;
-    	}else{
-    		this.indicadorActual += 1;
-    	}
-    	this.drawIndicator(this.indicadorActual, null);
-    },
+//    siguienteIndicador:function(){
+//    	if(this.indicadorActual == this.numIndicadores){
+//    		this.indicadorActual = 1;
+//    	}else{
+//    		this.indicadorActual += 1;
+//    	}
+//    	this.drawIndicator(this.indicadorActual, null);
+//    },
     
     onClose: function(){
         // Remove events on close
@@ -81,69 +89,49 @@ app.view.Indicator = Backbone.View.extend({
   	        	self.numIndicadores = response.result;
   	        }
     	});
-        return this;
-    },
-    
-    drawIndicator:function(idIndicador, fecha){
-        var self = this;
-        self.$el.find("#idIndicador").val(idIndicador);
+        
         $.ajax({
-			url : "/api/indicador/" + idIndicador + "/" + (fecha!=null ? fecha:""),
+			url : "/api/indicador_data/" + this.indicadorActual + "/" + this.fecha,
 			type: "GET",			
 	        success: function(response) {
 	        	self.$el.find(".title2").text(response.name_familia)
 	        	self.$el.find(".title3").text(response.name_indicador)
 	        	var keys = Object.keys(response.datos[0]);
-	        	var col = Math.floor(12/keys.length);
-	        	var capas = $.parseJSON(response.capas);
+	        	var col = Math.floor(12/(keys.length-1));
 	        	self.$el.find(".cabeceraTabla").html("");
 	        	$.each(keys, function(i,key){
-	        		self.$el.find(".cabeceraTabla").append("<div class='col-sm-" + col +  " col-md-" + col + "'>"+
-	        													"<p>" + key.replace("###"+ (i+1) + "###", "") +"</p>" +
-	        												"</div>");
+	        		if(i!=0){
+	        			self.$el.find(".cabeceraTabla").append("<div class='col-sm-" + col +  " col-md-" + col + "'>"+
+								"<p>" + key.replace("###"+ (i) + "###", "") +"</p>" +
+							"</div>");
+	        		}
+	        		
 	        	});
 	        	
 	        	self.$el.find(".datosTabla").html("");
 	        	$.each(response.datos, function(i, dato){
-	        		var row = "<div class='row datos'>"
+	        		var row = "<div class='row datos' geom='" + dato[keys[0]] + "'>"
 	        		for(var i=0; i<keys.length; i++){
-	        			row += "<div class='col-sm-" + col +  " col-md-" + col + "'>" +
-	        						"<p>" + dato[keys[i]] + "</p>" +
-	        					"</div>";
+	        			if(i!=0){
+	        				row += "<div class='col-sm-" + col +  " col-md-" + col + "'>" +
+    									"<p>" + dato[keys[i]] + "</p>" +
+    								"</div>";
+	        			}
 	        		}
 	        		row += "</div>";
 	        		self.$el.find(".datosTabla").append(row);
 	        	});
 	        	
-	        	Map.removeAllLayers();
-	        	
-	        	for(var i=0; i<capas.capas.length; i++){
-	        		var layer = L.tileLayer.wms(capas.capas[i].servidor, {
-	    				layers: capas.capas[i].capa,
-	    				format: 'image/png',
-	    				transparent: true
-	    			});	
-	        		Map.getLayers().push(layer);
-	        		layer.addTo(Map.getMap());
+	        	if(self.id_geometry){
+	        		$(".datosTabla").find(".datos[geom='"+ self.id_geometry + "']").addClass("active");
+	        		$('.datosTabla').animate({
+    			        scrollTop: $($(".datosTabla").find(".active")[0]).offset().top-180
+    			    }, 1000);
 	        	}
-	        	
-	        	if(response.leyenda != null){
-	        		$(".leyenda").html("<img src='" + response.leyenda + "'>");
-	        	}else{
-	        		$(".leyenda").html("");
-	        	}
-	        	
-	        	
-	        	response.fechas = response.fechas.sort();
-	        	$(".comboFechas").find("select").html("");
-	        	for(var i=0; i<response.fechas.length; i++){
-	        		$(".comboFechas").find("select").append("<option " + (response.fecha == response.fechas[i] ? "selected": '') + ">" + response.fechas[i] + "</option>");
-	        	}
-	        	
-	        	//Actualizo el árbol de capas
-	        	$(".indicatorName").text(response.name_indicador);
 	        },
 	    });
+        
+        return this;
     }
     
 });
