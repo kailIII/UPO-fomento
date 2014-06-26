@@ -99,11 +99,26 @@ app.view.Indicator = Backbone.View.extend({
 	        	var keys = Object.keys(response.datos[0]);
 	        	var col = Math.floor(12/(keys.length-1));
 	        	self.$el.find(".cabeceraTabla").html("");
+	        	
+	        	if(response.leyenda != null){
+	        		$(".leyenda").html("<img src='/img/leyendas/" + response.leyenda + "'>");
+	        	}else{
+	        		$(".leyenda").html("");
+	        	}
+	        	
 	        	$.each(keys, function(i,key){
 	        		if(i!=0){
-	        			self.$el.find(".cabeceraTabla").append("<div class='col-sm-" + col +  " col-md-" + col + "'>"+
-								"<p>" + key.replace("###"+ (i) + "###", "") +"</p>" +
-							"</div>");
+	        			if(response.cod_indicador == 2){
+	        				self.$el.find(".cabeceraTabla").css({"width":"2000px"})
+	        				self.$el.find(".cabeceraTabla").append("<div class='fleft' style='width:11%;'>"+
+									"<p>" + key.replace("###"+ (i) + "###", "") +"</p>" +
+								"</div>");
+	        			}else{
+	        				self.$el.find(".cabeceraTabla").append("<div class='col-sm-" + col +  " col-md-" + col + "'>"+
+									"<p>" + key.replace("###"+ (i) + "###", "") +"</p>" +
+								"</div>");
+	        			}
+	        			
 	        		}
 	        		
 	        	});
@@ -113,8 +128,13 @@ app.view.Indicator = Backbone.View.extend({
 	        		var row = "<div class='row datos' geom='" + dato[keys[0]] + "'>"
 	        		for(var i=0; i<keys.length; i++){
 	        			if(i!=0){
-	        				row += "<div class='col-sm-" + col +  " col-md-" + col + "'>" +
-    									"<p>" + dato[keys[i]] + "</p>" +
+	        				if(response.cod_indicador == 2){
+	        					self.$el.find(".datosTabla").css({"width":"2000px"})
+	        					row += "<div class='fleft' style='width:11%;'>";
+	        				}else{
+	        					row += "<div class='col-sm-" + col +  " col-md-" + col + "'>";
+	        				}
+	        				row += "<p>" + dato[keys[i]] + "</p>" +
     								"</div>";
 	        			}
 	        		}

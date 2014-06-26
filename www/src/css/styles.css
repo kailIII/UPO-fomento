@@ -316,6 +316,7 @@ nav{
 	background-color: white;
 	margin-bottom: 80px;
 	padding: 20px;
+	max-width: 250px;
 }
 
 .indicator{
@@ -405,6 +406,7 @@ nav{
 			bottom: 155px;
 			padding-top: 8px;
 			top: 0;
+			overflow: auto;
 			@media (max-width: 1023px) {
 				right: 0%;
 			}
@@ -415,6 +417,7 @@ nav{
 				margin-top: 50px;
 				border-bottom: 1px solid @grey7;
 				margin-right: 10px;
+				overflow: auto;
 				
 				p{
 					font-weight: 700;
@@ -691,6 +694,11 @@ nav{
 		padding-left: 10px;
 		padding-right: 10px;
 		cursor: pointer;
+		
+		.borrarCapa{
+			margin-top:5px;
+		}
+		
 	}
 	
 	.footerGroupLayer{
@@ -729,6 +737,16 @@ nav{
 	
 	select{
 		margin-left: 10px;
+	}
+	
+	.borrarCapa{
+		float: right;
+		margin-top: 9px;
+		margin-left: 10px;
+		border: 1px solid @grey8;
+		border-radius: 50%;
+		padding: 2px;
+		cursor: pointer;
 	}
 	
 }
