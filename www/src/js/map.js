@@ -73,9 +73,10 @@ Map = {
 	removeAllIndicatorLayers: function() {
 		var self = this;
 		$.each(this.__layersIndicador, function(i){
-			for(var y=0; y<self.__layersIndicador[i].capa.length; y++){
-				self.getMap().removeLayer(self.__layersIndicador[i].capa[y]);
-			}
+//			for(var y=0; y<self.__layersIndicador[i].capa.length; y++){
+//				self.getMap().removeLayer(self.__layersIndicador[i].capa[y]);
+//			}
+			self.getMap().removeLayer(self.__layersIndicador[i].capa);
 		});
 		this.__layersIndicador = [];
 	},
@@ -84,17 +85,21 @@ Map = {
 		var self = this;
 		var aux = 2;
 		$.each(this.__layersIndicador, function(i){
-			for(var y=0; y<self.__layersIndicador[i].capa.length; y++){
-				self.__layersIndicador[i].capa[y].setZIndex(y+2+i);
-				aux ++;
-			}
+//			for(var y=0; y<self.__layersIndicador[i].capa.length; y++){
+//				self.__layersIndicador[i].capa[y].setZIndex(y+2+i);
+//				aux ++;
+//			}
+			self.__layersIndicador[i].capa.setZIndex(aux);
+			aux ++;
 		});
 		
 		$.each(this.__layersMapBase, function(i){	
-			for(var y=0; y<self.__layersMapBase[i].capa.length; y++){
-				self.__layersMapBase[i].capa[y].setZIndex(aux);
-				aux++;
-			}
+//			for(var y=0; y<self.__layersMapBase[i].capa.length; y++){
+//				self.__layersMapBase[i].capa[y].setZIndex(aux);
+//				aux++;
+//			}
+			self.__layersMapBase[i].capa.setZIndex(aux);
+			aux++;
 		});
 	},
 	
@@ -111,21 +116,23 @@ Map = {
 	        		Map.removeAllIndicatorLayers();
 	        	}
 	        	
-	        	var array = [];
+	        	var aux = "";
 	        	for(var i=0; i<capas.capas.length; i++){
-	        		var layer = L.tileLayer.wms(capas.capas[i].servidor, {
-	    				layers: capas.capas[i].capa,
-	    				format: 'image/png',
-	    				transparent: true
-	    			});	
-	        		array.push(layer);
-	        		layer.addTo(Map.getMap());
+	        		aux += capas.capas[i].capa + ",";
 	        	}
+	        	aux = aux.slice(0,-1);
+	        	var layer = L.tileLayer.wms(capas.capas[0].servidor, {
+    				layers: aux,
+    				format: 'image/png',
+    				transparent: true
+    			});
+	        	
+	        	layer.addTo(Map.getMap());
 	        	
 	        	if(esIndicador){
-        			Map.getLayersIndicador().push({"id":response.cod_indicador, capa:array});
+        			Map.getLayersIndicador().push({"id":response.cod_indicador, capa:layer});
         		}else{
-        			Map.getLayersMapBase().push({"id":response.cod_indicador, capa:array});
+        			Map.getLayersMapBase().push({"id":response.cod_indicador, capa:layer});
         		}
 	        	
 	        	Map.refreshIndex();
@@ -176,12 +183,12 @@ Map = {
 		}
     	layers = esIndicador? this.__layersIndicador[id].capa : this.__layersMapBase[id].capa;
     	var layersName = "";
-    	for(var i=0; i<layers.length; i++){
-    		layersName += layers[i].options.layers + ",";
-    	}
-    	
-    	layersName = layersName.slice(0,-1);
-    	var request = layers[id]._url + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=' + layersName +'&QUERY_LAYERS='+ layersName +'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2Fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
+//    	for(var i=0; i<layers.length; i++){
+//    		layersName += layers[i].options.layers + ",";
+//    	}
+//    	
+//    	layersName = layersName.slice(0,-1);
+    	var request = layers._url + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=' + layers.options.layers +'&QUERY_LAYERS='+ layers.options.layers +'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2Fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
     	
     	$.ajax({
 			url : "/api/proxy",

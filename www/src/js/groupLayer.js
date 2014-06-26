@@ -38,23 +38,26 @@ function groupLayerEvents(){
 			type: "GET",
 			success: function(response) {
 				var layers = esIndicador ? Map.getLayersIndicador():Map.getLayersMapBase();
-				var array = [];
+				var aux = "";
 				var capas = $.parseJSON(response.capas);
 				for(var i=0; i<layers.length; i++){
 					if(layers[i].id == id){
-						for(var y=0; y<layers[i].capa.length; y++){
-							Map.getMap().removeLayer(layers[i].capa[y]);
-						}
+//						for(var y=0; y<layers[i].capa.length; y++){
+//							Map.getMap().removeLayer(layers[i].capa[y]);
+//						}
+						Map.getMap().removeLayer(layers[i].capa);
 						for(var z=0; z<capas.capas.length; z++){
-			        		var newLayer = L.tileLayer.wms(capas.capas[z].servidor, {
-			    				layers: capas.capas[z].capa,
-			    				format: 'image/png',
-			    				transparent: true
-			    			});	
-			        		array.push(newLayer);
-			        		newLayer.addTo(Map.getMap());
+			        		aux += capas.capas[z].capa + ",";
 			        	}
-						layers[i].capa=array;
+						aux = aux.slice(0,-1);
+						var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
+		    				layers: aux,
+		    				format: 'image/png',
+		    				transparent: true
+		    			});	
+		        		
+		        		newLayer.addTo(Map.getMap());
+						layers[i].capa=newLayer;
 						Map.refreshIndex();
 						break;
 					}
@@ -78,9 +81,10 @@ function groupLayerEvents(){
 		}
 		for(var i=0; i<layers.length; i++){
 			if(layers[i].id == id){
-				for(var y=0; y<layers[i].capa.length; y++){
-					Map.getMap().removeLayer(layers[i].capa[y]);
-				}
+//				for(var y=0; y<layers[i].capa.length; y++){
+//					Map.getMap().removeLayer(layers[i].capa[y]);
+//				}
+				Map.getMap().removeLayer(layers[i].capa);
 				layers.splice(i,1)
 				if(esIndicador){
 					$(this).parent().text("");
@@ -92,5 +96,27 @@ function groupLayerEvents(){
 			}
 		}
 		event.stopPropagation();
+	});
+	
+	$(".mapaBaseList").sortable({
+		start: function( event, ui ) {
+//			$(ui.item).css("background-color","#f2f7fb");
+			
+		},
+		stop: function( event, ui ) {
+//			alert($(ui.item).index());
+				var old_layer = Map.getLayersMapBase()[Map.getLayersMapBase().length-$(ui.item).index()-1];
+				var current_layer;
+				for(var i=0; i<Map.getLayersMapBase().length; i++){
+					if(Map.getLayersMapBase()[i].id == $(ui.item).attr("idIndicador")){
+						current_layer = Map.getLayersMapBase()[i];
+						Map.getLayersMapBase()[i] = old_layer;
+						break;
+					}
+				}
+				Map.getLayersMapBase()[Map.getLayersMapBase().length-$(ui.item).index()-1] = current_layer;
+				Map.refreshIndex();
+			}
+
 	});
 }

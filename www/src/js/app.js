@@ -102,6 +102,11 @@ app.events.on("menu", function(id, e){
 	if(Map.getMap()){
 		Map.getMap()._onResize();
 	}
+	if(id==2 || id ==3){
+		$("#groupLayer").hide();
+	}else{
+		$("#groupLayer").show();	
+	}
 	
 });
 

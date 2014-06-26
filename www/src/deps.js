@@ -9,6 +9,7 @@ deps.JS = {
 			"js/lib/backbone-min.js",
 			"js/lib/leaflet/leaflet.js",
 			"js/lib/zeroclipboard/ZeroClipboard.js",
+			"js/lib/jquery-ui-1.10.4.custom.min.js",
 		],
 		desc: "Third party library"
 	}
