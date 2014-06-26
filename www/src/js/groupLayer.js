@@ -66,4 +66,31 @@ function groupLayerEvents(){
 	$("select").on( "click", function(){
 		event.stopPropagation();
 	});
+	
+	$(".borrarCapa").unbind().bind( "click", function(){
+		var id = $(this).parent().attr("idIndicador");
+		var esIndicador = $(this).parent().hasClass("indicatorName")? true:false;
+		var layers;
+		if(esIndicador){
+			layers = Map.getLayersIndicador();
+		}else{
+			layers = Map.getLayersMapBase();
+		}
+		for(var i=0; i<layers.length; i++){
+			if(layers[i].id == id){
+				for(var y=0; y<layers[i].capa.length; y++){
+					Map.getMap().removeLayer(layers[i].capa[y]);
+				}
+				layers.splice(i,1)
+				if(esIndicador){
+					$(this).parent().text("");
+					$(this).remove();
+				}else{
+					$(this).parent().remove();
+				}
+				break;
+			}
+		}
+		event.stopPropagation();
+	});
 }

@@ -131,7 +131,7 @@ Map = {
 	        	Map.refreshIndex();
 	        	
 	        	if(response.leyenda != null){
-	        		$(".leyenda").html("<img src='" + response.leyenda + "'>");
+	        		$(".leyenda").html("<img src='/img/leyendas/" + response.leyenda + "'>");
 	        	}else{
 	        		$(".leyenda").html("");
 	        	}
@@ -149,10 +149,11 @@ Map = {
 	        	if(esIndicador){
 	        		$(".indicatorName").text(response.name_indicador);
 	        		$("#groupLayer").find("h1").find("select").remove()
+	        		$(".indicatorName").append("<img class='borrarCapa' title='Eliminar' src='/img/TITA_icon_descartar_capa.svg'>");
 	        		$(".indicatorName").append(fechas);
 	        		$(".indicatorName").attr("idIndicador", response.cod_indicador);
 	        	}else{
-	        		$(".mapaBaseList").prepend("<div idIndicador='" + response.cod_indicador + "' class='capa'>" + response.name_indicador + fechas + "</div>");
+	        		$(".mapaBaseList").prepend("<div idIndicador='" + response.cod_indicador + "' class='capa'>" + response.name_indicador + "<img class='borrarCapa' title='Eliminar' src='/img/TITA_icon_descartar_capa.svg'>" +  fechas + "</div>");
 	        	}
 	        	
 	        	groupLayerEvents();

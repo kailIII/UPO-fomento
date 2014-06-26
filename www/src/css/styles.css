@@ -34,24 +34,24 @@
 
 html, body{ height:100%;}
 body {
-	.roboto();
-	color:@grey;
-	font-size:16px;
-	line-height:24px;
+    .roboto();
+    color:@grey;
+    font-size:16px;
+    line-height:24px;
 }
 
 p,span,div,table{
-	.roboto();
+    .roboto();
 }
 
 input{
-	padding: 0 10px;
-	border: none;
-	
+    padding: 0 10px;
+    border: none;
+
 }
 input[placeholder]{
-	.roboto();
-	color:@grey_light;
+    .roboto();
+    color:@grey_light;
 }
 
 .grey{ color: @grey;}
@@ -69,100 +69,100 @@ input[placeholder]{
 
 /*@style=thin,light,normal,medium,bold,ultra-bold*/ 
 .roboto(@style) when(@style=thin){
-	font-weight:100;
-	font-family: @roboto;
+    font-weight:100;
+    font-family: @roboto;
 }
 
 .roboto(@style) when(@style=thinitalic){
-	font-weight:100;
-	font-style: italic;
-	font-family: @roboto;
+    font-weight:100;
+    font-style: italic;
+    font-family: @roboto;
 }
 
 .roboto(@style) when(@style=light){
-	font-weight:300;
-	font-family: @roboto;
+    font-weight:300;
+    font-family: @roboto;
 }
 
 .roboto(@style) when(@style=lightitalic){
-	font-weight:300;
-	font-style: italic;
-	font-family: @roboto;
+    font-weight:300;
+    font-style: italic;
+    font-family: @roboto;
 }
 
 .roboto(){
-	font-weight:400;
-	font-family: @roboto;
+    font-weight:400;
+    font-family: @roboto;
 }
 
 .roboto(@style) when(@style=italic){
-	.roboto();
-	font-style: italic;
+    .roboto();
+    font-style: italic;
 }
 
 .roboto(@style) when(@style=medium){
-	font-weight:500;
-	font-family: @roboto;
+    font-weight:500;
+    font-family: @roboto;
 }
 
 .roboto(@style) when(@style=mediumitalic){
-	font-weight:500;
-	font-style: italic;
-	font-family: @roboto;
+    font-weight:500;
+    font-style: italic;
+    font-family: @roboto;
 }
 
 .roboto(@style) when(@style=bold){
-	font-weight:700;
-	font-family: @roboto;
+    font-weight:700;
+    font-family: @roboto;
 }
 
 .roboto(@style) when(@style=bolditalic){
-	font-weight:700;
-	font-style: italic;
-	font-family: @roboto;
+    font-weight:700;
+    font-style: italic;
+    font-family: @roboto;
 }
 
 .roboto(@style) when(@style=ultra-bold){
-	font-weight:900;
-	font-family: @roboto;
+    font-weight:900;
+    font-family: @roboto;
 }
 
 .roboto(@style) when(@style=ultra-bolditalic){
-	font-weight:900;
-	font-style: italic;
-	font-family: @roboto;
+    font-weight:900;
+    font-style: italic;
+    font-family: @roboto;
 }
 
 .roboto_cond(){
-	font-weight:400;
-	font-family: @roboto_cond;
+    font-weight:400;
+    font-family: @roboto_cond;
 }
 
 .roboto_cond(@style) when(@style=italic){
-	.roboto_cond();
-	font-style: italic;
+    .roboto_cond();
+    font-style: italic;
 }
 
 .roboto_cond(@style) when(@style=bold){
-	font-weight:700;
-	font-family: @roboto_cond;
+    font-weight:700;
+    font-family: @roboto_cond;
 }
 
 .roboto_cond(@style) when(@style=bolditalic){
-	font-weight:700;
-	font-style: italic;
-	font-family: @roboto_cond;
+    font-weight:700;
+    font-style: italic;
+    font-family: @roboto_cond;
 }
 
 .roboto_cond(@style) when(@style=light){
-	font-weight:300;
-	font-family: @roboto_cond;
+    font-weight:300;
+    font-family: @roboto_cond;
 }
 
 .roboto_cond(@style) when(@style=lightitalic){
-	font-weight:300;
-	font-style: italic;
-	font-family: @roboto_cond;
+    font-weight:300;
+    font-style: italic;
+    font-family: @roboto_cond;
 }
 
 .roboto_light{.roboto(light);}
@@ -175,580 +175,624 @@ input[placeholder]{
 
 
 nav{
-	height: 100%;
-	width: 120px;
-	background-color: @green2;
-	position: fixed;
-	color: white;
-	font-size: 14px;
-	z-index: 1003;
-	
-	.rectangle{
-		background-color: white;
-		width: 100px;
-		height: 5px;
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-	
-	.nav{
-		margin-top: 10px;
-		border-bottom: 1px solid @green3;
-		padding-bottom: 10px;
-	}
-	.nav:last-child{
-		border-bottom: 1px solid white;
-	}
-	
-	li{
-		margin-left:10px;
-		margin-right: 10px;
-		
-		.title1{
-			line-height: 18px;
-			margin-bottom: 5px;
-		}
-		
-		.title2{
-			font-size:11px;
-			line-height: 16px;
-			border-bottom: 1px solid white;
-			padding-bottom: 18px;
-		}
-	}
-	li:last-child{
-		font-size: 11px;
-		line-height: 16px;
-		position: absolute;
-		bottom: 0px;
-		margin-bottom: 10px;
-		
-		img{
-			margin-top:10px;
-		}
-		img:first-child{
-			border-top: 1px solid @green3;
-			border-bottom: 1px solid @green3;
-			padding-top: 10px;
-			padding-bottom: 10px;
-			padding-right: 19px;
-		}
-		a:last-child:before{
-			content: url("/img/TITA-fomento_logo_geographica.png");
-			position: relative;
-			top: 3px;
-			margin-right: 5px;
-		}
-	}
-	
-	.menuSelect{
-		color: @black;
-		font-weight: bold;
-	}
-	.menu{
-		float: left;
-	}
-	.divSelected{
-		display: none;
-		width: 10px;
-		height: 37px;
-		background-color: @green6;
-		position: absolute;
-		left: 120px;
-		border-left: 1px solid @green7;
-		margin-top: -5px;
-	}
+    height: 100%;
+    width: 120px;
+    background-color: @green2;
+    position: fixed;
+    color: white;
+    font-size: 14px;
+    z-index: 1003;
+
+    .rectangle{
+        background-color: white;
+        width: 100px;
+        height: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .nav{
+        margin-top: 10px;
+        border-bottom: 1px solid @green3;
+        padding-bottom: 10px;
+    }
+    .nav:last-child{
+        border-bottom: 1px solid white;
+    }
+
+    li{
+        margin-left:10px;
+        margin-right: 10px;
+
+        .title1{
+            line-height: 18px;
+            margin-bottom: 5px;
+        }
+
+        .title2{
+            font-size:11px;
+            line-height: 16px;
+            border-bottom: 1px solid white;
+            padding-bottom: 18px;
+        }
+    }
+    li:last-child{
+        font-size: 11px;
+        line-height: 16px;
+        position: absolute;
+        bottom: 0px;
+        margin-bottom: 10px;
+
+        img{
+            margin-top:10px;
+        }
+        img:first-child{
+            border-top: 1px solid @green3;
+            border-bottom: 1px solid @green3;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-right: 19px;
+        }
+        a:last-child:before{
+            content: url("/img/TITA-fomento_logo_geographica.png");
+            position: relative;
+            top: 3px;
+            margin-right: 5px;
+        }
+    }
+
+    .menuSelect{
+        color: @black;
+        font-weight: bold;
+    }
+    .menu{
+        float: left;
+    }
+    .divSelected{
+        display: none;
+        width: 10px;
+        height: 37px;
+        background-color: @green6;
+        position: absolute;
+        left: 120px;
+        border-left: 1px solid @green7;
+        margin-top: -5px;
+    }
 }
-	
+
 
 #content{
-	padding-bottom: 60px;
+    padding-bottom: 60px;
 }
 
 #map{
-	position: absolute;
-	right: 10px;
-	left: 170px;
-	bottom: 58px;
-	top: 10px;
-	z-index: 1000;
+    position: absolute;
+    right: 10px;
+    left: 170px;
+    bottom: 58px;
+    top: 10px;
+    z-index: 1000;
 }
 
 .botonDesplegable{
-	position: absolute;
-	left: 120px;
-	top: 145px;
-	background: #f6f6f6;
-	width: 40px;
-	height: 35px;
-	border-radius: 0px 3px 3px 0px;
-	padding-top: 7px;
-	padding-left: 5px;
-	cursor: pointer;
+    position: absolute;
+    left: 120px;
+    top: 145px;
+    background: #f6f6f6;
+    width: 40px;
+    height: 35px;
+    border-radius: 0px 3px 3px 0px;
+    padding-top: 7px;
+    padding-left: 5px;
+    cursor: pointer;
 }
 
 .botonLeyenda{
-	position: absolute;
-	left: 170px;
-	bottom: 58px;
-	background: #f6f6f6;
-	width: 135px;
-	height: 30px;
-	cursor: pointer;
-	z-index: 1001;
-	background-color: @green2;
-	text-align: right;
-	font-size: 14px;
-	padding-top: 4px;
-	padding-right: 18px;
-	color: white;
-	
+    position: absolute;
+    left: 170px;
+    bottom: 58px;
+    background: #f6f6f6;
+    width: 135px;
+    height: 30px;
+    cursor: pointer;
+    z-index: 1001;
+    background-color: @green2;
+    text-align: right;
+    font-size: 14px;
+    padding-top: 4px;
+    padding-right: 18px;
+    color: white;
+
 }
 
 .leyenda{
-	display: none;
-/* 	width: 218px; */
-/* 	height: 300px; */
-	position: absolute;
-	left: 170px;
-	bottom: 9px;
-	z-index: 1001;
-	background-color: white;
-	margin-bottom: 80px;
-	padding: 20px;
+    display: none;
+    /* 	width: 218px; */
+    /* 	height: 300px; */
+    position: absolute;
+    left: 170px;
+    bottom: 9px;
+    z-index: 1001;
+    background-color: white;
+    margin-bottom: 80px;
+    padding: 20px;
+    max-width: 250px;
 }
 
 .indicator{
-	position: absolute;
-	right: 10px;
-	left: 170px;
-	background-color: #f5f5f5;
-	z-index: 1002;
-	
-	.separator{
-		height:1px;
-		background-color: @black
-	}
-	
-	.botonVolver{
-		width:50px;
-		height: 50px;
-		background-color: @grey4;
-		margin-top: 10px;
-		margin-left: 10px;
-		padding: 15px;
-		cursor: pointer;
-	}
-	.botonNav{
-		width:24px;
-		height: 24px;
-		margin-top:2px;
-		margin-left: 2px;
-		padding-left: 8px;
-		background-color: @grey5;
-		float: left;
-		cursor: pointer;
-		margin-bottom: 10px;
-	}
-	.botonNav:nth-child(3){
-		padding-left: 9px;
-	}
-	
-	.title1{
-		font-size: 11px;
-		color: @grey4;
-		margin-top: 25px;
-		float:left;
-		margin-left: 20px;
-		margin-right: 20px;
-		
-		p:FIRST-CHILD{
-			border-bottom: 1px solid @grey4;
-			max-width: 60px;
-		}
-	}
-	
-	.title2{
-		font-size: 14px;
-		color: @green4;
-		margin-right: 10px;
-	}
-	
-	.title3{
-		font-size: 20px;
-		color:@black;
-		font-weight: 300;
-		margin-right: 10px;
-		padding-bottom: 5px;
-	}
-	.comboFechas{
-		position: absolute;
-		padding-top: 53px;
-		background-color: white;
-		width: 50%;
-		z-index: 1001;
-	}
-	.cuerpoIndicador{
-		position: fixed;
-		height: 100%;
-		right: 10px;
-		left: 170px;
-		pointer-events: none;
-		
-		.contenido{
-			background-color: white;
-			position: absolute;
-			left: 0;
-			right: 50%;
-			pointer-events: all;
-/* 			overflow: auto; */
-			bottom: 155px;
-			padding-top: 8px;
-			top: 0;
-			@media (max-width: 1023px) {
-				right: 0%;
-			}
-			
-			.cabeceraTabla{
-				font-size: 10px;
-				color:@grey6;
-				margin-top: 50px;
-				border-bottom: 1px solid @grey7;
-				margin-right: 10px;
-				
-				p{
-					font-weight: 700;
-				}
-				
-				div:FIRST-CHILD{
-					text-align: left;
-				}
-				div{
-					text-align: right;
-				}
-				
-			}
-			
-			.datosTabla{
-				overflow: auto;
-				position: absolute;
-				top: 0;
-				bottom: 0;
-				margin-top: 83px;
-				right: 0;
-				left: 0px;
-				padding-right: 9px;
-			}
-			
-			.datos{
-					font-size: 14px;
-					color: #7c7c7c;
-					border-bottom: 1px solid #e1e4e5;
-					margin-right: 10px;
-					padding-left: 10px;
-					padding-bottom: 5px;
-					padding-top: 5px;
-					
-					div:FIRST-CHILD{
-						text-align: left;
-					}
-					div{
-						text-align: right;
-					}
-			}
-			.active{
-				background-color: @green2;
-				color: white;
-			}
-		}
-	}
+    position: absolute;
+    right: 10px;
+    left: 170px;
+    background-color: #f5f5f5;
+    z-index: 1002;
+
+    .separator{
+        height:1px;
+        background-color: @black
+    }
+
+    .botonVolver{
+        width:50px;
+        height: 50px;
+        background-color: @grey4;
+        margin-top: 10px;
+        margin-left: 10px;
+        padding: 15px;
+        cursor: pointer;
+    }
+    .botonNav{
+        width:24px;
+        height: 24px;
+        margin-top:2px;
+        margin-left: 2px;
+        padding-left: 8px;
+        background-color: @grey5;
+        float: left;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    .botonNav:nth-child(3){
+        padding-left: 9px;
+    }
+
+    .title1{
+        font-size: 11px;
+        color: @grey4;
+        margin-top: 25px;
+        float:left;
+        margin-left: 20px;
+        margin-right: 20px;
+
+        p:FIRST-CHILD{
+            border-bottom: 1px solid @grey4;
+            max-width: 60px;
+        }
+    }
+
+    .title2{
+        font-size: 14px;
+        color: @green4;
+        margin-right: 10px;
+    }
+
+    .title3{
+        font-size: 20px;
+        color:@black;
+        font-weight: 300;
+        margin-right: 10px;
+        padding-bottom: 5px;
+    }
+    .comboFechas{
+        position: absolute;
+        padding-top: 53px;
+        background-color: white;
+        width: 50%;
+        z-index: 1001;
+    }
+    .cuerpoIndicador{
+        position: fixed;
+        height: 100%;
+        right: 10px;
+        left: 170px;
+        pointer-events: none;
+
+        .contenido{
+            background-color: white;
+            position: absolute;
+            left: 0;
+            right: 50%;
+            pointer-events: all;
+            /* 			overflow: auto; */
+            bottom: 155px;
+            padding-top: 8px;
+            top: 0;
+            overflow: auto;
+            @media (max-width: 1023px) {
+                right: 0%;
+            }
+
+            .cabeceraTabla{
+                font-size: 10px;
+                color:@grey6;
+                margin-top: 50px;
+                border-bottom: 1px solid @grey7;
+                margin-right: 10px;
+                overflow: auto;
+
+                p{
+                    font-weight: 700;
+                }
+
+                div:FIRST-CHILD{
+                    text-align: left;
+                }
+                div{
+                    text-align: right;
+                }
+
+            }
+
+            .datosTabla{
+                overflow: auto;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                margin-top: 83px;
+                right: 0;
+                left: 0px;
+                padding-right: 9px;
+            }
+
+            .datos{
+                font-size: 14px;
+                color: #7c7c7c;
+                border-bottom: 1px solid #e1e4e5;
+                margin-right: 10px;
+                padding-left: 10px;
+                padding-bottom: 5px;
+                padding-top: 5px;
+
+                div:FIRST-CHILD{
+                    text-align: left;
+                }
+                div{
+                    text-align: right;
+                }
+            }
+            .active{
+                background-color: @green2;
+                color: white;
+            }
+        }
+    }
+    #zonaChart{
+        display: none;
+    }
+    .conmutador_representacion{
+        margin: 9px 0px 9px 9px;
+    }
+    a.boton_representacion {
+        font-size: 0.9em;
+        background: #FFF;
+        border-top: solid 1px #4b4b4d;
+        padding: 2px;
+        border-left: solid 1px #4b4b4d;
+        border-bottom: solid 1px #4b4b4d;
+        border-right: solid 1px #4b4b4d;
+        color: #4b4b4d;   	
+    }
+
+    a.down {
+        background: #67c08f;
+        border-top: solid 1px #4b4b4d;
+        padding: 2px;
+        border-left: solid 1px #4b4b4d;
+        border-bottom: solid 1px #4b4b4d;
+        border-right: solid 1px #4b4b4d;
+        color: #FFF;
+    }
 }
 
 #services{
-	margin-left: 160px;
-	margin-right: 10px;
-	padding-top: 50px;
-	
-	.cabeceraTabla{
-		font-size: 10px;
-		color: @grey6;
-		border-bottom: 1px solid @grey6;
-		p{
-			font-weight: 700;
-		}
-		p:before{
-/* 			content: url("/img/TITA-fomento_logo.png"); */
-		}
-	}
-	
-	.contenido{
-		font-size: 14px;
-		color: @black2;
-		background-color: @grey3;
-		min-height: 35px;
-		border-bottom: 1px solid @grey9;
-		padding-top: 5px;
-		
-		p{
-			float:left;
-		}
-		.dataClip{
-			float:left;
-			margin-left: 10px;
-			margin-right: 5px;
-			cursor: pointer;
-		}
-	}
-	.contenido:LAST-CHILD {
-		border-bottom: 1px solid @grey6;
-	}
-	
-	.descripcion{
-		margin-top: 5px;
-		display: none;
-	}
-	
-	.info{
-		margin-top: 5px;
-		float: right;
-		cursor: pointer;
-	}
-	
-	strong{
-		cursor: pointer;
-	}
+    margin-left: 160px;
+    margin-right: 10px;
+    padding-top: 50px;
+
+    .cabeceraTabla{
+        font-size: 10px;
+        color: @grey6;
+        border-bottom: 1px solid @grey6;
+        p{
+            font-weight: 700;
+        }
+        p:before{
+            /* 			content: url("/img/TITA-fomento_logo.png"); */
+        }
+    }
+
+    .contenido{
+        font-size: 14px;
+        color: @black2;
+        background-color: @grey3;
+        min-height: 35px;
+        border-bottom: 1px solid @grey9;
+        padding-top: 5px;
+
+        p{
+            float:left;
+        }
+        .dataClip{
+            float:left;
+            margin-left: 10px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+    }
+    .contenido:LAST-CHILD {
+        border-bottom: 1px solid @grey6;
+    }
+
+    .descripcion{
+        margin-top: 5px;
+        display: none;
+    }
+
+    .info{
+        margin-top: 5px;
+        float: right;
+        cursor: pointer;
+    }
+
+    strong{
+        cursor: pointer;
+    }
 }
 
 #project{
-	max-width: 640px;
-	overflow: scroll;
-	@media (max-width: 1023px) {
-		margin-left: 20%
-	}
-	@media (max-width: 860px) {
-		max-width: 590px;
-	}
-	p{
-		text-align: center;	
-	}	
-	
-	.title1{
-		font-size: 14px;
-		color:@green4;
-		margin-top: 28px;
-	}
-	
-	.title2{
-		font-size: 48px;
-		color:@green8;
-		margin-top: 38px;
-	}
-	
-	.title3{
-		font-size: 24px;
-		color:@black2;
-		margin-top: 20px;
-		border-bottom: 1px solid @grey7;
-		padding-bottom: 30px;
-	}
-	
-	.title4{
-		font-size: 11px;
-		color:@grey6;
-		margin-top: 28px;
-	}
-	
-	.title5{
-		font-size: 18px;
-		color:@grey10;	
-	}
-	.title6{
-		font-size: 18px;
-		color:@green8;
-		margin-top: 30px;
-		text-align: left;
-	}
-	
-	.title7{
-		font-size: 14px;
-		color:@grey10;
-		margin-top: 30px;
-		text-align: left;
-	}
+    max-width: 640px;
+    overflow: scroll;
+    @media (max-width: 1023px) {
+        margin-left: 20%
+    }
+    @media (max-width: 860px) {
+        max-width: 590px;
+    }
+    p{
+        text-align: center;	
+    }	
+
+    .title1{
+        font-size: 14px;
+        color:@green4;
+        margin-top: 28px;
+    }
+
+    .title2{
+        font-size: 48px;
+        color:@green8;
+        margin-top: 38px;
+    }
+
+    .title3{
+        font-size: 24px;
+        color:@black2;
+        margin-top: 20px;
+        border-bottom: 1px solid @grey7;
+        padding-bottom: 30px;
+    }
+
+    .title4{
+        font-size: 11px;
+        color:@grey6;
+        margin-top: 28px;
+    }
+
+    .title5{
+        font-size: 18px;
+        color:@grey10;	
+    }
+    .title6{
+        font-size: 18px;
+        color:@green8;
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    .title7{
+        font-size: 14px;
+        color:@grey10;
+        margin-top: 30px;
+        text-align: left;
+    }
 }
 
 .indicatorList{
-	background-color: white;
-	position: absolute;
-	left: 170px;
-	right: 50%;
-	height: 100%;
-	z-index: 1002;
-	padding-top: 50px;
-	padding-right: 10px;
-	display: none;
-	
-	@media (max-width: 1023px) {
-		right: 0%;
-	}
-	
-	.cabecera{
-		border-bottom: 1px solid @grey7;
-		padding-bottom: 10px;
-		font-size: 10px;
-		color: @grey6;		
-	}
-	
-	.familia{
-		font-size: 14px;
-		color:@green4;
-		height: 35px;
-		padding-top: 5px;
-		cursor: pointer;
-	}
-	.familia:BEFORE {
-		content: url("/img/TITA-fomento_familia.png");
-		position: relative;
-		top: 4px;
-		margin-right: 10px;
-	}
-	
-	.indicadores{
-		display: none;
-	}
-	.indicador{
-		font-size: 14px;
-		background-color: @grey3;
-		height: 35px;
-		border-top: 1px solid @grey9;
-		float:left;
-		width: 100%;
-		cursor:pointer;
-		
-		.nameIndicador{
-			color: @black2;
-			float:left;	
-			padding-top: 5px;
-		}
-		
-		.nameIndicador:before{
-			content: url("/img/TITA-fomento_icon_li.png");
-			position: relative;
-			top: -2px;
-			margin-right: 10px;
-			margin-left: 30px;
-		}
-		
-		.anioIndicador{
-			color: @grey8;
-			float: right;
-			margin-top: 5px;
-			margin-right: 5px;
-		}
-		
-		.contador{
-			color: white;
-			background-color: #b1b1b2;
-			float: right;
-			margin-top: 5px;
-			padding-left: 5px;
-			padding-right: 5px;
-			margin-right: 10px;
-			border-radius: 3px;
-		}
-	}
-	.separador{
-		border-bottom: 1px solid @grey7;
-		height: 1px;
-		width: 100%
-	}
-	
+    background-color: white;
+    position: absolute;
+    left: 170px;
+    right: 50%;
+    height: 100%;
+    z-index: 1002;
+    padding-top: 50px;
+    padding-right: 10px;
+    display: none;
+
+    @media (max-width: 1023px) {
+        right: 0%;
+    }
+
+    .cabecera{
+        border-bottom: 1px solid @grey7;
+        padding-bottom: 10px;
+        font-size: 10px;
+        color: @grey6;		
+    }
+
+    .familia{
+        font-size: 14px;
+        color:@green4;
+        height: 35px;
+        padding-top: 5px;
+        cursor: pointer;
+    }
+    .familia:BEFORE {
+        content: url("/img/TITA-fomento_familia.png");
+        position: relative;
+        top: 4px;
+        margin-right: 10px;
+    }
+
+    .indicadores{
+        display: none;
+    }
+    .indicador{
+        font-size: 14px;
+        background-color: @grey3;
+        height: 35px;
+        border-top: 1px solid @grey9;
+        float:left;
+        width: 100%;
+        cursor:pointer;
+
+        .nameIndicador{
+            color: @black2;
+            float:left;	
+            padding-top: 5px;
+        }
+
+        .nameIndicador:before{
+            content: url("/img/TITA-fomento_icon_li.png");
+            position: relative;
+            top: -2px;
+            margin-right: 10px;
+            margin-left: 30px;
+        }
+
+        .anioIndicador{
+            color: @grey8;
+            float: right;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+
+        .contador{
+            color: white;
+            background-color: #b1b1b2;
+            float: right;
+            margin-top: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+    }
+    .separador{
+        border-bottom: 1px solid @grey7;
+        height: 1px;
+        width: 100%
+    }
+
 }
 
 #groupLayer{
-	background-color: white;
-	min-width: 300px;
-	max-height: 500px;
-	position: absolute;
-	z-index: 1001;
-	right: 0;
-	margin-right: 21px;
-	margin-top: 107px;
-	overflow: auto;
-	border-radius: 5px;
-	box-shadow: 0px 0px 5px @grey_dark;
-   -webkit-box-shadow: 0px 0px 5px @grey_dark;
-   -moz-box-shadow: 0px 0px 5px @grey_dark;
-   font-size: 14px;
-   
-	
-	h1{
-		color: @green2;
-		padding: 15px 0px 12px 0px;
-		text-align: center;
-		border-bottom: 1px solid #67c08f;
-		font-size: 15px;
-		padding-left: 10px;
-		padding-right: 10px;
-		cursor: pointer;
-	}
-	
-	.footerGroupLayer{
-		margin-top: -1px;
-		border-top: 1px solid #67c08f;
-/* 		margin-bottom: 10px; */
-	}
-	
-	input[type='checkbox']{
-		float: left;
-		margin-top: 6px;
-		margin-left: 10px;
-		margin-right: 10px;
-	}
-	
-	input[type='checkbox']:checked + label{
-		font-weight: bold;
-	}
-	
-	label {
-		display: block;
-	}
-	
-	.capa{
-		padding-left: 10px;
-		padding-right: 10px;
-		border-bottom: 1px solid @grey9;
-		line-height: 35px;
-		cursor: move;
-		
-		select{
-			float:right;
-			margin-top: 8px;
-		}
-	}
-	
-	select{
-		margin-left: 10px;
-	}
-	
+    background-color: white;
+    min-width: 300px;
+    max-height: 500px;
+    position: absolute;
+    z-index: 1001;
+    right: 0;
+    margin-right: 21px;
+    margin-top: 107px;
+    overflow: auto;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px @grey_dark;
+    -webkit-box-shadow: 0px 0px 5px @grey_dark;
+    -moz-box-shadow: 0px 0px 5px @grey_dark;
+    font-size: 14px;
+
+
+    h1{
+        color: @green2;
+        padding: 15px 0px 12px 0px;
+        text-align: center;
+        border-bottom: 1px solid #67c08f;
+        font-size: 15px;
+        padding-left: 10px;
+        padding-right: 10px;
+        cursor: pointer;
+
+        .borrarCapa{
+            margin-top:5px;
+        }
+
+    }
+
+    .footerGroupLayer{
+        margin-top: -1px;
+        border-top: 1px solid #67c08f;
+        /* 		margin-bottom: 10px; */
+    }
+
+    input[type='checkbox']{
+        float: left;
+        margin-top: 6px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    input[type='checkbox']:checked + label{
+        font-weight: bold;
+    }
+
+    label {
+        display: block;
+    }
+
+    .capa{
+        padding-left: 10px;
+        padding-right: 10px;
+        border-bottom: 1px solid @grey9;
+        line-height: 35px;
+        cursor: move;
+
+        select{
+            float:right;
+            margin-top: 8px;
+        }
+    }
+
+    select{
+        margin-left: 10px;
+    }
+
+    .borrarCapa{
+        float: right;
+        margin-top: 9px;
+        margin-left: 10px;
+        border: 1px solid @grey8;
+        border-radius: 50%;
+        padding: 2px;
+        cursor: pointer;
+    }
+
 }
 
 footer{
-	padding-left: 170px;
-	position: fixed;
-	bottom: 0px;
-	padding-bottom: 5px;
-	width: 100%;
-	z-index: 1002;
-	background-color: white;
-	
-	@media (max-width: 790px) {
-		padding-left: 139px;
-	}
+    padding-left: 170px;
+    position: fixed;
+    bottom: 0px;
+    padding-bottom: 5px;
+    width: 100%;
+    z-index: 1002;
+    background-color: white;
+
+    @media (max-width: 790px) {
+        padding-left: 139px;
+    }
 }
 
 .ellipsis {
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
