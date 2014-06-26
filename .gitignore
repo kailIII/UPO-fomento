@@ -1,5 +1,8 @@
-.pyc
+*.pyc
 **/.DS_Store
 venv/
 .project
 .pydevproject
+nbproject
+www/cdn/es/index.html
+js/config.js
