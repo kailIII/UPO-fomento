@@ -25,16 +25,16 @@ Map = {
 			    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(this.__map);
 			
-			app.base = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fondo_cartografico/wms?", {
-				layers: "andalucia_poly",
+			app.base = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+				layers: "andalucia_poly,am_centroid_fuera,areas_metropolitanas",
 				format: 'image/png',
 				transparent: true
 			});
 			app.base.setZIndex(0);
 			app.base.addTo(this.__map);
 			
-			app.layerRelieve = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fondo_cartografico/wms?", {
-				layers: "relieve_2",
+			app.layerRelieve = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+				layers: "relieve_2,am_centroid_fuera,areas_metropolitanas",
 				format: 'image/png',
 				transparent: true
 			});
