@@ -613,12 +613,14 @@ nav{
     background-color: white;
     position: absolute;
     left: 170px;
-    right: 50%;
-    height: 100%;
+    right: 60%;
     z-index: 1002;
     padding-top: 50px;
     padding-right: 10px;
     display: none;
+    overflow: auto;
+    top: 0;
+    bottom: 58px;
 
     @media (max-width: 1023px) {
         right: 0%;
@@ -628,9 +630,14 @@ nav{
         border-bottom: 1px solid @grey7;
         padding-bottom: 10px;
         font-size: 10px;
-        color: @grey6;		
+        color: @grey6;
+        min-width: 460px;		
     }
-
+	
+	.contenido{
+		min-width: 460px;
+	}
+	
     .familia{
         font-size: 14px;
         color:@green4;
