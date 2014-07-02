@@ -103,11 +103,11 @@ app.view.Indicator = Backbone.View.extend({
             ['Cádiz', 100],
             ['Sevilla', 50],
             ['Málaga', 25],
-            ['Valverde', 1]
+            ['Almería', 1]
         ]);
 
         // Set chart options
-        var options = {'title': 'Arte en Andalucía',
+        var options = {'title': 'Tasa de paro en Andalucía',
             'width': 400,
             'height': 300};
 
@@ -150,12 +150,19 @@ app.view.Indicator = Backbone.View.extend({
                 } else {
                     $(".leyenda").html("");
                 }
-
+                var width = "";
+                if(response.cod_indicador == 2){
+                	width = "2000px"
+                }else if(response.cod_indicador == 3){
+                	width = "780px"
+                }else if(response.cod_indicador == 8){
+                	width = "945px"
+                }
                 $.each(keys, function(i, key) {
                     if (i != 0) {
-                        if (response.cod_indicador == 2) {
-                            self.$el.find(".cabeceraTabla").css({"width": "2000px"})
-                            self.$el.find(".cabeceraTabla").append("<div class='fleft' style='width:11%;'>" +
+                        if (width != "") {
+                            self.$el.find(".cabeceraTabla").css({"width": width})
+                            self.$el.find(".cabeceraTabla").append("<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>" +
                                     "<p>" + key.replace("###" + (i) + "###", "") + "</p>" +
                                     "</div>");
                         } else {
@@ -173,9 +180,9 @@ app.view.Indicator = Backbone.View.extend({
                     var row = "<div class='row datos' geom='" + dato[keys[0]] + "'>"
                     for (var i = 0; i < keys.length; i++) {
                         if (i != 0) {
-                            if (response.cod_indicador == 2) {
-                                self.$el.find(".datosTabla").css({"width": "2000px"})
-                                row += "<div class='fleft' style='width:11%;'>";
+                            if (width != "") {
+                                self.$el.find(".datosTabla").css({"width": width})
+                                row += "<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>";
                             } else {
                                 row += "<div class='col-sm-" + col + " col-md-" + col + "'>";
                             }

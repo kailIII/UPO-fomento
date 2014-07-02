@@ -400,7 +400,7 @@ nav{
             background-color: white;
             position: absolute;
             left: 0;
-            right: 50%;
+            right: 70%;
             pointer-events: all;
             /* 			overflow: auto; */
             bottom: 155px;
@@ -418,6 +418,7 @@ nav{
                 border-bottom: 1px solid @grey7;
                 margin-right: 10px;
                 overflow: auto;
+                min-width: 400px;
 
                 p{
                     font-weight: 700;
@@ -440,7 +441,8 @@ nav{
                 margin-top: 83px;
                 right: 0;
                 left: 0px;
-                padding-right: 9px;
+/*                 padding-right: 9px; */
+                min-width: 400px;
             }
 
             .datos{
@@ -482,12 +484,13 @@ nav{
 			font-size: 14px;
 			margin-left: 10px;
 			cursor: pointer;
+			background-color: #f5f5f5;
 		}
 		a:LAST-CHILD {
 			margin-left: -5px;
 		}
 		.active{
-			background-color: #f5f5f5;
+			background-color: white;
 		}
     }
     
