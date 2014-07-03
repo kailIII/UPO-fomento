@@ -119,4 +119,23 @@ function groupLayerEvents(){
 			}
 
 	});
+	
+	
+	$(".groupLayerVisibility").unbind().bind( "click", function(){
+		if($(this).text() == "Ocultar"){
+			$(".indicatorName").fadeOut();
+			$(".mapaBaseList").fadeOut();
+			$("input[type='checkbox']").fadeOut();
+			$("label").fadeOut();
+			$(this).text("Mostrar");
+			$("#groupLayer").css({"min-width":"63px"});
+		}else{
+			$(".indicatorName").fadeIn();
+			$(".mapaBaseList").fadeIn();
+			$("input[type='checkbox']").fadeIn();
+			$("label").fadeIn();
+			$(this).text("Ocultar");
+			$("#groupLayer").css({"min-width":""});
+		}
+	});
 }

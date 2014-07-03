@@ -26,7 +26,7 @@ Map = {
 			}).addTo(this.__map);
 			
 			app.base = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
-				layers: "andalucia,am_centroid_fuera,areas_metropolitanas",
+				layers: "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas",
 				format: 'image/png',
 				transparent: true
 			});

@@ -784,6 +784,14 @@ nav{
         padding: 2px;
         cursor: pointer;
     }
+    
+    .groupLayerVisibility{
+		float: right;
+		margin-right: 10px;
+		cursor: pointer;
+		font-size: 12px;
+		margin-top: -2px;
+	}
 
 }
 
@@ -806,3 +814,4 @@ footer{
     overflow: hidden;
     white-space: nowrap;
 }
+
