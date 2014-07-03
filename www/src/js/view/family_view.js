@@ -71,6 +71,9 @@ app.view.Family = Backbone.View.extend({
     
     loadFamilies : function(response) {
     	this.$el.html(this._template({families:response.toJSON()}));
+    	if(Backbone.history.fragment != ""){
+    		$(".botonDesplegable").trigger("click");
+    	}
 	},
     
 //    render: function() {
