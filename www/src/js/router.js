@@ -33,10 +33,8 @@ app.router = Backbone.Router.extend({
     
     indicator: function(id){
     	$("#map").show();
-//        app.showView(new app.view.Indicator({idIndicador:(id? id: 1) , fecha:null, esIndicador:false}));
-        app.showView(new app.view.Family({esIndicador:true}));
-        Map.drawIndicator(1,null, false);
-//        indicatorView.drawIndicator((id? id: 1),null);
+//        app.showView(new app.view.Family({esIndicador:true}));
+//        Map.drawIndicator(1,null, false);
     },
     
     indicatorList: function(){

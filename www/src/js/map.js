@@ -95,7 +95,7 @@ Map = {
 	
 	refreshIndex: function() {
 		var self = this;
-		var aux = 2;
+		var aux = 3;
 		$.each(this.__layersIndicador, function(i){
 //			for(var y=0; y<self.__layersIndicador[i].capa.length; y++){
 //				self.__layersIndicador[i].capa[y].setZIndex(y+2+i);
