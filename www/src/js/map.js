@@ -64,7 +64,7 @@ Map = {
 			
 			this.__map.on("click",function(e){
 				if(Map.getLayersMapBase().length >0 || Map.getLayersIndicador().length > 0){
-					Map.featureInfo(e, null, Map.getLayersMapBase().length>0 ? false:true);
+					Map.featureInfo(e, null, Map.getLayersMapBase().length>0 ? false:true, e.latlng.lat, e.latlng.lng);
 				}
 			});
 
@@ -184,7 +184,7 @@ Map = {
 	    });
     },
     
-    featureInfo : function(e,id, esIndicador){
+    featureInfo : function(e,id, esIndicador, lat, lng){
     	
     	var BBOX = this.__map.getBounds().toBBoxString();
 		var WIDTH = this.__map.getSize().x;
@@ -223,28 +223,29 @@ Map = {
 		        			
 		        			if(idIndicador == "" || id_geometry==""){
 		        				if(id>0){
-			        				Map.featureInfo(e, id-1, esIndicador);
+			        				Map.featureInfo(e, id-1, esIndicador, lat, lng);
 			        				
 			        			}else if(!esIndicador){
-			        				Map.featureInfo(e, null, true);
+			        				Map.featureInfo(e, null, true, lat, lng);
 			        			}
 		        			}else{
 		        				app.router.navigate('info/'+ idIndicador, {trigger: false});
 			        			app.showView(new app.view.Indicator({idIndicador:idIndicador, fecha:fecha, id_geometry:id_geometry}));
+			        			Map.getMap().setView([lat, lng], 10);
 		        			}
 		        		}else{
 		        			if(id>0){
-		        				Map.featureInfo(e, id-1, esIndicador);
+		        				Map.featureInfo(e, id-1, esIndicador, lat, lng);
 		        			}else if(!esIndicador){
-		        				Map.featureInfo(e, null, true);
+		        				Map.featureInfo(e, null, true, lat, lng);
 		        			}
 		        		}
 		        	}
 	        	}catch (ex){
 	        		if(id>0){
-        				Map.featureInfo(e, id-1, esIndicador);
+        				Map.featureInfo(e, id-1, esIndicador, lat, lng);
         			}else if(!esIndicador){
-        				Map.featureInfo(e, null, true);
+        				Map.featureInfo(e, null, true, lat, lng);
         			}
 	        	}
 	        },

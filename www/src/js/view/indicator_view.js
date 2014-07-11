@@ -123,12 +123,21 @@ app.view.Indicator = Backbone.View.extend({
         	$(e.currentTarget).css({"left":"97%"});
         	$(e.currentTarget).attr("src","/img/TITA-fomento_icon_menos.png");
         	$(e.currentTarget).prop("title","Disminuir");
+        	this.width = $(".cabeceraTabla").width();
+        	
+        	if($(".cuerpoIndicador").outerWidth() > this.width){
+        		$(".cabeceraTabla").css({"width":""})
+            	$(".datosTabla").css({"width":""})
+        	}
         	
     	}else{
     		$(".contenido").css({"right":""});
         	$(e.currentTarget).css({"left":""});
         	$(e.currentTarget).attr("src","/img/TITA-fomento_icon_mas.png");
         	$(e.currentTarget).prop("title","Ampliar");
+        	
+        	$(".cabeceraTabla").css({"width":this.width})
+        	$(".datosTabla").css({"width":this.width})
     	}
     },
     
