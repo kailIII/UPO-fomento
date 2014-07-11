@@ -418,7 +418,7 @@ nav{
                 border-bottom: 1px solid @grey7;
                 margin-right: 10px;
                 overflow: auto;
-                min-width: 400px;
+                min-width: 500px;
 
                 p{
                     font-weight: 700;
@@ -442,7 +442,7 @@ nav{
                 right: 0;
                 left: 0px;
 /*                 padding-right: 9px; */
-                min-width: 400px;
+                min-width: 500px;
             }
 
             .datos{
@@ -471,6 +471,18 @@ nav{
         display: none;
         margin-top: 100px;
     }
+    
+    .ampliarView{
+    	position: absolute;
+		z-index: 1001;
+		top: 126px;
+		left: 27.5%;
+		cursor: pointer;
+		
+		@media (max-width: 1023px) {
+        	display: none;
+    	}
+    }
     .conmutador_representacion{
         position: absolute;
 		z-index: 1001;
@@ -479,7 +491,7 @@ nav{
 		a{
 			border: 1px solid @black;
 			border-bottom: none;
-			border-radius: 5px 5px 0px 0px;
+/* 			border-radius: 5px 5px 0px 0px; */
 			padding: 5px 10px 5px 10px;
 			font-size: 14px;
 			margin-left: 10px;

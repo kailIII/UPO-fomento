@@ -24,7 +24,7 @@ class IndicadorModel(PostgreSQLModel):
         return self.query(sql,[idIndicador]).row()
     
     def getIndicadorData(self, idIndicador, fecha=None):
-        sql = "SELECT i.cod_indicador, name_indicador, name_familia, if.leyenda, sql_dato FROM geoserver.indicador i" \
+        sql = "SELECT i.cod_indicador, name_indicador, name_familia, if.leyenda, width, sql_dato FROM geoserver.indicador i" \
                 " inner join geoserver.indicador_fecha if on i.cod_indicador = if.cod_indicador" \
                  " inner join geoserver.familia f on f.cod_familia = i.cod_familia where i.cod_indicador=%s and fecha=%s";
         

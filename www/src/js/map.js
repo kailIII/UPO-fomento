@@ -38,8 +38,20 @@ Map = {
 				format: 'image/png',
 				transparent: true
 			});
+			
 			app.layerRelieve.setZIndex(1);
 			app.layerRelieve.addTo(this.__map);
+			
+			//ARREGLAR ESTO
+			
+			L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+				layers: "areas_metropolitanas_poly",
+				format: 'image/png',
+				transparent: true,
+				zIndex:10000000000
+			}).addTo(this.__map);
+			
+			//////////////////
 
 			// add zoom control to map left
 			var zoomControl = new L.Control.Zoom({
@@ -124,8 +136,12 @@ Map = {
 	        	var layer = L.tileLayer.wms(capas.capas[0].servidor, {
     				layers: aux,
     				format: 'image/png',
-    				transparent: true
+    				transparent: true,
     			});
+	        	
+	        	layer.on("click",function(e){
+					alert("")
+				});
 	        	
 	        	layer.addTo(Map.getMap());
 	        	
@@ -239,5 +255,3 @@ Map = {
     	
     },
 }
-
-

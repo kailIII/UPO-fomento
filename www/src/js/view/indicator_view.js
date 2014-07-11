@@ -21,6 +21,7 @@ app.view.Indicator = Backbone.View.extend({
         "click .botonLeyenda": "botonLeyendaClick",
         "click .botonVolver": "goList",
         "click .conmutador_representacion a": "tabular",
+        "click .ampliarView": "ampliarView",
 //    	"change .comboFechas select" : "changeDate",
 //    	"click #anteriorIndicador" : "anteriorIndicador",
 //    	"click #siguienteIndicador" : "siguienteIndicador",
@@ -115,6 +116,22 @@ app.view.Indicator = Backbone.View.extend({
         var chart = new google.visualization.ColumnChart(document.getElementById('zonaChart'));
         chart.draw(data, options);
     },
+    
+    ampliarView:function(e){
+    	if($(e.currentTarget).prop("title") == "Ampliar"){
+    		$(".contenido").css({"right":"0"});
+        	$(e.currentTarget).css({"left":"97%"});
+        	$(e.currentTarget).attr("src","/img/TITA-fomento_icon_menos.png");
+        	$(e.currentTarget).prop("title","Disminuir");
+        	
+    	}else{
+    		$(".contenido").css({"right":""});
+        	$(e.currentTarget).css({"left":""});
+        	$(e.currentTarget).attr("src","/img/TITA-fomento_icon_mas.png");
+        	$(e.currentTarget).prop("title","Ampliar");
+    	}
+    },
+    
     render: function() {
         this.$el.html(this._template());
         var self = this;
@@ -150,26 +167,31 @@ app.view.Indicator = Backbone.View.extend({
                 } else {
                     $(".leyenda").html("");
                 }
-                var width = "";
-                if(response.cod_indicador == 2){
-                	width = "2000px"
-                }else if(response.cod_indicador == 3){
-                	width = "780px"
-                }else if(response.cod_indicador == 8){
-                	width = "945px"
-                }
+                var width = response.width;
+//                if(response.cod_indicador == 2){
+//                	width = "2000px"
+//                }else if(response.cod_indicador == 3){
+//                	width = "780px"
+//                }else if(response.cod_indicador == 8){
+//                	width = "945px"
+//                }
                 $.each(keys, function(i, key) {
                     if (i != 0) {
-                        if (width != "") {
-                            self.$el.find(".cabeceraTabla").css({"width": width})
-                            self.$el.find(".cabeceraTabla").append("<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>" +
-                                    "<p>" + key.replace("###" + (i) + "###", "") + "</p>" +
-                                    "</div>");
-                        } else {
-                            self.$el.find(".cabeceraTabla").append("<div class='col-sm-" + col + " col-md-" + col + "'>" +
-                                    "<p>" + key.replace("###" + (i) + "###", "") + "</p>" +
-                                    "</div>");
-                        }
+//                        if (width != "") {
+//                            self.$el.find(".cabeceraTabla").css({"width": width})
+//                            self.$el.find(".cabeceraTabla").append("<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>" +
+//                                    "<p>" + key.replace("###" + (i) + "###", "") + "</p>" +
+//                                    "</div>");
+//                        } else {
+//                            self.$el.find(".cabeceraTabla").append("<div class='col-sm-" + col + " col-md-" + col + "'>" +
+//                                    "<p>" + key.replace("###" + (i) + "###", "") + "</p>" +
+//                                    "</div>");
+//                        }
+                    	
+                    	self.$el.find(".cabeceraTabla").css({"width": width})
+                        self.$el.find(".cabeceraTabla").append("<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>" +
+                                "<p>" + key.replace("###" + (i) + "###", "") + "</p>" +
+                                "</div>");
 
                     }
 
@@ -180,12 +202,16 @@ app.view.Indicator = Backbone.View.extend({
                     var row = "<div class='row datos' geom='" + dato[keys[0]] + "'>"
                     for (var i = 0; i < keys.length; i++) {
                         if (i != 0) {
-                            if (width != "") {
-                                self.$el.find(".datosTabla").css({"width": width})
-                                row += "<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>";
-                            } else {
-                                row += "<div class='col-sm-" + col + " col-md-" + col + "'>";
-                            }
+//                            if (width != "") {
+//                                self.$el.find(".datosTabla").css({"width": width})
+//                                row += "<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>";
+//                            } else {
+//                                row += "<div class='col-sm-" + col + " col-md-" + col + "'>";
+//                            }
+                        	
+                        	self.$el.find(".datosTabla").css({"width": width})
+                            row += "<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>";
+                        	
                             row += "<p>" + dato[keys[i]] + "</p>" +
                                     "</div>";
                         }
