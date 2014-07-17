@@ -36,3 +36,10 @@ def getNumIndicadores(fecha=None):
     return jsonify({"result":ui.getNumIndicadores()}) 
 
 
+@app.route('/centroid/<string:tabla>/<string:columnaId>', methods = ['GET'])
+def getIndicadorDataCentroid(tabla,columnaId):  
+    ui = IndicadorModel()
+    centroid = ui.getCentroid(tabla,columnaId.split("@")[0],columnaId.split("@")[1])
+    return jsonify(centroid)
+
+

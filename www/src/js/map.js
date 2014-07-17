@@ -25,22 +25,33 @@ Map = {
 			    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(this.__map);
 			
-			app.base = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
-				layers: "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas",
+//			app.base = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+//				layers: "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas",
+//				format: 'image/png',
+//				transparent: true
+//			});
+//			app.base.setZIndex(0);
+//			app.base.addTo(this.__map);
+//			
+//			app.layerRelieve = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+//				layers: "relieve_2,andalucia,am_centroid_fuera,areas_metropolitanas",
+//				format: 'image/png',
+//				transparent: true
+//			});
+//			
+//			app.layerRelieve.setZIndex(1);
+//			app.layerRelieve.addTo(this.__map);
+			
+			app.base = "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas";
+			app.baseRelieve = "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas,relieve_2,andalucia,am_centroid_fuera,areas_metropolitanas";
+			
+			app.baseLayer = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+				layers: app.baseRelieve,
 				format: 'image/png',
 				transparent: true
 			});
-			app.base.setZIndex(0);
-			app.base.addTo(this.__map);
-			
-			app.layerRelieve = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
-				layers: "relieve_2,andalucia,am_centroid_fuera,areas_metropolitanas",
-				format: 'image/png',
-				transparent: true
-			});
-			
-			app.layerRelieve.setZIndex(1);
-			app.layerRelieve.addTo(this.__map);
+			app.baseLayer.setZIndex(0);
+			app.baseLayer.addTo(this.__map);
 			
 			//ARREGLAR ESTO
 			
@@ -231,7 +242,7 @@ Map = {
 		        			}else{
 		        				app.router.navigate('info/'+ idIndicador, {trigger: false});
 			        			app.showView(new app.view.Indicator({idIndicador:idIndicador, fecha:fecha, id_geometry:id_geometry}));
-			        			Map.getMap().setView([lat, lng], 10);
+			        			Map.getMap().setView([lat, lng], Map.getMap().getZoom()<10 ? 10: Map.getMap().getZoom());
 		        			}
 		        		}else{
 		        			if(id>0){

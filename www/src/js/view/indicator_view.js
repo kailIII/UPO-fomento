@@ -22,6 +22,8 @@ app.view.Indicator = Backbone.View.extend({
         "click .botonVolver": "goList",
         "click .conmutador_representacion a": "tabular",
         "click .ampliarView": "ampliarView",
+        "click .datos": "goMap",
+        
 //    	"change .comboFechas select" : "changeDate",
 //    	"click #anteriorIndicador" : "anteriorIndicador",
 //    	"click #siguienteIndicador" : "siguienteIndicador",
@@ -141,6 +143,20 @@ app.view.Indicator = Backbone.View.extend({
     	}
     },
     
+    goMap:function(e){
+    	var id_geom = $(e.currentTarget).attr("geom");
+    	$(".datos.active").removeClass("active");
+    	$(e.currentTarget).addClass("active");
+    	$.ajax({
+            url: "/api/centroid/" + this.tablaGeom + "/" + this.colGeom + "@" + id_geom,
+            type: "GET",
+            success: function(response) {
+            	Map.getMap().setView([response.lat, response.lng], 10);
+            }
+        });
+    
+    },
+    
     render: function() {
         this.$el.html(this._template());
         var self = this;
@@ -235,6 +251,9 @@ app.view.Indicator = Backbone.View.extend({
                         scrollTop: $($(".datosTabla").find(".active")[0]).offset().top - 180
                     }, 1000);
                 }
+                
+                self.tablaGeom = response.tabla_geom.split("###")[0];
+                self.colGeom = response.tabla_geom.split("###")[1];
             }
         });
 

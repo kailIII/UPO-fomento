@@ -24,7 +24,7 @@ class IndicadorModel(PostgreSQLModel):
         return self.query(sql,[idIndicador]).row()
     
     def getIndicadorData(self, idIndicador, fecha=None):
-        sql = "SELECT i.cod_indicador, name_indicador, name_familia, if.leyenda, width, sql_dato FROM geoserver.indicador i" \
+        sql = "SELECT i.cod_indicador, name_indicador, name_familia, if.leyenda, width, tabla_geom, sql_dato FROM geoserver.indicador i" \
                 " inner join geoserver.indicador_fecha if on i.cod_indicador = if.cod_indicador" \
                  " inner join geoserver.familia f on f.cod_familia = i.cod_familia where i.cod_indicador=%s and fecha=%s";
         
@@ -46,3 +46,7 @@ class IndicadorModel(PostgreSQLModel):
     def getNumIndicadores(self):
         sql = "SELECT count(*) as count FROM geoserver.indicador"
         return self.query(sql).row()['count']
+    
+    def getCentroid(self, tabla,column,id):
+        sql = "SELECT ST_X(ST_CENTROID(ST_TRANSFORM(geom,4326))) as lng, ST_Y(ST_CENTROID(ST_TRANSFORM(geom,4326))) as lat FROM " + tabla + " WHERE " + column + " =%s"
+        return self.query(sql,[id]).row()
