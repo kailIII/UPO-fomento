@@ -325,7 +325,7 @@ nav{
     left: 170px;
     background-color: #f5f5f5;
     z-index: 1002;
-
+    
     .separator{
         height:1px;
         background-color: @black
@@ -358,10 +358,11 @@ nav{
     .title1{
         font-size: 11px;
         color: @grey4;
-        margin-top: 25px;
+        margin-top: 15px;
         float:left;
         margin-left: 20px;
         margin-right: 20px;
+        margin-bottom: 10px;
 
         p:FIRST-CHILD{
             border-bottom: 1px solid @grey4;
@@ -403,7 +404,7 @@ nav{
             right: 70%;
             pointer-events: all;
             /* 			overflow: auto; */
-            bottom: 155px;
+            bottom: 133px;
             padding-top: 8px;
             top: 0;
             overflow: auto;
@@ -470,13 +471,13 @@ nav{
     }
     #zonaChart{
         display: none;
-        margin-top: 100px;
+        /*margin-top: 70px;*/
     }
     
     .ampliarView{
     	position: absolute;
 		z-index: 1001;
-		top: 126px;
+		top: 110px;
 		left: 27.5%;
 		cursor: pointer;
 		
@@ -487,7 +488,7 @@ nav{
     .conmutador_representacion{
         position: absolute;
 		z-index: 1001;
-		top: 120px;
+		top: 100px;
 		
 		a{
 			border: 1px solid @black;
@@ -644,11 +645,11 @@ nav{
         padding-bottom: 10px;
         font-size: 10px;
         color: @grey6;
-        min-width: 460px;		
+        /*min-width: 460px;		*/
     }
 	
 	.contenido{
-		min-width: 460px;
+		/*min-width: 460px;*/
 	}
 	
     .familia{
@@ -675,12 +676,16 @@ nav{
         border-top: 1px solid @grey9;
         float:left;
         width: 100%;
+        height: auto;
+        padding-bottom: 5px;
         cursor:pointer;
 
         .nameIndicador{
             color: @black2;
             float:left;	
             padding-top: 5px;
+            width: 73%;
+            display: flex;
         }
 
         .nameIndicador:before{
@@ -707,6 +712,16 @@ nav{
             padding-right: 5px;
             margin-right: 10px;
             border-radius: 3px;
+        }
+        .indicatorDescription{
+            display: none;
+            margin: 10px 60px 15px 60px;
+            text-align: justify;
+        }
+        .indicatorInfo{
+            float: right;
+            margin-right: 10px;
+            margin-top: 10px;
         }
     }
     .separador{
@@ -791,11 +806,32 @@ nav{
     .borrarCapa{
         float: right;
         margin-top: 9px;
-        margin-left: 10px;
+        margin-left: 5px;
         border: 1px solid @grey8;
         border-radius: 50%;
         padding: 2px;
         cursor: pointer;
+    }
+
+    .featureInfo{
+        float: right;
+        margin-top: 5px;
+        margin-left: 10px;
+        border: 1px solid #7c7c7c;
+        border-radius: 50%;
+        cursor: pointer;
+        height: 18px;
+        width: 18px;
+        color: #7c7c7c;
+        p{
+            margin-top: -4px;
+            font-weight: bold;
+        } 
+    }
+
+    .featureInfo.active{
+        background-color: #7c7c7c;
+        color: white;
     }
     
     .groupLayerVisibility{

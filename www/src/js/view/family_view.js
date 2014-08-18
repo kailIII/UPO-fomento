@@ -4,13 +4,19 @@ app.view.Family = Backbone.View.extend({
     initialize: function(options) {
     	
     	var families = new app.model.Families();
-    	this.esIndicador = options.esIndicador;
-    	if(options.esIndicador){
+        this.tipo = options.tipo;
+    	if(this.tipo == 1){
     		app.events.trigger("menu", 1);
-    	}else{
+            $("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>INDICADORES")
+    	}else if(this.tipo == 2){
     		app.events.trigger("menu", 4);
-    		families.url = "/api/familiesMap"
-    	}
+    		families.url = "/api/cartoTem"
+            $("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>CARTOGRAFÍA TEMÁTICA")
+    	}else{
+            app.events.trigger("menu", 5);
+            families.url = "/api/mapBase"
+            $("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>CARTOGRAFÍA BASE")
+        }
     	
     	families.fetch({reset:true});
     	this.listenTo(families, "reset", this.loadFamilies);
@@ -25,6 +31,7 @@ app.view.Family = Backbone.View.extend({
     	"click .botonDesplegable": "botonDesplegableClick",
     	"click .botonLeyenda": "botonLeyendaClick",
     	"click .indicador": "goToIndicador",
+        "click .indicatorInfo": "indicatorInfo",
     },
     
     botonDesplegableClick:function(e){
@@ -59,10 +66,33 @@ app.view.Family = Backbone.View.extend({
     },
     
     goToIndicador:function(e){
-    	Map.drawIndicator($(e.currentTarget).attr("IdIndicador"),null, this.esIndicador);
-    	Map.getMap().setZoom(8);
+        var id = $(e.currentTarget).attr("IdIndicador");
+        var load = true;
+        var layers = this.tipo == 1 ? Map.getLayersIndicador():Map.getLayersMapBase();
+        for(var i=0; i<layers.length; i++){
+            if(layers[i].id == id){
+                load = false;
+                break;
+            }
+        }
+        
+        if(load){
+            restoreMap();
+            Map.drawIndicator(id,null, this.tipo == 1? true:false);
+            Map.getMap().setZoom(8);
+        }
 //    	app.showView(new app.view.Indicator({idIndicador:$(e.currentTarget).attr("IdIndicador") , fecha:null, esIndicador:this.esIndicador}));
 //    	app.router.navigate('indicador/'+ $(e.currentTarget).attr("IdIndicador"), {trigger: true});
+    },
+
+    indicatorInfo:function(e){
+        var descrip = $(e.currentTarget).parent().find(".indicatorDescription");
+        if(descrip.is(":visible")){
+            descrip.slideUp();
+        }else{
+            descrip.slideDown();
+        }
+        e.stopImmediatePropagation()
     },
     
     onClose: function(){
@@ -72,6 +102,15 @@ app.view.Family = Backbone.View.extend({
     
     loadFamilies : function(response) {
     	this.$el.html(this._template({families:response.toJSON()}));
+
+        if(this.tipo == 1){
+            this.$el.find("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>INDICADORES")
+        }else if(this.tipo == 2){
+            this.$el.find("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>CARTOGRAFÍA TEMÁTICA")
+        }else{
+            this.$el.find("#tituloListadoFamilias").html("CARTOGRAFÍA BASE")
+        }
+
     	if(Backbone.history.fragment != ""){
     		$(".botonDesplegable").trigger("click");
     	}

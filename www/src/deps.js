@@ -26,6 +26,7 @@ deps.JS = {
 			"js/view/error_view.js",
 			"js/view/notfound_view.js",
 			"js/view/home_view.js",
+			"js/global.js",
 			"js/map.js",
 			"js/groupLayer.js",
 			"js/view/map_view.js",

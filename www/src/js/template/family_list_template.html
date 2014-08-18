@@ -5,8 +5,8 @@
 	
 		<div class="row cabecera">
 			<div class="col-sm-12 col-md-12">
-				<p class="fleft"><strong>FAMILIA / </strong>INDICADORES</p>
-				<p class="fright">AÑOS DISPONIBLES</p>	
+				<p id="tituloListadoFamilias" class="fleft"><strong>FAMILIA / </strong>INDICADORES</p>
+				<!-- <p class="fright">AÑOS DISPONIBLES</p>	 -->
 			</div>
 		</div>
 		
@@ -15,7 +15,7 @@
 				
 				<% var idFamilia = -1;
 				 	_.each(families, function(family)  {
-				 		if(idFamilia != family.cod_familia){ %>
+				 		if(family.cod_familia && idFamilia != family.cod_familia){ %>
 				 			<%if(idFamilia != -1){ %>
 				 				</div>
 				 				<div class="clear"></div>
@@ -29,10 +29,16 @@
 				 			idFamilia = family.cod_familia; %>
 				 		<div idIndicador=<%= family.cod_indicador%> class="indicador">
 										<p class="nameIndicador"><%= family.name_indicador%></p>
-										<%if(family.count >1){ %>
+										<img class="indicatorInfo" title="Información" src="/img/TITA_icon_info_capa.svg"> 
+										<% if(family.graficas != 0){ %>
+											<img class="fright ml mt mr" title="Contiene información gráfica" src="/img/TITA-fomento_icon_chart.png"> 
+										<% } %>
+										<!-- <%if(family.count >1){ %>
 											<div class="contador">+<%= family.count -1%></div>
 										<% }%>
-										<p class="anioIndicador"><%= family.fecha%></p>
+										<p class="anioIndicador"><%= family.fecha%></p>-->
+										<div class="clear"></div>
+										<p class="indicatorDescription"><%= family.description%></p>
 									</div>
 				<% }); %>
 				

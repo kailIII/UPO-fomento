@@ -11,9 +11,13 @@ app.view.Indicator = Backbone.View.extend({
         this.indicadorActual = options.idIndicador;
         this.fecha = options.fecha;
         this.id_geometry = options.id_geometry;
+        this.multiYear = options.multiYear;
 //    	this.fecha = options.fecha;
 //    	this.esIndicador = options.esIndicador;
         this.numIndicadores = 1;
+        this.graphics = [];
+        this.graphicsImage = [];
+        this.graphicsProperties = [];
         this.render();
     },
     events: {
@@ -37,17 +41,15 @@ app.view.Indicator = Backbone.View.extend({
             $(e.currentTarget).find("img").attr("src", "/img/TITA-fomento_icon_ocultar-lista.png");
         }
     },
-    botonLeyendaClick: function(e) {
-        if ($(".leyenda").is(":visible")) {
-            $(".leyenda").fadeOut();
-//    		$(e.currentTarget).find("img").attr("src", "/img/TITA-fomento_icon_ocultar-lista.png");
-            $(e.currentTarget).text("Mostrar leyenda");
-        } else {
-            $(".leyenda").fadeIn();
-//    		$(e.currentTarget).find("img").attr("src", "/img/TITA-fomento_icon_mostrar-lista.png");
-            $(e.currentTarget).text("Ocultar leyenda");
-        }
-    },
+    // botonLeyendaClick: function(e) {
+    //     if ($(".leyenda").is(":visible")) {
+    //         $(".leyenda").fadeOut();
+    //         $(e.currentTarget).text("Mostrar leyenda");
+    //     } else {
+    //         $(".leyenda").fadeIn();
+    //         $(e.currentTarget).text("Ocultar leyenda");
+    //     }
+    // },
 //    changeDate:function(e){
 //    	this.drawIndicator(this.$el.find("#idIndicador").val(),e.currentTarget.value);
 //    },
@@ -66,6 +68,7 @@ app.view.Indicator = Backbone.View.extend({
         	}else{
         		 $('.zonaIndicador').hide();
                  $('#zonaChart').show();
+                 $("#zonaChart").resize();
         	}
     	}
     	
@@ -93,39 +96,54 @@ app.view.Indicator = Backbone.View.extend({
         // Remove events on close
         this.stopListening();
     },
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
-    drawChart: function() {
+    
+    drawChart: function(self) {
+        // var self = this;
+        $("#zonaChart").html("");
+        
+        for(var i=0; i<self.graphicsImage.length; i++){
+            $("#zonaChart").append("<img style='margin-top: 70px;' src='" + self.graphicsImage[i] +"'>");    
+        }
+        
+        // google.load("visualization","1",{callback: function() {
+            for(var i=0; i<self.graphics.length;i++){
+                    $("#zonaChart").append("<div class='chart" + i + "'></div>")
+                    var googleData = google.visualization.arrayToDataTable(self.graphics[i]);
+                    var options = {
+                        title: self.graphicsProperties[i].title,
+                        width:$(".contenido").outerWidth(),
+                        height:$(".contenido").outerHeight(),
+                        legend: { position: 'top', alignment: 'start' },
+                        // chartArea: {  width: "50%"}
+                    };
+                    var chart = new window["google"]["visualization"][self.graphicsProperties[i].type]($(".chart" + i)[0]);
+                    chart.draw(googleData, options, null);
+                }
+        // },packages: ["piechart","corechart"]});
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-            ['Cádiz', 100],
-            ['Sevilla', 50],
-            ['Málaga', 25],
-            ['Almería', 1]
-        ]);
-
-        // Set chart options
-        var options = {'title': 'Tasa de paro en Andalucía',
-            'width': 400,
-            'height': 300};
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.ColumnChart(document.getElementById('zonaChart'));
-        chart.draw(data, options);
+// var data = new google.visualization.DataTable();
+//         data.addColumn('date', 'Date');
+//         data.addColumn('number', 'Column A');
+//         data.addColumn('number', 'Column B');
+//         data.addRows(4);
+//         data.setCell(0, 0, new Date("2009/07/01"));
+//         data.setCell(0, 1, 1);
+//         data.setCell(0, 2, 7);
+//         data.setCell(1, 0, new Date("2009/07/08"));
+//         data.setCell(1, 1, 2);
+//         data.setCell(1, 2, 4);
+//         var chart = new google.visualization.LineChart(this.$('#zonaChart').get(0));
+//         chart.draw(data, null, null)
+        
     },
     
     ampliarView:function(e){
     	if($(e.currentTarget).prop("title") == "Ampliar"){
+            this.width = $(".cabeceraTabla").width();
     		$(".contenido").css({"right":"0"});
         	$(e.currentTarget).css({"left":"97%"});
         	$(e.currentTarget).attr("src","/img/TITA-fomento_icon_menos.png");
         	$(e.currentTarget).prop("title","Disminuir");
-        	this.width = $(".cabeceraTabla").width();
         	
         	if($(".cuerpoIndicador").outerWidth() > this.width){
         		$(".cabeceraTabla").css({"width":""})
@@ -141,6 +159,7 @@ app.view.Indicator = Backbone.View.extend({
         	$(".cabeceraTabla").css({"width":this.width})
         	$(".datosTabla").css({"width":this.width})
     	}
+        this.drawChart(this);
     },
     
     goMap:function(e){
@@ -156,26 +175,19 @@ app.view.Indicator = Backbone.View.extend({
         });
     
     },
-    
+
     render: function() {
         this.$el.html(this._template());
         var self = this;
+        this.$el.find(".conmutador_representacion").hide();
 
-        google.load("visualization",
-                "1",
-                {callback: function() {
-                        self.drawChart();
-                    },
-                    packages: ["piechart","corechart"]}
-        );
-
-        $.ajax({
-            url: "/api/numIndicadores",
-            type: "GET",
-            success: function(response) {
-                self.numIndicadores = response.result;
-            }
-        });
+        // $.ajax({
+        //     url: "/api/numIndicadores",
+        //     type: "GET",
+        //     success: function(response) {
+        //         self.numIndicadores = response.result;
+        //     }
+        // });
 
         $.ajax({
             url: "/api/indicador_data/" + this.indicadorActual + "/" + this.fecha,
@@ -187,35 +199,19 @@ app.view.Indicator = Backbone.View.extend({
                 var col = Math.floor(12 / (keys.length - 1));
                 self.$el.find(".cabeceraTabla").html("");
 
-                if (response.leyenda != null) {
-                    $(".leyenda").html("<img src='/img/leyendas/" + response.leyenda + "'>");
-                } else {
-                    $(".leyenda").html("");
+                $(".leyenda").html("");
+                if (response.leyendas != null) {
+                    var leyendas = response.leyendas.split(",");
+                    for(var i=0; i<leyendas.length; i++){
+                        $(".leyenda").append("<img src='/img/leyendas/" + leyendas[i] + "'>");
+                    }
                 }
                 var width = response.width;
-//                if(response.cod_indicador == 2){
-//                	width = "2000px"
-//                }else if(response.cod_indicador == 3){
-//                	width = "780px"
-//                }else if(response.cod_indicador == 8){
-//                	width = "945px"
-//                }
                 $.each(keys, function(i, key) {
                     if (i != 0) {
-//                        if (width != "") {
-//                            self.$el.find(".cabeceraTabla").css({"width": width})
-//                            self.$el.find(".cabeceraTabla").append("<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>" +
-//                                    "<p>" + key.replace("###" + (i) + "###", "") + "</p>" +
-//                                    "</div>");
-//                        } else {
-//                            self.$el.find(".cabeceraTabla").append("<div class='col-sm-" + col + " col-md-" + col + "'>" +
-//                                    "<p>" + key.replace("###" + (i) + "###", "") + "</p>" +
-//                                    "</div>");
-//                        }
-                    	
                     	self.$el.find(".cabeceraTabla").css({"width": width})
                         self.$el.find(".cabeceraTabla").append("<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>" +
-                                "<p>" + key.replace("###" + (i) + "###", "") + "</p>" +
+                                "<p>" + key.replace(/[\#]*[0-9]*[\#]*/, '') + "</p>" +
                                 "</div>");
 
                     }
@@ -227,13 +223,6 @@ app.view.Indicator = Backbone.View.extend({
                     var row = "<div class='row datos' geom='" + dato[keys[0]] + "'>"
                     for (var i = 0; i < keys.length; i++) {
                         if (i != 0) {
-//                            if (width != "") {
-//                                self.$el.find(".datosTabla").css({"width": width})
-//                                row += "<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>";
-//                            } else {
-//                                row += "<div class='col-sm-" + col + " col-md-" + col + "'>";
-//                            }
-                        	
                         	self.$el.find(".datosTabla").css({"width": width})
                             row += "<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>";
                         	
@@ -255,6 +244,48 @@ app.view.Indicator = Backbone.View.extend({
                 self.tablaGeom = response.tabla_geom.split("###")[0];
                 self.colGeom = response.tabla_geom.split("###")[1];
             }
+        });
+
+        $.ajax({
+            url: "/api/indicador_graphics/" + this.indicadorActual + "/" + this.fecha,
+            type: "GET",
+            success: function(response) {
+                self.graphics = [];
+                self.graphicsProperties = [];
+                if(!jQuery.isEmptyObject(response)){
+                    self.$el.find(".conmutador_representacion").fadeIn();
+                }
+                $.each(response, function(key){
+                    if(response[key].properties.type == "image"){
+                        self.graphicsImage.push(response[key].imagen);
+                    }else{
+                        self.graphicsProperties.push(response[key].properties);
+                        var data = response[key].data;
+                        var arrayData = [];
+                        for(var i=0; i<data.length; i++){
+                            if(i==0){
+                                var keys = Object.keys(data[i]);
+                                for(var y=0;y<keys.length;y++){
+                                    keys[y] = keys[y].replace(/[\#]*[0-9]*[\#]*/, '')
+                                }
+                                arrayData.push(keys);
+                            }
+                            var aux = [];
+                            $.each(data[i], function (index, value) {
+                                aux.push(value)
+                            });
+                            arrayData.push(aux);
+                        }
+                        self.graphics.push(arrayData);
+                 }
+
+                });
+                google.load("visualization", "1", { callback: function() { self.drawChart(self);}, packages: ["corechart"] });
+            }
+        });
+
+        $(window).unbind().bind('resize', function (event) {
+            self.drawChart(self);
         });
 
         return this;

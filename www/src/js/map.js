@@ -43,24 +43,25 @@ Map = {
 //			app.layerRelieve.addTo(this.__map);
 			
 			app.base = "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas";
-			app.baseRelieve = "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas,relieve_2,andalucia,am_centroid_fuera,areas_metropolitanas";
+			app.baseRelieve = "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas,relieve_2,andalucia,areas_metropolitanas";
 			
 			app.baseLayer = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
 				layers: app.baseRelieve,
 				format: 'image/png',
-				transparent: true
+				transparent: true,
+				zIndex:0
 			});
-			app.baseLayer.setZIndex(0);
 			app.baseLayer.addTo(this.__map);
 			
 			//ARREGLAR ESTO
 			
-			L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+			app.basePoly = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
 				layers: "areas_metropolitanas_poly",
 				format: 'image/png',
 				transparent: true,
 				zIndex:10000000000
-			}).addTo(this.__map);
+			});
+			app.basePoly.addTo(this.__map);
 			
 			//////////////////
 
@@ -72,13 +73,6 @@ Map = {
 			zoomControl.addTo(this.__map);
 		
 //			this.__map.touchZoom.disable();
-			
-			this.__map.on("click",function(e){
-				if(Map.getLayersMapBase().length >0 || Map.getLayersIndicador().length > 0){
-					Map.featureInfo(e, null, Map.getLayersMapBase().length>0 ? false:true, e.latlng.lat, e.latlng.lng);
-				}
-			});
-
 	},
 
 	getMap: function() {
@@ -172,11 +166,23 @@ Map = {
 	        	
 	        	
 	        	response.fechas = response.fechas.sort();
-	        	var fechas = "<select class='comboFechas'>";
-	        	for(var i=0; i<response.fechas.length; i++){
-	        		fechas += ("<option " + (response.fecha == response.fechas[i] ? "selected": '') + ">" + response.fechas[i] + "</option>");
+	        	var fechas;
+	        	if(response.tipocheck){
+	        		fechas = "<div class='fright ml30'>"
+	        		for(var i=0; i<response.fechas.length; i++){
+	        			fechas += "<input " + ((response.fechas[i]==fecha || (fecha == null && i==0)) ? "checked":"") +  " class='fleft' style='margin-top:12px;' type='checkbox'/><label class='fleft'>" + response.fechas[i] + "</label>"
+	        		}
+	        		fechas += "</div>"
+	        		if($(fechas).find(":checked").length == 0){
+
+	        		}
+	        	}else{
+	        		fechas = "<select class='comboFechas'>";
+		        	for(var i=0; i<response.fechas.length; i++){
+		        		fechas += ("<option " + (response.fecha == response.fechas[i] ? "selected": '') + ">" + response.fechas[i] + "</option>");
+		        	}
+		        	fechas += "</select>";
 	        	}
-	        	fechas += "</select>";
 	        	
 	        	
 	        	//Actualizo el árbol de capas
@@ -184,18 +190,55 @@ Map = {
 	        		$(".indicatorName").text(response.name_indicador);
 	        		$("#groupLayer").find("h1").find("select").remove()
 	        		$(".indicatorName").append("<img class='borrarCapa' title='Eliminar' src='/img/TITA_icon_descartar_capa.svg'>");
+	        		$(".indicatorName").append("<div class='featureInfo' title='Herramienta de información'><p>i</p></div>");
 	        		$(".indicatorName").append(fechas);
 	        		$(".indicatorName").attr("idIndicador", response.cod_indicador);
 	        	}else{
-	        		$(".mapaBaseList").prepend("<div idIndicador='" + response.cod_indicador + "' class='capa'>" + response.name_indicador + "<img class='borrarCapa' title='Eliminar' src='/img/TITA_icon_descartar_capa.svg'>" +  fechas + "</div>");
+	        		$(".mapaBaseList").prepend("<div idIndicador='" + response.cod_indicador + "' class='capa'> " + response.name_indicador + "<img class='borrarCapa' title='Eliminar' src='/img/TITA_icon_descartar_capa.svg'><div class='featureInfo' style='padding-left: 6px;margin-top: 9px;' title='Herramienta de información'><p style='margin-top: -9px;'>i</p></div>" +  fechas + "</div>");
 	        	}
 	        	
 	        	groupLayerEvents();
 	        },
 	    });
     },
+
+    drawIndicatorLayer:function(id, fechas, esIndicador){
+    	$.ajax({
+			url : "/api/indicador_capas/" + id + "/" + fechas,
+			type: "GET",
+			success: function(response) {
+				var layers = esIndicador ? Map.getLayersIndicador():Map.getLayersMapBase();
+				var aux = "";
+				for(var i=0; i<layers.length; i++){
+					if(layers[i].id == id){
+						Map.getMap().removeLayer(layers[i].capa);
+						var opacity = layers[i].capa.options.opacity;
+						for(var y=0; y<response.result.length; y++){
+							var capas = $.parseJSON(response.result[y].capas);
+							for(var z=0; z<capas.capas.length; z++){
+				        		aux += capas.capas[z].capa + ",";
+				        	}
+						}
+						aux = aux.slice(0,-1);
+						var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
+			    				layers: aux,
+			    				format: 'image/png',
+			    				transparent: true,
+			    				opacity:opacity
+			    		});	
+			        		
+			        	newLayer.addTo(Map.getMap());
+						layers[i].capa=newLayer;
+						Map.refreshIndex();
+
+						break;
+					}
+				}
+			}
+		});
+    },
     
-    featureInfo : function(e,id, esIndicador, lat, lng){
+    featureInfo : function(e,layer, lat, lng){
     	
     	var BBOX = this.__map.getBounds().toBBoxString();
 		var WIDTH = this.__map.getSize().x;
@@ -205,17 +248,12 @@ Map = {
     	
     	
     	
-    	if(id == null){
-			id = esIndicador? this.__layersIndicador.length-1:this.__layersMapBase.length-1;
-		}
-    	layers = esIndicador? this.__layersIndicador[id].capa : this.__layersMapBase[id].capa;
-    	var layersName = "";
-//    	for(var i=0; i<layers.length; i++){
-//    		layersName += layers[i].options.layers + ",";
-//    	}
-//    	
-//    	layersName = layersName.slice(0,-1);
-    	var request = layers._url + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=' + layers.options.layers +'&QUERY_LAYERS='+ layers.options.layers +'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2Fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
+  //   	if(id == null){
+		// 	id = esIndicador? this.__layersIndicador.length-1:this.__layersMapBase.length-1;
+		// }
+  //   	layers = esIndicador? this.__layersIndicador[id].capa : this.__layersMapBase[id].capa;
+  //   	var layersName = "";
+    	var request = layer.capa._url + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetFeatureInfo&LAYERS=' + layer.capa.options.layers +'&QUERY_LAYERS='+ layer.capa.options.layers +'&STYLES=&BBOX='+BBOX+'&FEATURE_COUNT=5&HEIGHT='+HEIGHT+'&WIDTH='+WIDTH+'&FORMAT=image%2Fpng&INFO_FORMAT=text%2Fhtml&SRS=EPSG%3A4326&X='+X+'&Y='+Y;
     	
     	$.ajax({
 			url : "/api/proxy",
@@ -223,45 +261,67 @@ Map = {
 			type: "POST",			
 	        success: function(data) {
 	        	try {
-		        	if (!data || data.indexOf("LayerNotQueryable")!=-1){
-//		        		obj.featureInfo(e,requestIdx+1);
-		        	}
-		        	else{
-		        		if($.trim($($.parseXML(data)).find("body").html()).length != 0){
-		        			idIndicador = $($.parseXML(data)).find("id_indicador").text();
-		        			id_geometry = $($.parseXML(data)).find("id_geometria").text();
-		        			fecha = $("div[idIndicador='" + idIndicador + "'], h1[idIndicador='" + idIndicador + "']").find("select").val();
+// 		        	if (!data || data.indexOf("LayerNotQueryable")!=-1){
+// //		        		obj.featureInfo(e,requestIdx+1);
+// 		        	}
+// 		        	else{
+// 		        		if($.trim($($.parseXML(data)).find("body").html()).length != 0){
+// 		        			idIndicador = $($.parseXML(data)).find("id_indicador").text();
+// 		        			id_geometry = $($.parseXML(data)).find("id_geometria").text();
+// 		        			fecha = $("div[idIndicador='" + idIndicador + "'], h1[idIndicador='" + idIndicador + "']").find("select").val();
 		        			
-		        			if(idIndicador == "" || id_geometry==""){
-		        				if(id>0){
-			        				Map.featureInfo(e, id-1, esIndicador, lat, lng);
+// 		        			if(idIndicador == "" || id_geometry==""){
+// 		        				if(id>0){
+// 			        				Map.featureInfo(e, id-1, esIndicador, lat, lng);
 			        				
-			        			}else if(!esIndicador){
-			        				Map.featureInfo(e, null, true, lat, lng);
-			        			}
-		        			}else{
-		        				app.router.navigate('info/'+ idIndicador, {trigger: false});
-			        			app.showView(new app.view.Indicator({idIndicador:idIndicador, fecha:fecha, id_geometry:id_geometry}));
-			        			Map.getMap().setView([lat, lng], Map.getMap().getZoom()<10 ? 10: Map.getMap().getZoom());
-		        			}
-		        		}else{
-		        			if(id>0){
-		        				Map.featureInfo(e, id-1, esIndicador, lat, lng);
-		        			}else if(!esIndicador){
-		        				Map.featureInfo(e, null, true, lat, lng);
-		        			}
-		        		}
-		        	}
+// 			        			}else if(!esIndicador){
+// 			        				Map.featureInfo(e, null, true, lat, lng);
+// 			        			}
+// 		        			}else{
+// 		        				app.router.navigate('info/'+ idIndicador, {trigger: false});
+// 			        			app.showView(new app.view.Indicator({idIndicador:idIndicador, fecha:fecha, id_geometry:id_geometry}));
+// 			        			Map.getMap().setView([lat, lng], Map.getMap().getZoom()<10 ? 10: Map.getMap().getZoom());
+// 		        			}
+// 		        		}else{
+// 		        			if(id>0){
+// 		        				Map.featureInfo(e, id-1, esIndicador, lat, lng);
+// 		        			}else if(!esIndicador){
+// 		        				Map.featureInfo(e, null, true, lat, lng);
+// 		        			}
+// 		        		}
+// 		        	}
+				if($.trim($($.parseXML(data)).find("body").html()).length != 0){
+					var idIndicador = $($($.parseXML(data)).find("id_indicador")[0]).text();
+					var  id_geometry = $($($.parseXML(data)).find("id_geometria")[0]).text();
+					var multiYear = false;
+					var fecha;
+					var divIndicator =  $("#groupLayer").find("div[idIndicador='" + idIndicador + "'], h1[idIndicador='" + idIndicador + "']");
+					if(divIndicator.find("input[type='checkbox']").length > 0){
+						multiYear = true;
+						fecha = divIndicator.find("input:checked").map(function() {
+						    return $(this).next("label").text();
+						}).get().join(",");
+					}else{
+						fecha = divIndicator.find("select").val();
+					}
+					// var fecha = $("div[idIndicador='" + idIndicador + "'], h1[idIndicador='" + idIndicador + "']").find("select").val();
+					if(idIndicador != "" && id_geometry != ""){
+						app.router.navigate('info/'+ idIndicador, {trigger: false});
+						app.showView(new app.view.Indicator({idIndicador:idIndicador, fecha:fecha, id_geometry:id_geometry}));
+						Map.getMap().setView([lat, lng], Map.getMap().getZoom()<10 ? 10: Map.getMap().getZoom());
+					}
+				}
+									
 	        	}catch (ex){
-	        		if(id>0){
-        				Map.featureInfo(e, id-1, esIndicador, lat, lng);
-        			}else if(!esIndicador){
-        				Map.featureInfo(e, null, true, lat, lng);
-        			}
+	        		// if(id>0){
+        			// 	Map.featureInfo(e, id-1, esIndicador, lat, lng);
+        			// }else if(!esIndicador){
+        			// 	Map.featureInfo(e, null, true, lat, lng);
+        			// }
 	        	}
 	        },
 	        error: function(){	        	
-	        	obj.featureInfo(e,requestIdx+1);
+	        	// obj.featureInfo(e,requestIdx+1);
 	        }
 	    });
     	

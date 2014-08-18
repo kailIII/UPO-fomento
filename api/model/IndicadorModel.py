@@ -10,7 +10,7 @@ import base
 class IndicadorModel(PostgreSQLModel):
     
     def getIndicador(self, idIndicador, fecha=None):
-        sql = "SELECT i.cod_indicador, name_indicador, fecha, capas, leyenda, tam_leyenda, name_familia, (select array_agg(fecha) from geoserver.indicador_fecha where cod_indicador = i.cod_indicador) as fechas FROM geoserver.indicador i" \
+        sql = "SELECT i.cod_indicador, name_indicador, fecha, capas, leyenda, tam_leyenda, name_familia, tipocheck, (select array_agg(fecha) from geoserver.indicador_fecha where cod_indicador = i.cod_indicador) as fechas FROM geoserver.indicador i" \
                 " inner join geoserver.indicador_fecha if on i.cod_indicador = if.cod_indicador" \
                  " inner join geoserver.familia f on f.cod_familia = i.cod_familia where i.cod_indicador=%s";
                  
@@ -24,18 +24,44 @@ class IndicadorModel(PostgreSQLModel):
         return self.query(sql,[idIndicador]).row()
     
     def getIndicadorData(self, idIndicador, fecha=None):
-        sql = "SELECT i.cod_indicador, name_indicador, name_familia, if.leyenda, width, tabla_geom, sql_dato FROM geoserver.indicador i" \
+        conFecha = ""
+        arrayCond = [idIndicador]
+        
+        for f in fecha.split(","):
+            conFecha += "fecha=%s or "
+            arrayCond.append(f)
+        
+        conFecha = conFecha[:-3]
+        
+        sql = "SELECT i.cod_indicador, name_indicador, name_familia, if.leyenda, width, tabla_geom, fecha, sql_dato FROM geoserver.indicador i" \
                 " inner join geoserver.indicador_fecha if on i.cod_indicador = if.cod_indicador" \
-                 " inner join geoserver.familia f on f.cod_familia = i.cod_familia where i.cod_indicador=%s and fecha=%s";
+                 " inner join geoserver.familia f on f.cod_familia = i.cod_familia where i.cod_indicador=%s and (" + conFecha + ")";
+
+
         
-        return self.query(sql,[idIndicador,fecha]).row()
+        return self.query(sql,arrayCond).result()
+
+    def getIndicadorGraphics(self, idIndicador, fecha):
+        sql = "SELECT gid, sql_dato, tipo, imagen, title FROM geoserver.indicador_grafica" \
+                 " where cod_indicador=%s and fecha=%s";
+        
+        return self.query(sql,[idIndicador,fecha]).result()
     
     
-    def getIndicadorLayers(self, idIndicador, fecha=None):
+    def getIndicadorLayers(self, idIndicador, fecha):
+        conFecha = ""
+        arrayCond = [idIndicador]
+
+        for f in fecha.split(","):
+            conFecha += "i.fecha=%s or "
+            arrayCond.append(f)
+
+        conFecha = conFecha[:-3]
+
         sql = "SELECT capas FROM geoserver.indicador_fecha i" \
-                 " where i.cod_indicador=%s and i.fecha=%s";
+                 " where i.cod_indicador=%s  and (" + conFecha + ") ORDER BY FECHA DESC";
         
-        return self.query(sql,[idIndicador,fecha]).row()
+        return self.query(sql,arrayCond).result()
     
     
     
