@@ -82,22 +82,22 @@ L.GSFlowLayers = L.Class.extend({
 			}else{
 				data = e.layer.options.data;
 			}
-			var html = '<div style="max-height:' + ($("#map").outerHeight()/2) + 'px;overflow: auto;">';
+			var html = '<div style="max-height:' + ($("#map").outerHeight()/2) + 'px;overflow-x: hidden;overflow-y: auto;">';
 			for(var i=0; i<data.length; i++){
 				html += '<div class="header">' +
-			   				'<p class="font1">ÁREA METROPOLITANA</p>' +
-							'<p class="font2">' +  data[i].origin + '</p>' +
+			   				// '<p class="font1">ÁREA METROPOLITANA</p>' +
+							'<p class="font2 ellipsis" title="' + data[i].origin + '">' +  data[i].origin + '</p>' +
 							'</div>' +
 							'<p class="font3">' + self.options.title + ', <span class="font7">' + self.options.fecha + '</span></p>' +
-							'<p> <span class="font4">' + (data[i].hasOwnProperty("origin_value") ? data[i].origin_value: data[i].value) + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' </span><span class="font6">' + data[i].destination + '</span></p>'
+							'<p> <span class="font4">' + (data[i].hasOwnProperty("origin_value") ? data[i].origin_value: data[i].value) + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' </span><span class="font6 ellipsis" title="' + data[i].destination + '">' + data[i].destination + '</span></p>'
 			   				;
 			   	if(data[i].hasOwnProperty("destination_value")){
 			   		html += '<div class="header">' +
-			   				'<p class="font1">ÁREA METROPOLITANA</p>' +
-							'<p class="font2">' +  data[i].destination + '</p>' +
+			   				// '<p class="font1">ÁREA METROPOLITANA</p>' +
+							'<p class="font2 ellipsis" title="' + data[i].destination + '">' +  data[i].destination + '</p>' +
 							'</div>' +
 							'<p class="font3">' + self.options.title + ', <span class="font7">' + self.options.fecha + '</span></p>' +
-							'<p> <span class="font4">' + data[i].destination_value + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' </span><span class="font6">' + data[i].origin + '</span></p>'
+							'<p> <span class="font4">' + data[i].destination_value + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' </span><span class="font6 ellipsis" title="' + data[i].origin + '">' + data[i].origin + '</span></p>'
 			   				;
 			   	}
 			}
