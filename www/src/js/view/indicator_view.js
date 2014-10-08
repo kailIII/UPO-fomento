@@ -1,19 +1,11 @@
 app.view.Indicator = Backbone.View.extend({
     _template: _.template($('#indicator_template').html()),
-//    idIndicador: null,
 
     initialize: function(options) {
-//    	if(options.esIndicador){
-//    		app.events.trigger("menu", 1);
-//    	}else{
-//    		app.events.trigger("menu", 4);
-//    	}
         this.indicadorActual = options.idIndicador;
         this.fecha = options.fecha;
         this.id_geometry = options.id_geometry;
         this.multiYear = options.multiYear;
-//    	this.fecha = options.fecha;
-//    	this.esIndicador = options.esIndicador;
         this.numIndicadores = 1;
         this.graphics = [];
         this.graphicsImage = [];
@@ -27,10 +19,6 @@ app.view.Indicator = Backbone.View.extend({
         "click .conmutador_representacion a": "tabular",
         "click .ampliarView": "ampliarView",
         "click .datos": "goMap",
-        
-//    	"change .comboFechas select" : "changeDate",
-//    	"click #anteriorIndicador" : "anteriorIndicador",
-//    	"click #siguienteIndicador" : "siguienteIndicador",
     },
     botonDesplegableClick: function(e) {
         if ($(".indicator").is(":visible")) {
@@ -41,18 +29,6 @@ app.view.Indicator = Backbone.View.extend({
             $(e.currentTarget).find("img").attr("src", "/img/TITA-fomento_icon_ocultar-lista.png");
         }
     },
-    // botonLeyendaClick: function(e) {
-    //     if ($(".leyenda").is(":visible")) {
-    //         $(".leyenda").fadeOut();
-    //         $(e.currentTarget).text("Mostrar leyenda");
-    //     } else {
-    //         $(".leyenda").fadeIn();
-    //         $(e.currentTarget).text("Ocultar leyenda");
-    //     }
-    // },
-//    changeDate:function(e){
-//    	this.drawIndicator(this.$el.find("#idIndicador").val(),e.currentTarget.value);
-//    },
 
     goList: function() {
         app.router.navigate('indicadores', {trigger: true});
@@ -73,24 +49,6 @@ app.view.Indicator = Backbone.View.extend({
     	}
     	
     },
-  
-//    anteriorIndicador:function(){
-//    	if(this.indicadorActual == 1){
-//    		this.indicadorActual = this.numIndicadores;
-//    	}else{
-//    		this.indicadorActual -= 1;
-//    	}
-//    	this.drawIndicator(this.indicadorActual, this.fecha);
-//    },
-
-//    siguienteIndicador:function(){
-//    	if(this.indicadorActual == this.numIndicadores){
-//    		this.indicadorActual = 1;
-//    	}else{
-//    		this.indicadorActual += 1;
-//    	}
-//    	this.drawIndicator(this.indicadorActual, null);
-//    },
 
     onClose: function() {
         // Remove events on close
@@ -104,8 +62,6 @@ app.view.Indicator = Backbone.View.extend({
         for(var i=0; i<self.graphicsImage.length; i++){
             $("#zonaChart").append("<img style='margin-top: 70px;' src='" + self.graphicsImage[i] +"'>");    
         }
-        
-        // google.load("visualization","1",{callback: function() {
             for(var i=0; i<self.graphics.length;i++){
                     $("#zonaChart").append("<div class='chart" + i + "'></div>")
                     var googleData = google.visualization.arrayToDataTable(self.graphics[i]);
@@ -119,22 +75,6 @@ app.view.Indicator = Backbone.View.extend({
                     var chart = new window["google"]["visualization"][self.graphicsProperties[i].type]($(".chart" + i)[0]);
                     chart.draw(googleData, options, null);
                 }
-        // },packages: ["piechart","corechart"]});
-
-// var data = new google.visualization.DataTable();
-//         data.addColumn('date', 'Date');
-//         data.addColumn('number', 'Column A');
-//         data.addColumn('number', 'Column B');
-//         data.addRows(4);
-//         data.setCell(0, 0, new Date("2009/07/01"));
-//         data.setCell(0, 1, 1);
-//         data.setCell(0, 2, 7);
-//         data.setCell(1, 0, new Date("2009/07/08"));
-//         data.setCell(1, 1, 2);
-//         data.setCell(1, 2, 4);
-//         var chart = new google.visualization.LineChart(this.$('#zonaChart').get(0));
-//         chart.draw(data, null, null)
-        
     },
     
     ampliarView:function(e){
@@ -180,15 +120,7 @@ app.view.Indicator = Backbone.View.extend({
         this.$el.html(this._template());
         var self = this;
         this.$el.find(".conmutador_representacion").hide();
-
-        // $.ajax({
-        //     url: "/api/numIndicadores",
-        //     type: "GET",
-        //     success: function(response) {
-        //         self.numIndicadores = response.result;
-        //     }
-        // });
-
+        
         $.ajax({
             url: "/api/indicador_data/" + this.indicadorActual + "/" + this.fecha,
             type: "GET",

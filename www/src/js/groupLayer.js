@@ -148,7 +148,7 @@ function groupLayerEvents(){
 				var current_layer;
 				for(var i=0; i<Map.getLayersMapBase().length; i++){
 					if(Map.getLayersMapBase()[i].id == $(ui.item).attr("idIndicador")){
-						current_layer = º.getLayersMapBase()[i];
+						current_layer = Map.getLayersMapBase()[i];
 						Map.getLayersMapBase()[i] = old_layer;
 						break;
 					}

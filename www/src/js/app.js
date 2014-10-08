@@ -76,7 +76,6 @@ app.ini = function(){
     Backbone.history.start({pushState: true,root: this.basePath });
     
     new app.view.Map();
-
 };
 
 app.showView = function(view) {

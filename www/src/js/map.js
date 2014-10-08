@@ -133,22 +133,46 @@ Map = {
 	        		Map.removeAllIndicatorLayers();
 	        	}
 	        	
-	        	var aux = "";
-	        	for(var i=0; i<capas.capas.length; i++){
-	        		aux += capas.capas[i].capa + ",";
+	        	if(!response.hasOwnProperty("row_centroids")){
+		        	var aux = "";
+		        	for(var i=0; i<capas.capas.length; i++){
+		        		aux += capas.capas[i].capa + ",";
+		        	}
+		        	aux = aux.slice(0,-1);
+		        	
+		        	var layer = L.tileLayer.wms(capas.capas[0].servidor, {
+	    				layers: aux,
+	    				format: 'image/png',
+	    				transparent: true,
+	    			});
+		        	
+		        	layer.addTo(Map.getMap());
+
+	        	}else{
+	        		var options = 	{
+	        							"centroids" : response.row_centroids,
+	        							"styles" : $.parseJSON(response.capas),
+	        							"title" : response.name_indicador,
+	        							"fecha" : response.fecha,
+	        							"uni": response.uni
+	        						};
+
+	        		layer = new L.GSFlowLayers(options);
+	        		Map.getMap().addLayer(layer);
+	        		
+	       //  		var styleLine = {color: 'green', weight: 5};
+    				// var styleLine2 = {color: 'red', weight: 5};
+    				// var initialStyle = {radius: 5,fillColor: "white",color: "green",weight: 1,opacity: 1,fillOpacity: 1};
+    				// var finalStyle = {radius: 5,fillColor: "green",color: "white",weight: 1,opacity: 1,fillOpacity: 1};
+    				// var layer = L.layerGroup();
+    				// for(var i=0; i<response.row_centroids.length; i++){
+    				// 	layer.addLayer(new L.GSFlowLayer("id","title","valor",[response.row_centroids[i].lat_origen,response.row_centroids[i].lng_origen],[response.row_centroids[i].lat_destino,response.row_centroids[i].lng_destino],styleLine, initialStyle, finalStyle, null, null, styleLine2));
+    				// }
+    				// Map.getMap().addLayer(layer);
+
+    				// var layer = new L.GSFlowLayer("id","title","valor",[37.12090636165327,-5.537109374999999],[37.95286091815649,-3.2135009765625],styleLine, initialStyle, finalStyle, null, null, styleLine2);
+    				// Map.getMap().addLayer(layer);
 	        	}
-	        	aux = aux.slice(0,-1);
-	        	var layer = L.tileLayer.wms(capas.capas[0].servidor, {
-    				layers: aux,
-    				format: 'image/png',
-    				transparent: true,
-    			});
-	        	
-	        	layer.on("click",function(e){
-					alert("")
-				});
-	        	
-	        	layer.addTo(Map.getMap());
 	        	
 	        	if(esIndicador){
         			Map.getLayersIndicador().push({"id":response.cod_indicador, capa:layer});
