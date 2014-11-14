@@ -120,6 +120,7 @@ L.GSFlowLayers = L.Class.extend({
         		map.removeLayer(elem);
         	});
         });
+        this.layer = L.featureGroup();
     },
 
     setOpacity:function(zIndex){
