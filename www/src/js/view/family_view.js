@@ -7,16 +7,22 @@ app.view.Family = Backbone.View.extend({
         this.tipo = options.tipo;
     	if(this.tipo == 1){
     		app.events.trigger("menu", 1);
-            $("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>INDICADORES")
+            $("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>USOS DE SUELO")
     	}else if(this.tipo == 2){
     		app.events.trigger("menu", 4);
-    		families.url = "/api/cartoTem"
-            $("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>CARTOGRAFÍA TEMÁTICA")
-    	}else{
+    		// families.url = "/api/cartoTem"
+            $("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>MOVILIDAD")
+    	}else if(this.tipo == 3){
             app.events.trigger("menu", 5);
-            families.url = "/api/mapBase"
+            // families.url = "/api/cartoTem"
+            $("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>CENTROS DE ACTIVIDAD")
+        }else{
+            app.events.trigger("menu", 6);
+            // families.url = "/api/mapBase"
             $("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>CARTOGRAFÍA BASE")
         }
+
+        families.url = "/api/mapBaseTipo/" + this.tipo
     	
     	families.fetch({reset:true});
     	this.listenTo(families, "reset", this.loadFamilies);
@@ -104,9 +110,11 @@ app.view.Family = Backbone.View.extend({
     	this.$el.html(this._template({families:response.toJSON()}));
 
         if(this.tipo == 1){
-            this.$el.find("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>INDICADORES")
+            this.$el.find("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>USOS DE SUELO")
         }else if(this.tipo == 2){
-            this.$el.find("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>CARTOGRAFÍA TEMÁTICA")
+            this.$el.find("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>MOVILIDAD")
+        }else if(this.tipo == 3){
+            this.$el.find("#tituloListadoFamilias").html("<strong>FAMILIA / </strong>CENTROS DE ACTIVIDAD")
         }else{
             this.$el.find("#tituloListadoFamilias").html("CARTOGRAFÍA BASE")
         }

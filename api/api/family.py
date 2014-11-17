@@ -25,3 +25,11 @@ def getMapBase():
     return jsonify({"result": ui.mapBaseList()})
 
 
+# Metodo reescrito para casistica especial de movitra
+@app.route('/mapBaseTipo/<int:tipo>', methods = ['GET'])
+def mapBaseTipo(tipo):    
+    ui = FamilyModel()
+    
+    return jsonify({"result": ui.mapBaseList(tipo)})
+
+

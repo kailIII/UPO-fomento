@@ -9,7 +9,7 @@
         
     <link rel="shortcut icon" href="/img/favicon.png">
 
-    <title>Áreas Metropolitanas Andaluzas</title>
+    <title>Movitra III</title>
     <link rel='stylesheet' href='/css/main.min.css'>
         
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
@@ -47,34 +47,45 @@
             	<li class="rectangle"></li>
             	<li>
             		<a href="/es" jslink>
-	            		<p class="title1">Áreas Metropolitanas Andaluzas</p>
-	            		<p class="title2">Desarrollo de recursos conceptuales e instrumentales para su conocimiento y gestión en materia de obra pública y vivienda</p>
+	            		<p class="title1">Movitra III</p>
+	            		<p class="title2">Movilidad y reconfiguración urbana y metropolitana. Áreas metropolitanas españolas: dinámicas espaciales, sosotenibilidad y gobernanza</p>
             		</a>
             	</li>
+
+
                 <li class="nav">
-                    <a idMenu="1" class="menu" href="/es/indicadores" jslink>Indicadores</a>
+                    <a idMenu="1" class="menu" href="/es/usos" jslink>Usos de suelo</a>
                     <div class="divSelected"></div>
                 </li>
                 <li class="nav">
-                    <a idMenu="4" class="menu" href="/es/cartografia_tematica" jslink>Cartografía temática</a>
+                    <a idMenu="4" class="menu" href="/es/movilidad" jslink>Movilidad</a>
                     <div class="divSelected"></div>
                 </li>
                 <li class="nav">
-                    <a idMenu="5" class="menu" href="/es/cartografia_base" jslink>Cartografía base</a>
+                    <a idMenu="5" class="menu" href="/es/centros" jslink>Centros de actividad</a>
                     <div class="divSelected"></div>
                 </li>
-                <li class="nav">
+
+                 <li class="nav">
+                    <a idMenu="6" class="menu" href="/es/cartografia_base" jslink>Cartografía base</a>
+                    <div class="divSelected"></div>
+                </li>
+
+
+
+
+                <!-- <li class="nav">
                     <a idMenu="2" class="menu" href="/es/servicios" jslink>Servicios OGC</a>
                     <div class="divSelected"></div>
-                </li>
+                </li> -->
                 <li class="nav">
                     <a idMenu="3" class="menu" href="/es/proyecto" jslink>El proyecto</a>
                     <div class="divSelected"></div>
                 </li>
                 <li>
                 	<a href=""><p>Un proyecto de investigación del ©&nbsp;Grupo TITA </p></a>
-                	<a href=""><img src="/img/TITA-fomento_logo.png"></a>
-                	<a href="">Geographica</a>
+                	<!-- <a href=""><img src="/img/TITA-fomento_logo.png"></a> -->
+                	<a href="" style="display: block;margin-top: 10px;">Geographica</a>
                 </li>
             </ul>
         </nav>
@@ -92,10 +103,16 @@
     		<div class="footerGroupLayer mb5">
 	    		<div class="mt5"><input capa="relieve" checked="checked" type="checkbox"/><label class="fleft">Relieve</label></div>
 	    		<div class="groupLayerVisibility">Ocultar</div>
-<!-- 	    		<div class="clear"></div> -->
-<!-- 	    		<input capa="base" checked="checked" type="checkbox"/><label>Base</label> -->
     		</div>
     	</div>
+
+        <div id="mapMoveButtons">
+            <div class="moveSpain">Andalucía</div>
+            <div class="clear"></div>
+            <div class="moveCanarias">Islas Canarias</div>
+        </div>
+
+
     	<div id="content"></div>	
     </main>
     

@@ -10,9 +10,12 @@ app.router = Backbone.Router.extend({
     routes: {
             "" : "indicator",
             "indicador/:id" : "indicator",
-            "indicadores" : "indicatorList",
-            "cartografia_tematica" : "cartoTem",
-            "cartografia_base" : "cartoBase",
+            
+            "usos" : "usos",
+            "movilidad" : "movilidad",
+            "centros" : "centros",
+            "cartografia_base" : "cartografia_base",
+            
             "servicios" : "service",
             "proyecto" : "project",
             "notfound" : "notfound",
@@ -30,7 +33,7 @@ app.router = Backbone.Router.extend({
     initialize: function(options) {
 //        this.route(this.langRoutes["_link home"][app.lang], "home");
 //        this.route(this.langRoutes["_link home"][app.lang], "home");
-        Map.drawIndicator(7,2007, false);
+        Map.drawIndicator(1,2006, false);
     },
     
     indicator: function(id){
@@ -39,19 +42,26 @@ app.router = Backbone.Router.extend({
        // Map.drawIndicator(7,2007, false);
     },
     
-    indicatorList: function(){
+
+
+    usos: function(){
     	$("#map").show();
         app.showView(new app.view.Family({tipo:1}));
     },
     
-    cartoTem: function(){
+    movilidad: function(){
     	$("#map").show();
         app.showView(new app.view.Family({tipo:2}));
     },
 
-    cartoBase: function(){
+    centros: function(){
         $("#map").show();
         app.showView(new app.view.Family({tipo:3}));
+    },
+
+    cartografia_base: function(){
+        $("#map").show();
+        app.showView(new app.view.Family({tipo:4}));
     },
     
     

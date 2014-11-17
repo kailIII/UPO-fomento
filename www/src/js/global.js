@@ -37,7 +37,13 @@ $(".botonLeyenda").on('click', function() {
 });
 
 
+$(".moveSpain").on('click', function() {
+	Map.getMap().setView([Map.iniLat, Map.iniLng],8)
+});
 
+$(".moveCanarias").on('click', function() {
+	Map.getMap().setView([27.964499, -15.611037],8)
+});
 
 
 // function drawLines(){
