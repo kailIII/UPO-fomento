@@ -38,7 +38,7 @@ $(".botonLeyenda").on('click', function() {
 
 
 $(".moveSpain").on('click', function() {
-	Map.getMap().setView([Map.iniLat, Map.iniLng],8)
+	Map.getMap().setView([Map.iniLat, Map.iniLng],6)
 });
 
 $(".moveCanarias").on('click', function() {

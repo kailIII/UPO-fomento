@@ -1,9 +1,9 @@
 Map = {
 	
 	layerIndicador:null,
-	iniLat: 37.36455,
-	iniLng: -4.57645,	
-	iniZoom: 8,
+	iniLat: 40.3125504961318,
+	iniLng: -3.69644646621596,	
+	iniZoom: 6,
 	__map:null,
 	__layersIndicador:[],
 	__layersMapBase:[],
@@ -43,9 +43,9 @@ Map = {
 //			app.layerRelieve.addTo(this.__map);
 			
 			app.base = "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas";
-			app.baseRelieve = "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas,relieve_2,andalucia,areas_metropolitanas";
+			app.baseRelieve = "espana,relieve,areas_metropolitanas,areas_metropolitanas_centroid_fuera";
 			
-			app.baseLayer = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+			app.baseLayer = L.tileLayer.wms("http://tita.geographica.gs/geoserver/movitra_fondo_cartografico/wms?", {
 				layers: app.baseRelieve,
 				format: 'image/png',
 				transparent: true,

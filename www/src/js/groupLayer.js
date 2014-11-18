@@ -19,7 +19,7 @@ $(".footerGroupLayer").find("input[type='checkbox']").on( "click", function(){
 	restoreMap();
 	if($(this).is(":checked")){
 
-		app.baseLayer = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+		app.baseLayer = L.tileLayer.wms("http://tita.geographica.gs/geoserver/movitra_fondo_cartografico/wms?", {
 			layers: app.baseRelieve,
 			format: 'image/png',
 			transparent: true

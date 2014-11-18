@@ -845,7 +845,7 @@ nav{
 }
 
 #mapMoveButtons{
-    position: absolute;
+    position: fixed;
     z-index: 1001;
     right: 20px;
     bottom: 155px;
@@ -860,13 +860,14 @@ nav{
         border-bottom: 1px solid #ccc;
         width: 26px;
         height: 26px;
-        background-image: url("/img/icon_zoom_andalucia.png");
+        background-image: url("/img/icon_zoom_peninsulaib.png");
         font-size: 14px;
         background-position: right 0;
         background-repeat: no-repeat;
         float: right;
         text-indent: 999999px;
         white-space: nowrap;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.65);
 
 
         &:hover{
@@ -890,6 +891,7 @@ nav{
         float: right;
         text-indent: 999999px;
         white-space: nowrap;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.65);
 
         &:hover{
             width: 136px;
