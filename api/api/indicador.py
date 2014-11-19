@@ -68,7 +68,8 @@ def getIndicadorData(idIndicador, fecha):
         sql = "select * from("
         for indicador in indicadores:
           sql += "(" + indicador["sql_dato"] + ") as \"" + indicador["fecha"] + "\" NATURAL JOIN "
-          result["leyendas"] += indicador["leyenda"] + ","
+          if(indicador["leyenda"]):
+            result["leyendas"] += indicador["leyenda"] + ","
 
         sql = sql[:-13]
         sql += ")"

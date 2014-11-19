@@ -27,7 +27,7 @@ $(".footerGroupLayer").find("input[type='checkbox']").on( "click", function(){
 		
 	}else{
 		
-		app.baseLayer = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+		app.baseLayer = L.tileLayer.wms("http://tita.geographica.gs/geoserver/movitra_fondo_cartografico/wms?", {
 			layers: app.base,
 			format: 'image/png',
 			transparent: true

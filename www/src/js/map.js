@@ -42,7 +42,7 @@ Map = {
 //			app.layerRelieve.setZIndex(1);
 //			app.layerRelieve.addTo(this.__map);
 			
-			app.base = "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas";
+			app.base = "espana";
 			app.baseRelieve = "espana,relieve,areas_metropolitanas,areas_metropolitanas_centroid_fuera";
 			
 			app.baseLayer = L.tileLayer.wms("http://tita.geographica.gs/geoserver/movitra_fondo_cartografico/wms?", {
@@ -55,13 +55,13 @@ Map = {
 			
 			//ARREGLAR ESTO
 			
-			app.basePoly = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
-				layers: "areas_metropolitanas_poly",
-				format: 'image/png',
-				transparent: true,
-				zIndex:10000000000
-			});
-			app.basePoly.addTo(this.__map);
+			// app.basePoly = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
+			// 	layers: "areas_metropolitanas_poly",
+			// 	format: 'image/png',
+			// 	transparent: true,
+			// 	zIndex:10000000000
+			// });
+			// app.basePoly.addTo(this.__map);
 			
 			//////////////////
 
