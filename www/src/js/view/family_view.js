@@ -74,7 +74,8 @@ app.view.Family = Backbone.View.extend({
     goToIndicador:function(e){
         var id = $(e.currentTarget).attr("IdIndicador");
         var load = true;
-        var layers = this.tipo == 1 ? Map.getLayersIndicador():Map.getLayersMapBase();
+        // var layers = this.tipo == 1 ? Map.getLayersIndicador():Map.getLayersMapBase();
+        var layers = Map.getLayersMapBase();
         for(var i=0; i<layers.length; i++){
             if(layers[i].id == id){
                 load = false;

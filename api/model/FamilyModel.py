@@ -28,8 +28,10 @@ class FamilyModel(PostgreSQLModel):
 
     # Metodo reescrito para casistica especial de movitra
     def mapBaseList(self, tipo):
-        sql = "SELECT cod_indicador, name_indicador, description, (select count(*) from geoserver.indicador_fecha fecha where cod_indicador = i.cod_indicador) as count, (select fecha from geoserver.indicador_fecha fecha where cod_indicador = i.cod_indicador order by fecha limit 1) as fecha, (select count(*) from geoserver.indicador_grafica grafica where grafica.cod_indicador = i.cod_indicador) as graficas" \
-                " from geoserver.familia f" \
+        select = "SELECT cod_indicador, name_indicador, description"
+        if(tipo == 2):
+            select += " ,f.cod_familia, name_familia"
+        sql = select + " from geoserver.familia f" \
                  " inner join geoserver.indicador i on i.cod_familia = f.cod_familia where i.tipo=%s order by name_indicador";
 
         return self.query(sql,[tipo]).result()

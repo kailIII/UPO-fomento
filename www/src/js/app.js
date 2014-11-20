@@ -94,21 +94,21 @@ app.events = {};
 _.extend(app.events , Backbone.Events);
 
 app.events.on("menu", function(id, e){
-	$(".menu").removeClass("menuSelect");
-	$(".menu[idMenu=" + id + "]").addClass("menuSelect");
-	$(".divSelected").hide();
-	$(".menu[idMenu=" + id + "]").siblings(".divSelected").show();
-	if(Map.getMap()){
-		Map.getMap()._onResize();
-	}
-	if(id==2 || id ==3){
-		$("#groupLayer").hide();
+    $(".menu").removeClass("menuSelect");
+    $(".menu[idMenu=" + id + "]").addClass("menuSelect");
+    $(".divSelected").hide();
+    $(".menu[idMenu=" + id + "]").siblings(".divSelected").show();
+    if(Map.getMap()){
+        Map.getMap()._onResize();
+    }
+    if(id==2 || id ==3){
+        $("#groupLayer").hide();
         $(".botonLeyenda").hide();
-	}else{
-		$("#groupLayer").show();
-        $(".botonLeyenda").show()	
-	}
-	
+    }else{
+        $("#groupLayer").show();
+        $(".botonLeyenda").show()   
+    }
+    
 });
 
 app.scrollTop = function(){

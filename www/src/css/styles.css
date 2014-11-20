@@ -862,7 +862,7 @@ nav{
         height: 26px;
         background-image: url("/img/icon_zoom_peninsulaib.png");
         font-size: 14px;
-        background-position: right 0;
+        background-position: 1px 1px;
         background-repeat: no-repeat;
         float: right;
         text-indent: 999999px;

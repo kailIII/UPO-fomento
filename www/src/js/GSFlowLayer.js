@@ -3,6 +3,7 @@ L.GSFlowLayers = L.Class.extend({
 	initialize: function (options) {
 
 		this.options = options;
+		// this.layer = L.featureGroup();
 		this.layer = L.featureGroup();
 		this.centroid =  options.centroids;
 		this.styles = options.styles;
@@ -35,7 +36,7 @@ L.GSFlowLayers = L.Class.extend({
 					var initialIcon = new L.CircleMarker([data[y].lat_origen,data[y].lng_origen], {radius: 5,fillColor: "white",color: style.color,weight: 1,opacity: 1,fillOpacity: 1, data:data, value:data[y].value, zoom_min:style.zoom_min, zoom_max:style.zoom_max});
 					var finalIcon = new L.CircleMarker([data[y].lat_destino,data[y].lng_destino], {radius: 5,fillColor: style.color,color: "white",weight: 1,opacity: 1,fillOpacity: 1, data:data, value:data[y].value, zoom_min:style.zoom_min, zoom_max:style.zoom_max});
 					var line = L.polyline([[data[y].lat_origen,data[y].lng_origen],[data[y].lat_destino,data[y].lng_destino]], {color: style.color, opacity: 1, weight: style.grosor, data:data, value:data[y].value, zoom_min:style.zoom_min, zoom_max:style.zoom_max})
-					this.completeLine = L.featureGroup([line, initialIcon,finalIcon]);
+					this.completeLine = L.layerGroup([line, initialIcon,finalIcon]);
 					this.layer.addLayer(this.completeLine);
 				}
 		}
@@ -156,19 +157,51 @@ L.GSFlowLayers = L.Class.extend({
 
     _draw:function(map){
     	//Pongo todos los cículos blancos al fondo y limpio las geometrias que no cumplan la condición de zoom
-        $.each(this.layer._layers, function(index,layers){
-        	$.each(layers._layers, function(index,elem){
-        		if(!(Map.getMap().getZoom() >= elem.options.zoom_min && Map.getMap().getZoom() <= elem.options.zoom_max)){
-        			map.removeLayer(elem);
+  //       $.each(this.layer._layers, function(index,layers){
+  //       	$.each(layers._layers, function(index,elem){
+  //       		if(!(Map.getMap().getZoom() >= elem.options.zoom_min && Map.getMap().getZoom() <= elem.options.zoom_max)){
+  //       			map.removeLayer(elem);
+  //       		}else{
+  //       			map.addLayer(elem);
+  //       			if(elem.options.fillColor == "white"){
+  //       				elem.bringToBack();
+  //       			}else if(elem.options.fillColor != null){
+  //       				elem.bringToFront();
+  //       			}
+  //       		}
+  //       	});
+		// });
+	
+		var layerAdd = L.layerGroup();
+		var layerRemove = L.layerGroup();
+	
+		this.layer.eachLayer(function (layer) {
+			layer.eachLayer(function (layer) {
+		    	if(!(Map.getMap().getZoom() >= layer.options.zoom_min && Map.getMap().getZoom() <= layer.options.zoom_max)){
+        			// map.removeLayer(layer);
+        			layerRemove.addLayer(layer);
         		}else{
-        			map.addLayer(elem);
-        			if(elem.options.fillColor == "white"){
-        				elem.bringToBack();
-        			}else if(elem.options.fillColor != null){
-        				elem.bringToFront();
-        			}
+        			layerAdd.addLayer(layer);
+        			// map.addLayer(layer);
+        			// if(layer.options.fillColor == "white"){
+        			// 	layer.bringToBack();
+        			// }else if(layer.options.fillColor != null){
+        			// 	layer.bringToFront();
+        			// }
         		}
         	});
+		});
+
+		map.removeLayer(layerRemove);
+		map.addLayer(layerAdd);
+
+		layerAdd.eachLayer(function (layer) {
+			map.addLayer(layer);
+        	if(layer.options.fillColor == "white"){
+        		layer.bringToBack();
+        	}else if(layer.options.fillColor != null){
+        		layer.bringToFront();
+        	}
 		});
     },
 
