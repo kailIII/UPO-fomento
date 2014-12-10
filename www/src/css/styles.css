@@ -874,6 +874,7 @@ nav{
             width: 100px;
             padding-left: 5px;
             text-indent:0;
+            background-position: right 1px;
         }
     }
 

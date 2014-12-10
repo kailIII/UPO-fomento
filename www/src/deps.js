@@ -19,6 +19,8 @@ deps.JS = {
 			"js/namespace.js",
 			// Config file
 			"js/config.js",
+
+			"js/lib/singleTile.js",
 			
 			// --------------------
 			// ------  Views ------

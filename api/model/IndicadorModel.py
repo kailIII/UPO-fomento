@@ -10,7 +10,7 @@ import base
 class IndicadorModel(PostgreSQLModel):
     
     def getIndicador(self, idIndicador, fecha=None):
-        sql = "SELECT i.cod_indicador, name_indicador, fecha, capas, leyenda, tam_leyenda, name_familia, tipocheck, sql_centroid_flechas, sql_dato, json_flechas, (select array_agg(fecha) from geoserver.indicador_fecha where cod_indicador = i.cod_indicador) as fechas FROM geoserver.indicador i" \
+        sql = "SELECT i.cod_indicador, name_indicador, fecha, capas, leyenda, tam_leyenda, name_familia, tipocheck, sql_centroid_flechas, sql_dato, (select array_agg(fecha) from geoserver.indicador_fecha where cod_indicador = i.cod_indicador) as fechas FROM geoserver.indicador i" \
                 " inner join geoserver.indicador_fecha if on i.cod_indicador = if.cod_indicador" \
                  " inner join geoserver.familia f on f.cod_familia = i.cod_familia where i.cod_indicador=%s";
                  
@@ -76,9 +76,4 @@ class IndicadorModel(PostgreSQLModel):
     def getCentroid(self, tabla,column,id):
         sql = "SELECT ST_X(ST_CENTROID(ST_TRANSFORM(geom,4326))) as lng, ST_Y(ST_CENTROID(ST_TRANSFORM(geom,4326))) as lat FROM " + tabla + " WHERE " + column + " =%s"
         return self.query(sql,[id]).row()
-
-
-    def updateRow(self, idIndicador, value):
-        sql = "UPDATE geoserver.indicador_fecha SET json_flechas=%s WHERE cod_indicador=%s"
-        return self.queryCommit(sql,[value,idIndicador])
 

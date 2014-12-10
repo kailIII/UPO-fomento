@@ -43,7 +43,7 @@ Map = {
 //			app.layerRelieve.addTo(this.__map);
 			
 			app.base = "espana";
-			app.baseRelieve = "espana,relieve,areas_metropolitanas,areas_metropolitanas_centroid_fuera";
+			app.baseRelieve = "relieve";
 			
 			app.baseLayer = L.tileLayer.wms("http://tita.geographica.gs/geoserver/movitra_fondo_cartografico/wms?", {
 				layers: app.baseRelieve,
@@ -51,17 +51,26 @@ Map = {
 				transparent: true,
 				zIndex:0
 			});
+
+			new L.SingleTileWMSLayer("http://tita.geographica.gs/geoserver/movitra_fondo_cartografico/wms?", 
+							{
+								layers: "areas_metropolitanas_centroid_fuera",
+								format: 'image/png',
+								transparent: true,
+								zIndex:0,
+							}).addTo(this.__map);
+
 			app.baseLayer.addTo(this.__map);
 			
 			//ARREGLAR ESTO
 			
-			// app.basePoly = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
-			// 	layers: "areas_metropolitanas_poly",
-			// 	format: 'image/png',
-			// 	transparent: true,
-			// 	zIndex:10000000000
-			// });
-			// app.basePoly.addTo(this.__map);
+			app.basePoly = L.tileLayer.wms("http://tita.geographica.gs/geoserver/movitra_fondo_cartografico/wms?", {
+				layers: "areas_metropolitanas",
+				format: 'image/png',
+				transparent: true,
+				zIndex:10000000000
+			});
+			app.basePoly.addTo(this.__map);
 			
 			//////////////////
 

@@ -12,36 +12,36 @@ def getIndicador(idIndicador, fecha=None):
     indicador = ui.getIndicador(idIndicador, fecha)
     # Si es un indicador de tipo flecha
     if(indicador["sql_centroid_flechas"]):
-      if(indicador["json_flechas"]):
-        indicador["row_centroids"] = eval(indicador["json_flechas"])
-      else:
-        indicador["sql_centroid_flechas"] = indicador["sql_centroid_flechas"].replace("centroid_origen", "ST_Y(st_transform(centroid_origen,4326)) as lat_origen, ST_X(st_transform(centroid_origen,4326)) as lng_origen")
-        indicador["sql_centroid_flechas"] = indicador["sql_centroid_flechas"].replace("centroid_destino", "ST_Y(st_transform(centroid_destino,4326)) as lat_destino, ST_X(st_transform(centroid_destino,4326)) as lng_destino")
-        indicador["row_centroids"] = ui.getDato(indicador["sql_centroid_flechas"])
-        datos = ui.getDato(indicador["sql_dato"])
-        if len(datos) > 0:
-          indicador["uni"] = re.sub(r'(###).*(###)', "", sorted(datos[0].keys())[-1])
+      # if(indicador["json_flechas"]):
+        # indicador["row_centroids"] = eval(indicador["json_flechas"])
+      # else:
+      indicador["sql_centroid_flechas"] = indicador["sql_centroid_flechas"].replace("centroid_origen", "ST_Y(st_transform(centroid_origen,4326)) as lat_origen, ST_X(st_transform(centroid_origen,4326)) as lng_origen")
+      indicador["sql_centroid_flechas"] = indicador["sql_centroid_flechas"].replace("centroid_destino", "ST_Y(st_transform(centroid_destino,4326)) as lat_destino, ST_X(st_transform(centroid_destino,4326)) as lng_destino")
+      indicador["row_centroids"] = ui.getDato(indicador["sql_centroid_flechas"])
+      datos = ui.getDato(indicador["sql_dato"])
+      if len(datos) > 0:
+        indicador["uni"] = re.sub(r'(###).*(###)', "", sorted(datos[0].keys())[-1])
 
-        for position, dato in enumerate(datos):
-          indicador["row_centroids"][position].update({"origin_value" : dato[sorted(dato.keys())[-1]], "destination" : dato[sorted(dato.keys())[-2]], "origin" : dato[sorted(dato.keys())[-3]]})
+      for position, dato in enumerate(datos):
+        indicador["row_centroids"][position].update({"origin_value" : dato[sorted(dato.keys())[-1]], "destination" : dato[sorted(dato.keys())[-2]], "origin" : dato[sorted(dato.keys())[-3]]})
 
-        # Construyo la topologia
-        topologia = []
-        for aux in indicador["row_centroids"]:
-          save = True;
-          for topo in topologia:
-            if(topo["lat_origen"] == aux["lat_destino"] and topo["lng_origen"] == aux["lng_destino"] and topo["lat_destino"] == aux["lat_origen"] and topo["lng_destino"] == aux["lng_origen"]):
-              topo["destination_value"] = aux["origin_value"]
-              save = False
-              break
-          if save:
-            topologia.append(aux)
+      # Construyo la topologia
+      topologia = []
+      for aux in indicador["row_centroids"]:
+        save = True;
+        for topo in topologia:
+          if(topo["lat_origen"] == aux["lat_destino"] and topo["lng_origen"] == aux["lng_destino"] and topo["lat_destino"] == aux["lat_origen"] and topo["lng_destino"] == aux["lng_origen"]):
+            topo["destination_value"] = aux["origin_value"]
+            save = False
+            break
+        if save:
+          topologia.append(aux)
 
-        indicador["row_centroids"] = topologia
-        ui.updateRow(indicador["cod_indicador"],str(topologia))
+      indicador["row_centroids"] = topologia
+      # ui.updateRow(indicador["cod_indicador"],str(topologia))
 
       del indicador["sql_centroid_flechas"]
-      del indicador["json_flechas"]
+      # del indicador["json_flechas"]
       del indicador["sql_dato"]
 
     return jsonify(indicador)

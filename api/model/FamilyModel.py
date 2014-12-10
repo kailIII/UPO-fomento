@@ -32,6 +32,11 @@ class FamilyModel(PostgreSQLModel):
         if(tipo == 2):
             select += " ,f.cod_familia, name_familia"
         sql = select + " from geoserver.familia f" \
-                 " inner join geoserver.indicador i on i.cod_familia = f.cod_familia where i.tipo=%s order by name_indicador";
+                 " inner join geoserver.indicador i on i.cod_familia = f.cod_familia where i.tipo=%s order by ";
+
+        if(tipo == 2):
+            sql += "cod_familia, "
+
+        sql += "name_indicador "
 
         return self.query(sql,[tipo]).result()
