@@ -133,7 +133,7 @@ app.view.Indicator = Backbone.View.extend({
 
                 $(".leyenda").html("");
                 if (response.leyendas != null) {
-                    var leyendas = response.leyendas.split(",");
+                    var leyendas = response.leyendas.split(",").sort();
                     for(var i=0; i<leyendas.length; i++){
                         $(".leyenda").append("<img src='/img/leyendas/" + leyendas[i] + "'>");
                     }
@@ -158,7 +158,7 @@ app.view.Indicator = Backbone.View.extend({
                         	self.$el.find(".datosTabla").css({"width": width})
                             row += "<div class='fleft mr ml' style='width:" + (100/(keys.length)) + "%;'>";
                         	
-                            row += "<p>" + dato[keys[i]] + "</p>" +
+                            row += "<p>" + (dato[keys[i]]!=null ? dato[keys[i]] : "-") + "</p>" +
                                     "</div>";
                         }
                     }

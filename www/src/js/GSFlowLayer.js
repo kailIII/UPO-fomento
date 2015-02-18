@@ -32,8 +32,8 @@ L.GSFlowLayers = L.Class.extend({
 				this._orderData(data);
 				for(var y=0; y<data.length; y++){
 					var style = this._searchStyle(data[y].value);
-					var initialIcon = new L.CircleMarker([data[y].lat_origen,data[y].lng_origen], {radius: 5,fillColor: "white",color: style.color,weight: 1,opacity: 1,fillOpacity: 1, data:data, value:data[y].value, zoom_min:style.zoom_min, zoom_max:style.zoom_max});
-					var finalIcon = new L.CircleMarker([data[y].lat_destino,data[y].lng_destino], {radius: 5,fillColor: style.color,color: "white",weight: 1,opacity: 1,fillOpacity: 1, data:data, value:data[y].value, zoom_min:style.zoom_min, zoom_max:style.zoom_max});
+					var initialIcon = new L.CircleMarker([data[y].lat_origen,data[y].lng_origen], {radius: (style.grosor > 5 ? style.grosor-2:5),fillColor: "white",color: style.color,weight: 1,opacity: 1,fillOpacity: 1, data:data, value:data[y].value, zoom_min:style.zoom_min, zoom_max:style.zoom_max});
+					var finalIcon = new L.CircleMarker([data[y].lat_destino,data[y].lng_destino], {radius: (style.grosor > 5 ? style.grosor-2:5),fillColor: style.color,color: "white",weight: 1,opacity: 1,fillOpacity: 1, data:data, value:data[y].value, zoom_min:style.zoom_min, zoom_max:style.zoom_max});
 					var line = L.polyline([[data[y].lat_origen,data[y].lng_origen],[data[y].lat_destino,data[y].lng_destino]], {color: style.color, opacity: 1, weight: style.grosor, data:data, value:data[y].value, zoom_min:style.zoom_min, zoom_max:style.zoom_max})
 					this.completeLine = L.featureGroup([line, initialIcon,finalIcon]);
 					this.layer.addLayer(this.completeLine);
@@ -89,7 +89,7 @@ L.GSFlowLayers = L.Class.extend({
 							'<p class="font2 ellipsis" title="' + data[i].origin + '">' +  data[i].origin + '</p>' +
 							'</div>' +
 							'<p class="font3">' + self.options.title + ', <span class="font7">' + self.options.fecha + '</span></p>' +
-							'<p> <span class="font4">' + (data[i].hasOwnProperty("origin_value") ? data[i].origin_value: data[i].value) + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' </span><span class="font6 ellipsis" title="' + data[i].destination + '">' + data[i].destination + '</span></p>'
+							'<p> <span class="font4">' + (data[i].hasOwnProperty("origin_value") ? data[i].origin_value: data[i].value) + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' hacia</span><span class="font6 ellipsis" title="' + data[i].destination + '">' + data[i].destination + '</span></p>'
 			   				;
 			   	if(data[i].hasOwnProperty("destination_value")){
 			   		html += '<div class="header">' +
@@ -97,7 +97,7 @@ L.GSFlowLayers = L.Class.extend({
 							'<p class="font2 ellipsis" title="' + data[i].destination + '">' +  data[i].destination + '</p>' +
 							'</div>' +
 							'<p class="font3">' + self.options.title + ', <span class="font7">' + self.options.fecha + '</span></p>' +
-							'<p> <span class="font4">' + data[i].destination_value + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' </span><span class="font6 ellipsis" title="' + data[i].origin + '">' + data[i].origin + '</span></p>'
+							'<p> <span class="font4">' + data[i].destination_value + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' hacia</span><span class="font6 ellipsis" title="' + data[i].origin + '">' + data[i].origin + '</span></p>'
 			   				;
 			   	}
 			}

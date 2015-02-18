@@ -33,7 +33,7 @@ app.router = Backbone.Router.extend({
     initialize: function(options) {
 //        this.route(this.langRoutes["_link home"][app.lang], "home");
 //        this.route(this.langRoutes["_link home"][app.lang], "home");
-        Map.drawIndicator(2,2006, false);
+        // Map.drawIndicator(2,2006, false);
     },
     
     indicator: function(id){
