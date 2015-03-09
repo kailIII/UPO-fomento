@@ -231,7 +231,7 @@ nav{
             border-bottom: 1px solid @green3;
             padding-top: 10px;
             padding-bottom: 10px;
-            padding-right: 19px;
+            padding-right: 50px;
         }
         a:last-child:before{
             content: url("/img/TITA-fomento_logo_geographica.png");
