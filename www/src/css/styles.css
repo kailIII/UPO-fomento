@@ -231,7 +231,7 @@ nav{
             border-bottom: 1px solid @green3;
             padding-top: 10px;
             padding-bottom: 10px;
-            padding-right: 19px;
+            padding-right: 50px;
         }
         a:last-child:before{
             content: url("/img/TITA-fomento_logo_geographica.png");
@@ -307,16 +307,15 @@ nav{
 
 .leyenda{
 	display: none;
-/* 	width: 218px; */
-/* 	height: 300px; */
 	position: absolute;
 	left: 170px;
-	bottom: 9px;
+	bottom: 89px;
 	z-index: 1001;
 	background-color: white;
-	margin-bottom: 80px;
 	padding: 10px;
 	max-width: 250px;
+    max-height: ~"calc(100vh - 99px)";
+    overflow: auto;
 }
 
 .indicator{

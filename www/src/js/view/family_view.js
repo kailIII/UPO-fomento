@@ -79,7 +79,7 @@ app.view.Family = Backbone.View.extend({
         if(load){
             restoreMap();
             Map.drawIndicator(id,null, this.tipo == 1? true:false);
-            Map.getMap().setZoom(8);
+            // Map.getMap().setZoom(8);
         }
 //    	app.showView(new app.view.Indicator({idIndicador:$(e.currentTarget).attr("IdIndicador") , fecha:null, esIndicador:this.esIndicador}));
 //    	app.router.navigate('indicador/'+ $(e.currentTarget).attr("IdIndicador"), {trigger: true});

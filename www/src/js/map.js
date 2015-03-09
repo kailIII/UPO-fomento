@@ -183,9 +183,9 @@ Map = {
 	        	Map.refreshIndex();
 	        	
 	        	if(response.leyenda != null){
-	        		$(".leyenda").html("<img src='/img/leyendas/" + response.leyenda + "'>");
+	        		$(".leyenda").append("<div idIndicador=" + idIndicador + "><img src='/img/leyendas/" + response.leyenda + "'></div>");
 	        	}else{
-	        		$(".leyenda").html("");
+	        		// $(".leyenda").html("");
 	        	}
 	        	
 	        	
@@ -227,39 +227,69 @@ Map = {
     },
 
     drawIndicatorLayer:function(id, fechas, esIndicador){
-    	$.ajax({
-			url : "/api/indicador_capas/" + id + "/" + fechas,
-			type: "GET",
-			success: function(response) {
-				var layers = esIndicador ? Map.getLayersIndicador():Map.getLayersMapBase();
-				var aux = "";
-				for(var i=0; i<layers.length; i++){
-					if(layers[i].id == id){
-						Map.getMap().removeLayer(layers[i].capa);
-						var opacity = layers[i].capa.options.opacity;
-						for(var y=0; y<response.result.length; y++){
-							var capas = $.parseJSON(response.result[y].capas);
-							for(var z=0; z<capas.capas.length; z++){
-				        		aux += capas.capas[z].capa + ",";
-				        	}
-						}
-						aux = aux.slice(0,-1);
-						var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
-			    				layers: aux,
-			    				format: 'image/png',
-			    				transparent: true,
-			    				opacity:opacity
-			    		});	
-			        		
-			        	newLayer.addTo(Map.getMap());
-						layers[i].capa=newLayer;
-						Map.refreshIndex();
 
-						break;
-					}
+    	//Detecto la capa que tengo que eliminar, me quedo con la posición y averiguo si es de tipo
+    	//vectorias o wms para hacer la llamada ajax
+    	var position;
+    	var type;
+    	var layers = esIndicador ? Map.getLayersIndicador():Map.getLayersMapBase();
+    	for(var i=0; i<layers.length; i++){
+			if(layers[i].id == id){
+				position = i;
+				Map.getMap().removeLayer(layers[i].capa);
+				var opacity = layers[i].capa.options.opacity;
+				if(layers[i].capa.options.centroids){
+					type = "vector"
+				}else{
+					type = "wms";
 				}
+				break;
 			}
-		});
+		}
+
+		if(type == "wms"){
+			$.ajax({
+				url : "/api/indicador_capas/" + id + "/" + fechas,
+				type: "GET",
+				success: function(response) {
+					var aux = "";
+					for(var y=0; y<response.result.length; y++){
+						var capas = $.parseJSON(response.result[y].capas);
+						for(var z=0; z<capas.capas.length; z++){
+			        		aux += capas.capas[z].capa + ",";
+			        	}
+					}
+					aux = aux.slice(0,-1);
+					var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
+		    				layers: aux,
+		    				format: 'image/png',
+		    				transparent: true,
+		    				opacity:opacity
+		    		});	
+		        	newLayer.addTo(Map.getMap());
+					layers[position].capa=newLayer;
+					Map.refreshIndex();
+				}
+			});
+    	}else{
+    		$.ajax({
+				url : "/api/indicador/" + id + "/" + fechas,
+				type: "GET",
+				success: function(response) {
+					var options = 	{
+	        							"centroids" : response.row_centroids,
+	        							"styles" : $.parseJSON(response.capas),
+	        							"title" : response.name_indicador,
+	        							"fecha" : response.fecha,
+	        							"uni": response.uni
+	        						};
+
+	        		var newLayer = new L.GSFlowLayers(options);
+	        		layers[position].capa=newLayer;
+	        		Map.getMap().addLayer(newLayer);
+				}
+			});
+    	}
     },
     
     featureInfo : function(e,layer, lat, lng){

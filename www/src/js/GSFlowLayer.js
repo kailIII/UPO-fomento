@@ -89,7 +89,7 @@ L.GSFlowLayers = L.Class.extend({
 							'<p class="font2 ellipsis" title="' + data[i].origin + '">' +  data[i].origin + '</p>' +
 							'</div>' +
 							'<p class="font3">' + self.options.title + ', <span class="font7">' + self.options.fecha + '</span></p>' +
-							'<p> <span class="font4">' + (data[i].hasOwnProperty("origin_value") ? data[i].origin_value: data[i].value) + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' </span><span class="font6 ellipsis" title="' + data[i].destination + '">' + data[i].destination + '</span></p>'
+							'<p> <span class="font4">' + (data[i].hasOwnProperty("origin_value") ? data[i].origin_value: data[i].value) + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' hacia</span><span class="font6 ellipsis" title="' + data[i].destination + '">' + data[i].destination + '</span></p>'
 			   				;
 			   	if(data[i].hasOwnProperty("destination_value")){
 			   		html += '<div class="header">' +
@@ -97,7 +97,7 @@ L.GSFlowLayers = L.Class.extend({
 							'<p class="font2 ellipsis" title="' + data[i].destination + '">' +  data[i].destination + '</p>' +
 							'</div>' +
 							'<p class="font3">' + self.options.title + ', <span class="font7">' + self.options.fecha + '</span></p>' +
-							'<p> <span class="font4">' + data[i].destination_value + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' </span><span class="font6 ellipsis" title="' + data[i].origin + '">' + data[i].origin + '</span></p>'
+							'<p> <span class="font4">' + data[i].destination_value + ' </span><span class="font5">' + self.options.uni.toLowerCase() + ' hacia</span><span class="font6 ellipsis" title="' + data[i].origin + '">' + data[i].origin + '</span></p>'
 			   				;
 			   	}
 			}
@@ -139,17 +139,35 @@ L.GSFlowLayers = L.Class.extend({
 
     _searchStyle: function(val){
     	for(var i=0; i<this.styles.length; i++){
-    		if((parseFloat(this.styles[i].valor_inicial) <= val) && (parseFloat(this.styles[i].valor_final) >= val)){
-    			return this.styles[i];	
-    		}
+    		//Si en lugar de números tengo intervalos
+    		if(typeof(val) == "string"){
+				if(val.indexOf("-") != -1){
+					var valMin = parseFloat(val.split("-")[0].replace(".","").trim());
+					var valMax = parseFloat(val.split("-")[1].replace(".","").trim());
+					if((parseFloat(this.styles[i].valor_inicial) <= valMin) && (parseFloat(this.styles[i].valor_final) >= valMax)){
+    					return this.styles[i];	
+    				}
+    			}
+		    }else{
+		    	if((parseFloat(this.styles[i].valor_inicial) <= val) && (parseFloat(this.styles[i].valor_final) >= val)){
+    				return this.styles[i];	
+    			}	
+		    }
     	}
     	return this.styles[this.styles.length - 1]; 
     },
 
     _orderData: function(data){
+    	var self = this;
     	data = data.sort(function(a, b) {
-        	// if (asc) return (a["value"] > b["value"]) ? 1 : ((a["value"] < b["value"]) ? -1 : 0);
-        	// else return (b["value"] > a["value"]) ? 1 : ((b["value"] < a["value"]) ? -1 : 0);
+    		//Si en lugar de números tengo intervalos
+    		if(typeof(b["value"]) == "string" && typeof(a["value"]) == "string" ){
+	    		if(b["value"].indexOf("-") != -1 && a["value"].indexOf("-") != -1){
+	    			var a = self._numberFromInterval(a["value"]);
+	    			var b = self._numberFromInterval(b["value"]);
+	    			return (b > a) ? 1 : ((b < a) ? -1 : 0);
+	    		}
+    		}
         	return (b["value"] > a["value"]) ? 1 : ((b["value"] < a["value"]) ? -1 : 0);
     	});
     },
@@ -184,6 +202,11 @@ L.GSFlowLayers = L.Class.extend({
 		    }
 		});
 		return res;
+    },
+
+    _numberFromInterval:function(a){
+    	var aux = a.split("-");
+    	return parseFloat(aux[0].replace(".","").trim()) + parseFloat(aux[1].replace(".","").trim()) 
     }
 	 
 });

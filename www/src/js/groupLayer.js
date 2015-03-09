@@ -110,6 +110,7 @@ function groupLayerEvents(){
 				break;
 			}
 		}
+		$(".leyenda").find("div[idIndicador=" + id + "]").remove();
 		event.stopPropagation();
 	});
 
