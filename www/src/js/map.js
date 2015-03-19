@@ -207,7 +207,7 @@ Map = {
 	        	Map.refreshIndex();
 	        	
 	        	if(response.leyenda != null){
-	        		$(".leyenda").append("<img src='/img/leyendas/" + response.leyenda + "'>");
+	        		$(".leyenda").append("<div idIndicador=" + idIndicador + "><img src='/img/leyendas/" + response.leyenda + "'></div>");
 	        	}else{
 	        		// $(".leyenda").html("");
 	        	}
