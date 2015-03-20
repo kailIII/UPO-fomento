@@ -566,7 +566,7 @@ nav{
 
 #project{
     max-width: 640px;
-    overflow: scroll;
+    overflow: auto;
     @media (max-width: 1023px) {
         margin-left: 20%
     }
