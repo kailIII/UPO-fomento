@@ -131,11 +131,11 @@ app.view.Indicator = Backbone.View.extend({
                 var col = Math.floor(12 / (keys.length - 1));
                 self.$el.find(".cabeceraTabla").html("");
 
-                $(".leyenda").html("");
+                $(".leyenda").find("div[idIndicador=" + self.indicadorActual + "]").children().remove();
                 if (response.leyendas != null) {
-                    var leyendas = response.leyendas.split(",").sort();
+                    var leyendas = response.leyendas.split(",");
                     for(var i=0; i<leyendas.length; i++){
-                        $(".leyenda").append("<img src='/img/leyendas/" + leyendas[i] + "'>");
+                        $(".leyenda").find("div[idIndicador=" + self.indicadorActual + "]").append("<img src='/img/leyendas/" + leyendas[i] + "'>");
                     }
                 }
                 var width = response.width;
