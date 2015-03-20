@@ -104,6 +104,7 @@ app.events.on("menu", function(id, e){
     if(id==2 || id ==3){
         $("#groupLayer").hide();
         $(".botonLeyenda").hide();
+        $(".leyenda").hide();
         $("#mapMoveButtons").hide();
     }else{
         $("#groupLayer").show();
