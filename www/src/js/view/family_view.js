@@ -30,8 +30,7 @@ app.view.Family = Backbone.View.extend({
     	"click .familia" : "clickFamilia",
     	"click .botonDesplegable": "botonDesplegableClick",
     	"click .botonLeyenda": "botonLeyendaClick",
-    	"click .indicador": "goToIndicador",
-        "click .indicatorInfo": "indicatorInfo",
+    	"click .indicador": "goToIndicador"
     },
     
     botonDesplegableClick:function(e){
@@ -84,16 +83,6 @@ app.view.Family = Backbone.View.extend({
 //    	app.showView(new app.view.Indicator({idIndicador:$(e.currentTarget).attr("IdIndicador") , fecha:null, esIndicador:this.esIndicador}));
 //    	app.router.navigate('indicador/'+ $(e.currentTarget).attr("IdIndicador"), {trigger: true});
     },
-
-    indicatorInfo:function(e){
-        var descrip = $(e.currentTarget).parent().find(".indicatorDescription");
-        if(descrip.is(":visible")){
-            descrip.slideUp();
-        }else{
-            descrip.slideDown();
-        }
-        e.stopImmediatePropagation()
-    },
     
     onClose: function(){
         // Remove events on close
@@ -114,6 +103,8 @@ app.view.Family = Backbone.View.extend({
     	if(Backbone.history.fragment != ""){
     		$(".botonDesplegable").trigger("click");
     	}
+
+        $(".fancybox").fancybox();
 	},
     
 //    render: function() {

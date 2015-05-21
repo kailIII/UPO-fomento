@@ -40,7 +40,20 @@
 				 			idFamilia = family.cod_familia; %>
 				 		<div idIndicador=<%= family.cod_indicador%> class="indicador">
 										<p class="nameIndicador"><%= family.name_indicador%></p>
-										<img class="indicatorInfo" title="Información" src="/img/TITA_icon_info_capa.svg"> 
+										
+
+										<!-- <img class="indicatorInfo" title="Información" src="/img/TITA_icon_info_capa.svg">  -->
+										
+										<!-- <a class="fancybox indicatorInfo" title="Información" rel="group" href="/img/TITA_icon_info_capa.svg">Prueba
+											<p class="indicatorDescription"><%= family.description%></p>
+										</a> -->
+
+										<a class="fancybox indicatorInfo" href="#<%= family.cod_indicador%>" title="<%= family.name_indicador%>">
+											<img src="/img/TITA_icon_info_capa.svg" alt="">			
+										</a>
+										
+
+
 										<% if(family.graficas != 0){ %>
 											<img class="fright ml mt mr" title="Contiene información gráfica" src="/img/TITA-fomento_icon_chart.png"> 
 										<% } %>
@@ -49,7 +62,7 @@
 										<% }%>
 										<p class="anioIndicador"><%= family.fecha%></p>-->
 										<div class="clear"></div>
-										<p class="indicatorDescription"><%= family.description%></p>
+										<p id="<%= family.cod_indicador%>" class="indicatorDescription"><%= family.description%></p>
 									</div>
 				<% }); %>
 
