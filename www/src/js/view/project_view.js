@@ -7,7 +7,19 @@ app.view.Project = Backbone.View.extend({
     },
     
     events:{
-    	
+    	"click .participantesTitle": "showParticipants"
+    },
+
+    showParticipants: function() {
+        if($(".participantes").is(":visible")){
+            $(".participantes").slideUp();
+        }else{
+            $(".participantes").slideDown();
+
+            setTimeout(function(){
+                $('html, body').animate({scrollTop:document.body.scrollHeight}, 'slow');
+            }, 100);
+        }
     },
     
     onClose: function(){

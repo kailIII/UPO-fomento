@@ -587,6 +587,7 @@ nav{
         font-size: 48px;
         color:@green8;
         margin-top: 38px;
+        line-height: 48px;
     }
 
     .title3{
@@ -619,6 +620,26 @@ nav{
         color:@grey10;
         margin-top: 30px;
         text-align: left;
+    }
+
+    .participantesTitle{
+        cursor: pointer;
+        margin-bottom: 20px;
+        color: #62b588;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+
+    .participantes{
+        display: none;
+        img{
+            margin-bottom: 10px;
+        }
+        .title7{
+            margin-top: 0;
+            line-height: 28px;
+        }
     }
 }
 
