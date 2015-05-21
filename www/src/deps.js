@@ -10,6 +10,7 @@ deps.JS = {
 			"js/lib/leaflet/leaflet.js",
 			"js/lib/zeroclipboard/ZeroClipboard.js",
 			"js/lib/jquery-ui-1.10.4.custom.min.js",
+			"js/lib/jquery.fancybox.pack.js",
 		],
 		desc: "Third party library"
 	}
@@ -62,6 +63,7 @@ deps.CSS = {
 	ThirdParty:{
 		src : [
 		      "js/lib/leaflet/leaflet.css",
+		      "css/lib/jquery.fancybox.css",
 		]
 	},
 	Core: {

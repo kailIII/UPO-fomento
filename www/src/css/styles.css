@@ -986,3 +986,11 @@ footer{
         }
     }
 }
+
+.fancybox-overlay{
+     background: url('/img/fancybox/fancybox_overlay.png');
+}
+
+.indicatorDescription{
+    max-width: 1000px;
+}
