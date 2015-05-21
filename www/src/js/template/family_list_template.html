@@ -14,14 +14,25 @@
 			<div class="col-sm-12 col-md-12" style="padding:0">
 				
 				<% var idFamilia = -1;
+				   var idPadre = -1;
 				 	_.each(families, function(family)  {
 				 		if(family.cod_familia && idFamilia != family.cod_familia){ %>
 				 			<%if(idFamilia != -1){ %>
 				 				</div>
 				 				<div class="clear"></div>
-								<div class="separador"></div>
+								<!-- <div class="separador"></div> -->
+								<%if(family.fathername && idPadre != family.fathercod && idPadre){ %>
+									</div>
+									<div class="clear"></div>
+									<!-- <div class="separador"></div> -->
+								<% }%>
 				 			<% }%>
-				 			
+
+				 			<%if(family.fathername && idPadre != family.fathercod){ %>
+				 				<p class="familia"><%= family.fathername%></p>
+				 				<div class="indicadores ml20">
+				 			<%}
+				 			idPadre = family.fathercod;%>
 				 			<p class="familia"><%= family.name_familia%></p>
 				 				<div class="indicadores">
 				 					
@@ -41,10 +52,16 @@
 										<p class="indicatorDescription"><%= family.description%></p>
 									</div>
 				<% }); %>
+
+				<%if(idPadre != -1){ %>
+					</div>
+					<!-- <div class="separador"></div> -->
+				<% }%>
+					
 				
 				</div>
 				 <div class="clear"></div>
-				<div class="separador"></div>				
+				<!-- <div class="separador"></div>				 -->
 			</div>
 		</div>
 		

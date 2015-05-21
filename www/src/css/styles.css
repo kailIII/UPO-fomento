@@ -657,6 +657,7 @@ nav{
         height: 35px;
         padding-top: 5px;
         cursor: pointer;
+        border-bottom: 1px solid @grey7;
     }
     .familia:BEFORE {
         content: url("/img/TITA-fomento_familia.png");
@@ -672,12 +673,16 @@ nav{
         font-size: 14px;
         background-color: @grey3;
         height: 35px;
-        border-top: 1px solid @grey9;
+        border-bottom: 1px solid @grey9;
         float:left;
         width: 100%;
         height: auto;
         padding-bottom: 5px;
         cursor:pointer;
+
+        &:last-child{
+            border-bottom: 1px solid @grey7;
+        }
 
         .nameIndicador{
             color: @black2;
