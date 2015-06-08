@@ -120,11 +120,18 @@ app.view.Indicator = Backbone.View.extend({
         this.$el.html(this._template());
         var self = this;
         this.$el.find(".conmutador_representacion").hide();
+        var self = this;
         
         $.ajax({
             url: "/api/indicador_data/" + this.indicadorActual + "/" + this.fecha,
             type: "GET",
             success: function(response) {
+                if(response.tipo != 1){
+                    self.$el.find(".title1 .tipo").text("VARIABLE");
+                }else{
+                    self.$el.find(".title1 .tipo").text("INDICADOR");
+                }
+
                 self.$el.find(".title2").text(response.name_familia)
                 self.$el.find(".title3").text(response.name_indicador)
                 var keys = Object.keys(response.datos[0]);

@@ -33,9 +33,9 @@ class IndicadorModel(PostgreSQLModel):
         
         conFecha = conFecha[:-3]
         
-        sql = "SELECT i.cod_indicador, name_indicador, name_familia, if.leyenda, width, tabla_geom, fecha, sql_dato FROM geoserver.indicador i" \
+        sql = "SELECT i.cod_indicador, i.tipo, name_indicador, name_familia, if.leyenda, width, tabla_geom, fecha, sql_dato FROM geoserver.indicador i" \
                 " inner join geoserver.indicador_fecha if on i.cod_indicador = if.cod_indicador" \
-                 " inner join geoserver.familia f on f.cod_familia = i.cod_familia where i.cod_indicador=%s and (" + conFecha + ")";
+                 " inner join geoserver.familia f on f.cod_familia = i.cod_familia where i.cod_indicador=%s and (" + conFecha + ") order by fecha";
 
 
         

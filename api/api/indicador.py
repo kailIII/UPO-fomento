@@ -54,7 +54,7 @@ def getIndicadorData(idIndicador, fecha):
    indicadores = ui.getIndicadorData(idIndicador, fecha)
    sql = "";
    if len(indicadores) > 0:
-      result = {"cod_indicador" : indicadores[0]["cod_indicador"], "leyendas" : "", 
+      result = {"cod_indicador" : indicadores[0]["cod_indicador"],"tipo" : indicadores[0]["tipo"], "leyendas" : "", 
                 "name_familia" : indicadores[0]["name_familia"], "name_indicador" : indicadores[0]["name_indicador"], 
                 "tabla_geom" : indicadores[0]["tabla_geom"], "width" : indicadores[0]["width"], "datos":[]}
       
