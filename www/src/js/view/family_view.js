@@ -104,7 +104,14 @@ app.view.Family = Backbone.View.extend({
     		$(".botonDesplegable").trigger("click");
     	}
 
-        $(".fancybox").fancybox();
+        $(".fancybox").fancybox({
+            showCloseButton: true,
+            helpers : {
+                title : {
+                    position : 'top'
+                }
+            }
+        });
 	},
     
 //    render: function() {
