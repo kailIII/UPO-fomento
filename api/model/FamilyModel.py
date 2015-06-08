@@ -16,7 +16,7 @@ class FamilyModel(PostgreSQLModel):
                 " from geoserver.familia f" \
                  " inner join geoserver.indicador i on i.cod_familia = f.cod_familia " \
                  " left join geoserver.familia p on p.cod_familia = f.padre " \
-                 "where i.tipo=2 order by f.cod_familia, name_indicador";
+                 "where i.tipo=2 order by f.cod_familia, orden";
 
         return self.query(sql).result()
 
@@ -24,6 +24,6 @@ class FamilyModel(PostgreSQLModel):
     def mapBaseList(self):
         sql = "SELECT cod_indicador, name_indicador, description, (select count(*) from geoserver.indicador_fecha fecha where cod_indicador = i.cod_indicador) as count, (select fecha from geoserver.indicador_fecha fecha where cod_indicador = i.cod_indicador order by fecha limit 1) as fecha, (select count(*) from geoserver.indicador_grafica grafica where grafica.cod_indicador = i.cod_indicador) as graficas" \
                 " from geoserver.familia f" \
-                 " inner join geoserver.indicador i on i.cod_familia = f.cod_familia where i.tipo=3 order by name_indicador";
+                 " inner join geoserver.indicador i on i.cod_familia = f.cod_familia where i.tipo=3 order by orden";
 
         return self.query(sql).result()
