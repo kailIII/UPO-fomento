@@ -140,11 +140,20 @@ Map = {
 		        	}
 		        	aux = aux.slice(0,-1);
 		        	
-		        	var layer = L.tileLayer.wms(capas.capas[0].servidor, {
-	    				layers: aux,
-	    				format: 'image/png',
-	    				transparent: true,
-	    			});
+		        	if(response.single_tile){
+		        		var layer = L.tileLayer.wms(capas.capas[0].servidor, {
+		    				layers: aux,
+		    				format: 'image/png',
+		    				transparent: true,
+		    				tileSize:($("#map").width() > $("#map").height() ? $("#map").width() : $("#map").height())
+		    			});
+		        	}else{
+		        		var layer = L.tileLayer.wms(capas.capas[0].servidor, {
+		    				layers: aux,
+		    				format: 'image/png',
+		    				transparent: true,
+	    				});
+		        	}
 		        	
 		        	layer.addTo(Map.getMap());
 

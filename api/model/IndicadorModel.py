@@ -10,7 +10,7 @@ import base
 class IndicadorModel(PostgreSQLModel):
     
     def getIndicador(self, idIndicador, fecha=None):
-        sql = "SELECT i.cod_indicador, name_indicador, fecha, capas, leyenda, tam_leyenda, name_familia, tipocheck, sql_centroid_flechas, sql_dato, (select array_agg(fecha) from geoserver.indicador_fecha where cod_indicador = i.cod_indicador) as fechas FROM geoserver.indicador i" \
+        sql = "SELECT i.cod_indicador, name_indicador, fecha, capas, leyenda, tam_leyenda, name_familia, tipocheck, sql_centroid_flechas, sql_dato, single_tile, (select array_agg(fecha) from geoserver.indicador_fecha where cod_indicador = i.cod_indicador) as fechas FROM geoserver.indicador i" \
                 " inner join geoserver.indicador_fecha if on i.cod_indicador = if.cod_indicador" \
                  " inner join geoserver.familia f on f.cod_familia = i.cod_familia where i.cod_indicador=%s";
                  
@@ -43,9 +43,20 @@ class IndicadorModel(PostgreSQLModel):
 
     def getIndicadorGraphics(self, idIndicador, fecha):
         sql = "SELECT gid, sql_dato, tipo, imagen, title FROM geoserver.indicador_grafica" \
-                 " where cod_indicador=%s and fecha=%s";
-        
-        return self.query(sql,[idIndicador,fecha]).result()
+                 " where cod_indicador=%s";
+
+        if "," in fecha:
+            sql += ' and ('
+            fechas = fecha.split(',')
+            for f in fechas:
+                sql +=  ' fecha=%s or'
+
+            sql = sql[:-2]
+            sql += ' ) order by fecha'
+            return self.query(sql,[idIndicador] + fechas).result()
+        else:
+            sql += ' and fecha=%s'
+            return self.query(sql,[idIndicador,fecha]).result()
     
     
     def getIndicadorLayers(self, idIndicador, fecha):

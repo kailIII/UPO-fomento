@@ -11,6 +11,7 @@ deps.JS = {
 			"js/lib/zeroclipboard/ZeroClipboard.js",
 			"js/lib/jquery-ui-1.10.4.custom.min.js",
 			"js/lib/jquery.fancybox.pack.js",
+			"js/lib/singleTile.js",
 		],
 		desc: "Third party library"
 	}
