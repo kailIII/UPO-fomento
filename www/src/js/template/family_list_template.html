@@ -47,8 +47,16 @@
 										<!-- <a class="fancybox indicatorInfo" title="Información" rel="group" href="/img/TITA_icon_info_capa.svg">Prueba
 											<p class="indicatorDescription"><%= family.description%></p>
 										</a> -->
-
-										<a class="fancybox indicatorInfo" href="#<%= family.cod_indicador%>" title="<%= family.name_indicador%>">
+										
+										<%if(idFamilia == 14){
+											var link = "/pdf/" + family.cod_indicador + ".pdf";
+											var target = "_blank";
+										}else{
+											var link = "#" +  family.cod_indicador;
+											var target = "";
+										}%>
+										
+										<a class="fancybox indicatorInfo" href="<%=link%>" target="<%=target%>" title="<%= family.name_indicador%>">
 											<img src="/img/TITA_icon_info_capa.svg" alt="">			
 										</a>
 										

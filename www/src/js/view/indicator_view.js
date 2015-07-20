@@ -196,7 +196,9 @@ app.view.Indicator = Backbone.View.extend({
                 }
                 $.each(response, function(key){
                     if(response[key].properties.type == "image"){
-                        self.graphicsImage.push(response[key].imagen);
+                        if($.inArray(response[key].imagen, self.graphicsImage) == -1){
+                            self.graphicsImage.push(response[key].imagen);
+                        }
                     }else{
                         self.graphicsProperties.push(response[key].properties);
                         var data = response[key].data;
