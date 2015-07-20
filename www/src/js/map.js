@@ -268,12 +268,28 @@ Map = {
 				        	}
 						}
 						aux = aux.slice(0,-1);
-						var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
-			    				layers: aux,
-			    				format: 'image/png',
-			    				transparent: true,
-			    				opacity:opacity
-			    		});	
+						// var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
+			   //  				layers: aux,
+			   //  				format: 'image/png',
+			   //  				transparent: true,
+			   //  				opacity:opacity
+			   //  		});	
+    					if(response.result[0].single_tile){
+	                        var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
+	                            layers: aux,
+	                            format: 'image/png',
+	                            transparent: true,
+	                            opacity:opacity,
+	                            tileSize:($("#map").width() > $("#map").height() ? $("#map").width() : $("#map").height())
+	                        });
+	                    }else{
+	                        var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
+	                            layers: aux,
+	                            format: 'image/png',
+	                            transparent: true,
+	                            opacity:opacity
+	                        });     
+	                    }
 			        		
 			        	newLayer.addTo(Map.getMap());
 						layers[i].capa=newLayer;

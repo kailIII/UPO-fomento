@@ -58,7 +58,11 @@ class IndicadorModel(PostgreSQLModel):
 
         conFecha = conFecha[:-3]
 
-        sql = "SELECT capas FROM geoserver.indicador_fecha i" \
+        # sql = "SELECT capas FROM geoserver.indicador_fecha i" \
+        #          " where i.cod_indicador=%s  and (" + conFecha + ") ORDER BY FECHA DESC";
+
+        sql = "SELECT capas, single_tile FROM geoserver.indicador_fecha i" \
+                " INNER JOIN geoserver.indicador on geoserver.indicador.cod_indicador = i.cod_indicador"\
                  " where i.cod_indicador=%s  and (" + conFecha + ") ORDER BY FECHA DESC";
         
         return self.query(sql,arrayCond).result()
