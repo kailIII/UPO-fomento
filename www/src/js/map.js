@@ -296,6 +296,7 @@ Map = {
 		    				layers: aux,
 		    				format: 'image/png',
 		    				transparent: true,
+		    				opacity:opacity
 	    				});
 		        	}else{
 		        		var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
