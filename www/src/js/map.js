@@ -21,9 +21,15 @@ Map = {
 				  attributionControl: true
 			});
 			
-			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-			    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+			// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			//     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+			// }).addTo(this.__map);
+
+			L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+			    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 			}).addTo(this.__map);
+
+
 			
 //			app.base = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
 //				layers: "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas",
@@ -141,12 +147,17 @@ Map = {
 		        	aux = aux.slice(0,-1);
 		        	
 		        	if(response.single_tile){
-		        		var layer = L.tileLayer.wms(capas.capas[0].servidor, {
+		       //  		var layer = L.tileLayer.wms(capas.capas[0].servidor, {
+		    			// 	layers: aux,
+		    			// 	format: 'image/png',
+		    			// 	transparent: true,
+		    			// 	tileSize:($("#map").width() > $("#map").height() ? $("#map").width() : $("#map").height())
+		    			// });
+						var layer = L.tileLayer.wms(capas.capas[0].servidor + "&buffer=20", {
 		    				layers: aux,
 		    				format: 'image/png',
 		    				transparent: true,
-		    				tileSize:($("#map").width() > $("#map").height() ? $("#map").width() : $("#map").height())
-		    			});
+	    				});
 		        	}else{
 		        		var layer = L.tileLayer.wms(capas.capas[0].servidor, {
 		    				layers: aux,
@@ -192,7 +203,10 @@ Map = {
 	        	Map.refreshIndex();
 	        	
 	        	if(response.leyenda != null){
-	        		$(".leyenda").append("<div idIndicador=" + idIndicador + "><img src='/img/leyendas/" + response.leyenda + "'></div>");
+	        		if(esIndicador){
+	        			$(".leyenda div[esindicador=true]").remove();
+	        		}
+	        		$(".leyenda").append("<div esindicador=" + esIndicador + " idIndicador=" + idIndicador + "><img src='/img/leyendas/" + response.leyenda + "'></div>");
 	        	}else{
 	        		// $(".leyenda").html("");
 	        	}
@@ -271,13 +285,18 @@ Map = {
 					aux = aux.slice(0,-1);
 
 					if(response.result[0].single_tile){
-						var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
+						// var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
+		    // 				layers: aux,
+		    // 				format: 'image/png',
+		    // 				transparent: true,
+		    // 				opacity:opacity,
+		    // 				tileSize:($("#map").width() > $("#map").height() ? $("#map").width() : $("#map").height())
+		    // 			});
+		    			var layer = L.tileLayer.wms(capas.capas[0].servidor + "&buffer=20", {
 		    				layers: aux,
 		    				format: 'image/png',
 		    				transparent: true,
-		    				opacity:opacity,
-		    				tileSize:($("#map").width() > $("#map").height() ? $("#map").width() : $("#map").height())
-		    			});
+	    				});
 		        	}else{
 		        		var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
 		    				layers: aux,
