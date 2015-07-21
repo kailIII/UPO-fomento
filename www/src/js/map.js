@@ -155,12 +155,11 @@ Map = {
 		    			// 	format: 'image/png',
 		    			// 	transparent: true,
 		    			// });
-						var layer = L.tileLayer.wms(capas.capas[0].servidor, {
+						var layer = L.tileLayer.wms(capas.capas[0].servidor + "&buffer=20", {
 		    				layers: aux,
 		    				format: 'image/png',
 		    				transparent: true,
-		    				tileSize:($("#map").width() > $("#map").height() ? $("#map").width() : $("#map").height())
-		    			});
+	    				});
 
 		        	}else{
 			        	var layer = L.tileLayer.wms(capas.capas[0].servidor, {
@@ -207,7 +206,10 @@ Map = {
 	        	Map.refreshIndex();
 	        	
 	        	if(response.leyenda != null){
-	        		$(".leyenda").append("<div idIndicador=" + idIndicador + "><img src='/img/leyendas/" + response.leyenda + "'></div>");
+	        		if(esIndicador){
+	        			$(".leyenda div[esindicador=true]").remove();
+	        		}
+	        		$(".leyenda").append("<div esindicador=" + esIndicador + " idIndicador=" + idIndicador + "><img src='/img/leyendas/" + response.leyenda + "'></div>");
 	        	}else{
 	        		// $(".leyenda").html("");
 	        	}
@@ -275,13 +277,19 @@ Map = {
 			   //  				opacity:opacity
 			   //  		});	
     					if(response.result[0].single_tile){
-	                        var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
-	                            layers: aux,
-	                            format: 'image/png',
-	                            transparent: true,
-	                            opacity:opacity,
-	                            tileSize:($("#map").width() > $("#map").height() ? $("#map").width() : $("#map").height())
-	                        });
+	                        // var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
+	                        //     layers: aux,
+	                        //     format: 'image/png',
+	                        //     transparent: true,
+	                        //     opacity:opacity,
+	                        //     tileSize:($("#map").width() > $("#map").height() ? $("#map").width() : $("#map").height())
+	                        // });
+						var layer = L.tileLayer.wms(capas.capas[0].servidor + "&buffer=20", {
+		    				layers: aux,
+		    				format: 'image/png',
+		    				transparent: true,
+		    				opacity:opacity
+	    				});
 	                    }else{
 	                        var newLayer = L.tileLayer.wms(capas.capas[0].servidor, {
 	                            layers: aux,
