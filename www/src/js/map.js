@@ -284,7 +284,7 @@ Map = {
 	                        //     opacity:opacity,
 	                        //     tileSize:($("#map").width() > $("#map").height() ? $("#map").width() : $("#map").height())
 	                        // });
-						var layer = L.tileLayer.wms(capas.capas[0].servidor + "&buffer=20", {
+						var newLayer = L.tileLayer.wms(capas.capas[0].servidor + "&buffer=20", {
 		    				layers: aux,
 		    				format: 'image/png',
 		    				transparent: true,
