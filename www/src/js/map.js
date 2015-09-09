@@ -4,6 +4,7 @@ Map = {
 	iniLat: 37.36455,
 	iniLng: -4.57645,	
 	iniZoom: 8,
+	currentMap: 1,
 	__map:null,
 	__layersIndicador:[],
 	__layersMapBase:[],
@@ -25,9 +26,30 @@ Map = {
 			//     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			// }).addTo(this.__map);
 
-			L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
-			    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-			}).addTo(this.__map);
+			var baseMap1 = 	L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+			    			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+							});
+			baseMap1.setZIndex(-1);
+
+			var baseMap2 = 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+							attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+							});
+
+			baseMap2.setZIndex(-1);
+
+			baseMap1.addTo(this.__map);
+
+			this.__map.on('zoomend', function() {
+	            if(Map.currentMap == 1 && Map.getMap().getZoom() >= 11){
+	            	Map.currentMap = 2;
+	            	Map.getMap().removeLayer(baseMap1);
+	            	baseMap2.addTo(Map.getMap());
+	            }else if(Map.currentMap == 2 && Map.getMap().getZoom() < 11){
+	            	Map.currentMap = 1;
+	            	Map.getMap().removeLayer(baseMap2);
+	            	baseMap1.addTo(Map.getMap());
+	            }
+	        });
 
 
 			
