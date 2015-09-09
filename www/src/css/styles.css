@@ -783,6 +783,7 @@ nav{
         padding-left: 10px;
         padding-right: 10px;
         cursor: pointer;
+        font-weight: normal;
 
         .borrarCapa{
             margin-top:5px;
