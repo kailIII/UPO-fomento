@@ -4,6 +4,7 @@ Map = {
 	iniLat: 40.3125504961318,
 	iniLng: -3.69644646621596,	
 	iniZoom: 6,
+	currentMap: 1,
 	__map:null,
 	__layersIndicador:[],
 	__layersMapBase:[],
@@ -21,9 +22,37 @@ Map = {
 				  attributionControl: true
 			});
 			
-			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-			    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-			}).addTo(this.__map);
+			// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			//     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+			// }).addTo(this.__map);
+
+			var baseMap1 = L.tileLayer.wms('http://tita.geographica.gs/geoserver/movitra_fondo_cartografico/wms?', {
+	                            layers: 'natural_earth',
+	                            format: 'image/png',
+	                            transparent: true,
+	                        });
+
+			baseMap1.setZIndex(-1);
+
+			var baseMap2 = 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			    				attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+							});			
+
+			baseMap2.setZIndex(-1);
+
+			baseMap1.addTo(this.__map);
+
+			this.__map.on('zoomend', function() {
+	            if(Map.currentMap == 1 && Map.getMap().getZoom() >= 8){
+	            	Map.currentMap = 2;
+	            	Map.getMap().removeLayer(baseMap1);
+	            	baseMap2.addTo(Map.getMap());
+	            }else if(Map.currentMap == 2 && Map.getMap().getZoom() < 8){
+	            	Map.currentMap = 1;
+	            	Map.getMap().removeLayer(baseMap2);
+	            	baseMap1.addTo(Map.getMap());
+	            }
+	        });
 			
 //			app.base = L.tileLayer.wms("http://tita.geographica.gs/geoserver/fomento_fondo_cartografico/wms?", {
 //				layers: "andalucia,andalucia_poly,am_centroid_fuera,areas_metropolitanas",
