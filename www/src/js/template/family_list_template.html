@@ -48,7 +48,7 @@
 											<p class="indicatorDescription"><%= family.description%></p>
 										</a> -->
 										
-										<%if(idFamilia == 14){
+										<%if(family.pdf){
 											var link = "/pdf/" + family.cod_indicador + ".pdf";
 											var target = "_blank";
 										}else{
@@ -56,7 +56,7 @@
 											var target = "";
 										}%>
 										
-										<a class="fancybox indicatorInfo" href="<%=link%>" target="<%=target%>" title="<%= family.name_indicador%>">
+										<a  class="fancybox indicatorInfo" href="<%=link%>" target="<%=target%>" title="<%= family.name_indicador%>">
 											<img src="/img/TITA_icon_info_capa.svg" alt="">			
 										</a>
 										

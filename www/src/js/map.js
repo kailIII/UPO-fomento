@@ -26,7 +26,10 @@ Map = {
 			//     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			// }).addTo(this.__map);
 
-			var baseMap1 = 	L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+			// var baseMap1 = 	L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+			//     			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			// 				});
+			var baseMap1 = 	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			    			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 							});
 			baseMap1.setZIndex(-1);
